@@ -16,11 +16,9 @@ export default class MyDocument extends Document {
     try {
       ctx.renderPage = async () => {
         return originalRenderPage({
-          enhanceApp: (App: any) => {
-            return function EnhancedApp(props: any) {
-              return sheet.collectStyles(<App {...props} />);
-            };
-          },
+          // @ts-ignore
+          enhanceApp: (App: any) => (props: any) =>
+            sheet.collectStyles(<App {...props} />),
         });
       };
 
