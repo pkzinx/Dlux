@@ -6,7 +6,7 @@ import Document, {
   DocumentContext,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { AppType } from 'next/app';
+import React from 'react';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -14,11 +14,15 @@ export default class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
 
     try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App: AppType) => (props: any) =>
-            sheet.collectStyles(<App {...props} />),
+      ctx.renderPage = async () => {
+        return originalRenderPage({
+          enhanceApp: (App: any) => {
+            return function EnhancedApp(props: any) {
+              return sheet.collectStyles(<App {...props} />);
+            };
+          },
         });
+      };
 
       const initialProps = await Document.getInitialProps(ctx);
       return {
