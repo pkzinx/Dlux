@@ -1,4 +1,4 @@
-export default [
+const servicesMock = [
   {
     title: 'Corte de Cabelo Masculino',
     price: 'R$ 40,00',
@@ -18,3 +18,5 @@ export default [
       'Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.',
   },
 ];
+
+export default servicesMock;
