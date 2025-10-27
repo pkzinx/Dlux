@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavItem /> Deve renderizar o componente <NavItem /> 1`] = `
+<button
+  class="sc-aXZVg eUawsL"
+  type="button"
+>
+  O melhor estar por vir!
+</button>
+`;

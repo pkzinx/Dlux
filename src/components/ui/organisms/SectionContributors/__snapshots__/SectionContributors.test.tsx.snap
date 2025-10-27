@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SectionContributors /> Deve renderizar o componente <SectionContributors /> 1`] = `
+<section
+  class="sc-gEvEer bdsekA"
+>
+  <div
+    class="sc-aXZVg hjKmmE"
+  >
+    <h1
+      class="sc-kAyceB jCLPjH"
+    >
+      Os Melhores
+    </h1>
+    <div
+      class="sc-imWYAI bYvTos"
+    >
+      <h2
+        class="sc-jXbUNg lwcQb"
+      >
+        Nossos Profissionais
+        <div
+          aria-label="LineTitle"
+          class="sc-dhKdcB cyfWIA"
+        />
+      </h2>
+    </div>
+    <p
+      class="sc-kpDqfm cdwzDG"
+      color="white"
+      data-testid="description"
+    />
+    <div
+      class="sc-cwHptR EhgOP"
+    />
+  </div>
+  <div
+    class="sc-aXZVg sc-eqUAAy hjKmmE lhjaLV"
+  >
+    <div
+      class="sc-fqkvVR bOuOsG"
+    >
+      <img
+        alt="Foto do nosso Barbeiro, Cleber Mariano"
+        class="sc-dcJsrY gzAeRJ"
+        loading="lazy"
+        src="/assets/img/contributors-1.jpg"
+      />
+      <h3
+        class="sc-iGgWBj icqyEo"
+      >
+        Cleber Mariano
+      </h3>
+      <p
+        class="sc-gsFSXq jgBakd"
+      >
+        Barbeiro
+      </p>
+    </div>
+    <div
+      class="sc-fqkvVR bOuOsG"
+    >
+      <img
+        alt="Foto do nosso Barbeiro, Luan Silva"
+        class="sc-dcJsrY gzAeRJ"
+        loading="lazy"
+        src="/assets/img/contributors-2.jpg"
+      />
+      <h3
+        class="sc-iGgWBj icqyEo"
+      >
+        Luan Silva
+      </h3>
+      <p
+        class="sc-gsFSXq jgBakd"
+      >
+        Barbeiro
+      </p>
+    </div>
+    <div
+      class="sc-fqkvVR bOuOsG"
+    >
+      <img
+        alt="Foto do nosso Tatuador, Fabrício Marques"
+        class="sc-dcJsrY gzAeRJ"
+        loading="lazy"
+        src="/assets/img/contributors-3.jpg"
+      />
+      <h3
+        class="sc-iGgWBj icqyEo"
+      >
+        Fabrício Marques
+      </h3>
+      <p
+        class="sc-gsFSXq jgBakd"
+      >
+        Tatuador
+      </p>
+    </div>
+  </div>
+</section>
+`;

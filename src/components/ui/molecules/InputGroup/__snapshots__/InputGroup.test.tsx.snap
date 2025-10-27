@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputGroup /> Deve renderizar o componente <InputGroup /> 1`] = `
+<div
+  class="sc-aXZVg gCtaOs"
+>
+  <input
+    class="sc-eqUAAy laUmek"
+    id="nome"
+    name="nome"
+    placeholder="Ex: Rafael"
+    type="text"
+    value=""
+  />
+  <label
+    class="sc-gEvEer ipAWtB"
+    for="nome"
+  >
+    Nome
+     
+    <span
+      data-testid="label-span"
+    >
+      (opicional)
+    </span>
+  </label>
+</div>
+`;

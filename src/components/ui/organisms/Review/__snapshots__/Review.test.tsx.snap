@@ -1,0 +1,1750 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Review /> Deve renderizar o componente <Review /> 1`] = `
+<main
+  class="sc-fPXMVe cRMFqs"
+>
+  <div
+    aria-label="Background"
+    class="sc-aXZVg zvHBi"
+    src="/assets/img/slide-4.jpg"
+  >
+    <svg
+      class="sc-gEvEer kSWpIQ"
+      viewBox="0 0 50 19"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M25.5 18.85C25.5 9.426 43 1.347 50 1.347V0H0v1.347c7 0 25.5 8.078 25.5 17.504Z"
+        fill="currentColor"
+      />
+    </svg>
+    <div
+      class="sc-fqkvVR bMqqkk"
+    >
+      <h1
+        class="sc-dcJsrY kAhxfZ"
+      >
+        O Que Dizem de Nós
+      </h1>
+      <div
+        class="sc-iGgWBj hAqIhI"
+      >
+        <h2
+          class="sc-gsFSXq gqctEf"
+        >
+          Nossas Avaliações
+          <div
+            aria-label="LineTitle"
+            class="sc-kAyceB ljQUJB"
+          />
+        </h2>
+      </div>
+      <p
+        class="sc-imWYAI cLffwR"
+        color="white"
+        data-testid="description"
+      />
+      <div
+        class="sc-kpDqfm fmekrs"
+      />
+    </div>
+    <div
+      class="sc-gFqAkR cJVFVb"
+    >
+      <section
+        class="sc-dAlyuH cVxcV"
+      >
+        <div
+          class="slick-slider slick-initialized"
+          dir="ltr"
+        >
+          <div
+            class="slick-list"
+            style="padding: 0px 0px;"
+          >
+            <div
+              class="slick-track"
+              style="opacity: 1; -webkit-transform: translate3d(0px, 0px, 0px); transform: translate3d(0px, 0px, 0px);"
+            >
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="-4"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Lugar top! Ótimo atendimento, o namorado entra feio e sai lindo. 👏🏽"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Edilaine Viana
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="-3"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os cara é desnrolado nos corte mano jaça e o cleber que faz uns corte cacho de Banana hahaha  tmj rapaziada nao esquece de agendar meu horário kk"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -bruno silva
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="-2"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Ótimo atendimento apresentado pelos funcionários. Profissionais capacitados, sempre de bom humor apresentando um atendimento com carisma e descontração!"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Leonardo Lopes Pereira
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="false"
+                class="slick-slide slick-active slick-cloned"
+                data-index="-1"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os mano desenrola nos corte, só corto lá tem uns anos já, eu e meu filho. Recomendo demais ambos os cabeleiro e o tatuador tbm..."
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Felipe Cardoso
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="false"
+                class="slick-slide slick-active slick-center slick-current"
+                data-index="0"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Fabrício
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Excelente atendimento, recomendo muito."
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Luan Santana
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="false"
+                class="slick-slide slick-active"
+                data-index="1"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Melhor degrade da região, profissionais que amam oque fazem, estão de parabéns. Ótimo atendimento"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Fernando bernardo
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide"
+                data-index="2"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Lugar top! Ótimo atendimento, o namorado entra feio e sai lindo. 👏🏽"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Edilaine Viana
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide"
+                data-index="3"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os cara é desnrolado nos corte mano jaça e o cleber que faz uns corte cacho de Banana hahaha  tmj rapaziada nao esquece de agendar meu horário kk"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -bruno silva
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide"
+                data-index="4"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Ótimo atendimento apresentado pelos funcionários. Profissionais capacitados, sempre de bom humor apresentando um atendimento com carisma e descontração!"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Leonardo Lopes Pereira
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide"
+                data-index="5"
+                style="outline: none; width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os mano desenrola nos corte, só corto lá tem uns anos já, eu e meu filho. Recomendo demais ambos os cabeleiro e o tatuador tbm..."
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Felipe Cardoso
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-center slick-cloned"
+                data-index="6"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Fabrício
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Excelente atendimento, recomendo muito."
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Luan Santana
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="7"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Melhor degrade da região, profissionais que amam oque fazem, estão de parabéns. Ótimo atendimento"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Fernando bernardo
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="8"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Lugar top! Ótimo atendimento, o namorado entra feio e sai lindo. 👏🏽"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Edilaine Viana
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="9"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os cara é desnrolado nos corte mano jaça e o cleber que faz uns corte cacho de Banana hahaha  tmj rapaziada nao esquece de agendar meu horário kk"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -bruno silva
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="10"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Luan
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Ótimo atendimento apresentado pelos funcionários. Profissionais capacitados, sempre de bom humor apresentando um atendimento com carisma e descontração!"
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Leonardo Lopes Pereira
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                class="slick-slide slick-cloned"
+                data-index="11"
+                style="width: 0px;"
+                tabindex="-1"
+              >
+                <div>
+                  <div
+                    class="sc-cPiKLX jmEvli"
+                  >
+                    <svg
+                      class="sc-dLMFU hCKENp"
+                      viewBox="0 0 19 53"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p
+                      class="sc-eDPEul fWpKbp"
+                    >
+                      Atentido por 
+                      <span>
+                        Cleber
+                      </span>
+                    </p>
+                    <div
+                      class="sc-jlZhew gPxDsM"
+                    >
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-label="Star"
+                        viewBox="0 0 194.22 184.73"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <h5
+                      class="sc-eldPxv iaCPOh"
+                    >
+                      "Os mano desenrola nos corte, só corto lá tem uns anos já, eu e meu filho. Recomendo demais ambos os cabeleiro e o tatuador tbm..."
+                    </h5>
+                    <div
+                      class="sc-cwHptR kPbtIo"
+                    >
+                      <p
+                        aria-label="User name"
+                        class="sc-jEACwC NRNJ"
+                      >
+                        -Felipe Cardoso
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul
+            class="slick-dots"
+            style="display: block;"
+          >
+            <li
+              class="slick-active"
+            >
+              <button>
+                1
+              </button>
+            </li>
+            <li
+              class=""
+            >
+              <button>
+                2
+              </button>
+            </li>
+            <li
+              class=""
+            >
+              <button>
+                3
+              </button>
+            </li>
+            <li
+              class=""
+            >
+              <button>
+                4
+              </button>
+            </li>
+            <li
+              class=""
+            >
+              <button>
+                5
+              </button>
+            </li>
+            <li
+              class=""
+            >
+              <button>
+                6
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <svg
+      class="sc-eqUAAy eXxkYW"
+      viewBox="0 0 50 19"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24.5 0C24.5 9.425 7 17.504 0 17.504v1.347h50v-1.347c-7 0-25.5-8.079-25.5-17.504Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+</main>
+`;

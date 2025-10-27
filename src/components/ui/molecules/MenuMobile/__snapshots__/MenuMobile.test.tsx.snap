@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MenuMobile /> Deve renderizar os links do componente <MenuMobile /> 1`] = `
+<div
+  aria-hidden="false"
+  aria-label="Menu Full"
+  class="sc-aXZVg bnbAAJ"
+>
+  <ul
+    class="sc-gEvEer jLvTaI"
+  >
+    <li
+      class="sc-eqUAAy iEycZK"
+    >
+      <a
+        aria-label="Home"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        Home
+      </a>
+    </li>
+    <li
+      class="sc-eqUAAy coQoFe"
+    >
+      <a
+        aria-label="Sobre"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        Sobre
+      </a>
+    </li>
+    <li
+      class="sc-eqUAAy coQoFe"
+    >
+      <a
+        aria-label="Serviços"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        Serviços
+      </a>
+    </li>
+    <li
+      class="sc-eqUAAy coQoFe"
+    >
+      <a
+        aria-label="Equipe"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        Equipe
+      </a>
+    </li>
+    <li
+      class="sc-eqUAAy coQoFe"
+    >
+      <a
+        aria-label="Opinião"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        Avaliações
+      </a>
+    </li>
+    <li
+      class="sc-eqUAAy coQoFe"
+    >
+      <a
+        aria-label="FeedBack"
+        class="sc-fqkvVR gBlTyJ"
+      >
+        FeedBack
+      </a>
+    </li>
+  </ul>
+</div>
+`;

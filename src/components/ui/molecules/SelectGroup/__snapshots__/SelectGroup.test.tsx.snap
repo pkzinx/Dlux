@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectGroup /> Deve renderizar o componente <SelectGroup /> 1`] = `
+<div
+  class="sc-aXZVg jtsShn"
+>
+  <label
+    class="sc-gEvEer exYXry"
+    for="recomendaria"
+  >
+    Recomendaria este serviço?
+  </label>
+  <select
+    class="sc-eqUAAy dktHfv"
+    id="recomendaria"
+    name="recomendaria"
+    role="combobox"
+  >
+    <option
+      value=""
+    >
+      Nenhuma resposta selecionanda
+    </option>
+    <option
+      value="true"
+    >
+      Sim
+    </option>
+    <option
+      value="false"
+    >
+      Não
+    </option>
+  </select>
+</div>
+`;

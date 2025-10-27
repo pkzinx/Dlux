@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextAreaGroup /> Deve renderizar o componente <TextAreaGroup /> 1`] = `
+<div
+  class="sc-aXZVg eAahlU"
+>
+  <label
+    class="sc-gEvEer exYXry"
+    for="feedback"
+  >
+    Escreva sua opinião
+  </label>
+  <textarea
+    class="sc-eqUAAy cmLCMQ"
+    id="feedback"
+    maxlength="225"
+    name="feedback"
+    placeholder="Comente sobre sua experiência com nosso serviço"
+  />
+  <span
+    class="sc-fqkvVR dHOcyD"
+    data-testid="calcMaxLength"
+  >
+    max: 
+    225
+  </span>
+</div>
+`;

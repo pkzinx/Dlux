@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Heading /> Deve renderizar todos os componentes o componente <Heading /> 1`] = `
+<div
+  class="sc-aXZVg hjKmmE"
+>
+  <h1
+    class="sc-gEvEer DaKja"
+  >
+    Bem Vindo a BarberShop
+  </h1>
+  <div
+    class="sc-eqUAAy wmtPi"
+  >
+    <h2
+      class="sc-fqkvVR kLosoZ"
+    >
+      We Are BarberShop!
+    </h2>
+  </div>
+  <p
+    class="sc-iGgWBj lhxuHZ"
+    color="white"
+    data-testid="description"
+  >
+    Enjoy the Ultimate Relaxed Grooming Experience For Men every time you step into the Boardroom
+  </p>
+  <div
+    class="sc-imWYAI eVwlir"
+  >
+    <button
+      class="sc-gsFSXq bXmscy"
+    >
+      Marcar Hora
+    </button>
+    <button
+      class="sc-gsFSXq gcTYzZ"
+    >
+      Saiba Mais
+    </button>
+  </div>
+</div>
+`;

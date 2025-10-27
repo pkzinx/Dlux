@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ButtonScroll /> Deve renderizar os estilos primarios do componente <ButtonScroll /> 1`] = `
+<a
+  buttonstyle="primary"
+  class="sc-aXZVg esiFgr"
+  data-testid="button-scroll"
+>
+  Marcar Hora
+</a>
+`;

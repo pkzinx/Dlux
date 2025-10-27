@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeadingAbout /> Deve renderizar o componente <HeadingAbout /> 1`] = `
+<div
+  class="sc-aXZVg kifxgU"
+>
+  <div
+    class="sc-gEvEer dIJqUE"
+  >
+    <h1
+      class="sc-eqUAAy cLBRjx"
+    >
+      Olá Pessoal
+    </h1>
+    <div
+      class="sc-iGgWBj hAqIhI"
+    >
+      <h2
+        class="sc-gsFSXq iqVDTP"
+      >
+        Nós Somos a 98BarberShop
+        <div
+          aria-label="LineTitle"
+          class="sc-kAyceB ljQUJB"
+        />
+      </h2>
+    </div>
+  </div>
+</div>
+`;

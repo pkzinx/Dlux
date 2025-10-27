@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavList /> Deve Renderizar todos os components de <NavList /> 1`] = `
+<ul
+  class="sc-aXZVg edhllF"
+>
+  <nav
+    class="sc-gsFSXq fBUUIQ"
+  >
+    <div
+      class="sc-gEvEer gmdNgI"
+    >
+      <ul
+        class="sc-imWYAI dDsnth"
+      >
+        <li
+          class="sc-jXbUNg eVsykQ"
+        >
+          <a
+            aria-selected="true"
+            class="sc-dhKdcB eTfeYH"
+          >
+            Home
+          </a>
+        </li>
+        <li
+          class="sc-jXbUNg biSnOk"
+        >
+          <a
+            aria-selected="false"
+            class="sc-dhKdcB eTfeYH"
+          >
+            Sobre
+          </a>
+        </li>
+        <li
+          class="sc-jXbUNg biSnOk"
+        >
+          <a
+            aria-selected="false"
+            class="sc-dhKdcB eTfeYH"
+          >
+            Serviços
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      data-testid="Logo"
+    />
+    <div
+      class="sc-gEvEer gmdNgI"
+    >
+      <ul
+        class="sc-imWYAI dDsnth"
+      >
+        <li
+          class="sc-jXbUNg biSnOk"
+        >
+          <a
+            aria-selected="false"
+            class="sc-dhKdcB eTfeYH"
+          >
+            Equipe
+          </a>
+        </li>
+        <li
+          class="sc-jXbUNg biSnOk"
+        >
+          <a
+            aria-selected="false"
+            class="sc-dhKdcB eTfeYH"
+          >
+            Avaliações
+          </a>
+        </li>
+        <li
+          class="sc-jXbUNg biSnOk"
+        >
+          <a
+            aria-selected="false"
+            class="sc-dhKdcB eTfeYH"
+          >
+            FeedBack
+          </a>
+        </li>
+      </ul>
+      <span
+        aria-label="Line"
+        class="sc-kAyceB emisWA"
+        style="width: 20px; transform: translateX(-10px);"
+      />
+    </div>
+  </nav>
+  <div
+    class="sc-gEvEer fJOUdz"
+  >
+    <div
+      aria-label="Abrir e Fechar"
+      class="hamburger-react"
+      role="button"
+      style="cursor: pointer; height: 48px; position: relative; transition: 0.4s ease-out; user-select: none; width: 48px; outline: none; transform: none;"
+      tabindex="0"
+    >
+      <div
+        style="background: rgb(255, 255, 255); height: 3px; left: 9px; position: absolute; border-radius: 9em; width: 30px; top: 13px; transition: 0.4s ease-out; transform: none;"
+      />
+      <div
+        style="background: rgb(255, 255, 255); height: 3px; left: 9px; position: absolute; border-radius: 9em; width: 30px; top: 23px; transition: 0.4s ease-out; transform: none;"
+      />
+      <div
+        style="background: rgb(255, 255, 255); height: 3px; left: 9px; position: absolute; border-radius: 9em; width: 30px; top: 33px; transition: 0.4s ease-out; transform: none;"
+      />
+    </div>
+    <div
+      aria-hidden="true"
+      aria-label="Menu Full"
+      class="sc-eqUAAy dPiZZX"
+    >
+      <ul
+        class="sc-fqkvVR kCtjak"
+      >
+        <li
+          class="sc-dcJsrY gLRkgv"
+        >
+          <a
+            aria-label="Home"
+            class="sc-iGgWBj jxBILN"
+          >
+            Home
+          </a>
+        </li>
+        <li
+          class="sc-dcJsrY gIZqa-D"
+        >
+          <a
+            aria-label="Sobre"
+            class="sc-iGgWBj jxBILN"
+          >
+            Sobre
+          </a>
+        </li>
+        <li
+          class="sc-dcJsrY gIZqa-D"
+        >
+          <a
+            aria-label="Serviços"
+            class="sc-iGgWBj jxBILN"
+          >
+            Serviços
+          </a>
+        </li>
+        <li
+          class="sc-dcJsrY gIZqa-D"
+        >
+          <a
+            aria-label="Equipe"
+            class="sc-iGgWBj jxBILN"
+          >
+            Equipe
+          </a>
+        </li>
+        <li
+          class="sc-dcJsrY gIZqa-D"
+        >
+          <a
+            aria-label="Opinião"
+            class="sc-iGgWBj jxBILN"
+          >
+            Avaliações
+          </a>
+        </li>
+        <li
+          class="sc-dcJsrY gIZqa-D"
+        >
+          <a
+            aria-label="FeedBack"
+            class="sc-iGgWBj jxBILN"
+          >
+            FeedBack
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ul>
+`;

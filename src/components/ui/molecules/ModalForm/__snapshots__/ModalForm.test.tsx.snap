@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ModalForm /> Deve renderizar o componente <ModalForm /> com a mensagem de sucesso 1`] = `
+<div
+  aria-hidden="true"
+  aria-label="Overlay Modal"
+  class="sc-aXZVg jiCmwI"
+/>
+`;

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavLinks /> Deve renderizar todos os componentes dentro do componente <NavLinks /> 1`] = `
+<nav
+  class="sc-gEvEer hxMDNa"
+>
+  <div
+    class="sc-aXZVg dsrhVc"
+  >
+    <ul
+      class="sc-fqkvVR bA-DMvB"
+    >
+      <li
+        class="sc-dcJsrY djnJFV"
+      >
+        <a
+          aria-selected="true"
+          class="sc-iGgWBj PcIXP"
+        >
+          Home
+        </a>
+      </li>
+      <li
+        class="sc-dcJsrY gOYnrF"
+      >
+        <a
+          aria-selected="false"
+          class="sc-iGgWBj PcIXP"
+        >
+          Sobre
+        </a>
+      </li>
+      <li
+        class="sc-dcJsrY gOYnrF"
+      >
+        <a
+          aria-selected="false"
+          class="sc-iGgWBj PcIXP"
+        >
+          Serviços
+        </a>
+      </li>
+    </ul>
+  </div>
+  <h1>
+    Logo
+  </h1>
+  <div
+    class="sc-aXZVg dsrhVc"
+  >
+    <ul
+      class="sc-fqkvVR bA-DMvB"
+    >
+      <li
+        class="sc-dcJsrY gOYnrF"
+      >
+        <a
+          aria-selected="false"
+          class="sc-iGgWBj PcIXP"
+        >
+          Equipe
+        </a>
+      </li>
+      <li
+        class="sc-dcJsrY gOYnrF"
+      >
+        <a
+          aria-selected="false"
+          class="sc-iGgWBj PcIXP"
+        >
+          Opinião
+        </a>
+      </li>
+      <li
+        class="sc-dcJsrY gOYnrF"
+      >
+        <a
+          aria-selected="false"
+          class="sc-iGgWBj PcIXP"
+        >
+          FeedBack
+        </a>
+      </li>
+    </ul>
+    <span
+      aria-label="Line"
+      class="sc-eqUAAy cDpXKv"
+      style="width: 20px; transform: translateX(-10px);"
+    />
+  </div>
+</nav>
+`;

@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+dist
+build
+coverage
+*.log
+yarn.lock
+package-lock.json
+generators/templates/*.hbs

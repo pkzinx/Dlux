@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserInfo /> Deve renderizar o componente <UserInfo /> 1`] = `
+<div
+  class="sc-aXZVg csRjfQ"
+>
+  <p
+    aria-label="User name"
+    class="sc-gEvEer gBHWqa"
+  >
+    -Gabriel Guedes
+  </p>
+</div>
+`;

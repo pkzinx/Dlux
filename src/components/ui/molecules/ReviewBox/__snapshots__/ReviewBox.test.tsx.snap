@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewBox /> Deve renderizar o componente <ReviewBox /> 1`] = `
+<div
+  class="sc-gEvEer eXJCtB"
+>
+  <svg
+    class="sc-eqUAAy huCRzr"
+    viewBox="0 0 19 53"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M.185 53 .06 1V0h18.815v53L9.53 41.406.185 53Z"
+      fill="currentColor"
+    />
+  </svg>
+  <p
+    class="sc-fqkvVR dCRQxu"
+  >
+    Atentido por 
+    <span>
+      Cleber
+    </span>
+  </p>
+  <div
+    class="sc-aXZVg bYHHcY"
+  >
+    <svg
+      aria-label="Star"
+      viewBox="0 0 194.22 184.73"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+        fill="currentColor"
+      />
+    </svg>
+    <svg
+      aria-label="Star"
+      viewBox="0 0 194.22 184.73"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+        fill="currentColor"
+      />
+    </svg>
+    <svg
+      aria-label="Star"
+      viewBox="0 0 194.22 184.73"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+        fill="currentColor"
+      />
+    </svg>
+    <svg
+      aria-label="Star"
+      viewBox="0 0 194.22 184.73"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+        fill="currentColor"
+      />
+    </svg>
+    <svg
+      aria-label="Star"
+      viewBox="0 0 194.22 184.73"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+  <h5
+    class="sc-dcJsrY eFedlf"
+  >
+    "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+  </h5>
+  <div
+    data-testid="UserInfo"
+  />
+</div>
+`;

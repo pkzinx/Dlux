@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputRadioGroup /> Deve renderizar o componente <InputRadioGroup /> 1`] = `
+<div
+  class="sc-aXZVg DbxeZ"
+>
+  <div
+    class="sc-gEvEer giTMHq"
+  >
+    <input
+      checked=""
+      class="sc-fqkvVR gDVpRY"
+      data-testid="one-star"
+      id="nota"
+      name="nota"
+      required=""
+      type="radio"
+      value="1"
+    />
+    <label
+      class="sc-eqUAAy cFjsDg"
+      color="primary"
+      data-testid="label-star"
+      for="nota"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="Star"
+        focusable="false"
+        viewBox="0 0 194.22 184.73"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+          fill="currentColor"
+        />
+      </svg>
+    </label>
+  </div>
+  <div
+    class="sc-gEvEer giTMHq"
+  >
+    <input
+      class="sc-fqkvVR gDVpRY"
+      data-testid="two-star"
+      id="nota"
+      name="nota"
+      type="radio"
+      value="2"
+    />
+    <label
+      class="sc-eqUAAy gLpfKM"
+      color="starOff"
+      data-testid="label-star"
+      for="nota"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="Star"
+        focusable="false"
+        viewBox="0 0 194.22 184.73"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+          fill="currentColor"
+        />
+      </svg>
+    </label>
+  </div>
+  <div
+    class="sc-gEvEer giTMHq"
+  >
+    <input
+      class="sc-fqkvVR gDVpRY"
+      data-testid="three-star"
+      id="nota"
+      name="nota"
+      type="radio"
+      value="3"
+    />
+    <label
+      class="sc-eqUAAy gLpfKM"
+      color="starOff"
+      data-testid="label-star"
+      for="nota"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="Star"
+        focusable="false"
+        viewBox="0 0 194.22 184.73"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+          fill="currentColor"
+        />
+      </svg>
+    </label>
+  </div>
+  <div
+    class="sc-gEvEer giTMHq"
+  >
+    <input
+      class="sc-fqkvVR gDVpRY"
+      data-testid="four-star"
+      id="nota"
+      name="nota"
+      type="radio"
+      value="4"
+    />
+    <label
+      class="sc-eqUAAy gLpfKM"
+      color="starOff"
+      data-testid="label-star"
+      for="nota"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="Star"
+        focusable="false"
+        viewBox="0 0 194.22 184.73"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+          fill="currentColor"
+        />
+      </svg>
+    </label>
+  </div>
+  <div
+    class="sc-gEvEer giTMHq"
+  >
+    <input
+      class="sc-fqkvVR gDVpRY"
+      data-testid="five-star"
+      id="nota"
+      name="nota"
+      type="radio"
+      value="5"
+    />
+    <label
+      class="sc-eqUAAy gLpfKM"
+      color="starOff"
+      data-testid="label-star"
+      for="nota"
+    >
+      <svg
+        aria-hidden="true"
+        aria-label="Star"
+        focusable="false"
+        viewBox="0 0 194.22 184.73"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m157.096 184.718-60.01-31.565-60.025 31.542 11.476-66.828-48.546-47.34 67.103-9.737L97.115-.008l29.997 60.811 67.099 9.764-48.564 47.319z"
+          fill="currentColor"
+        />
+      </svg>
+    </label>
+  </div>
+</div>
+`;

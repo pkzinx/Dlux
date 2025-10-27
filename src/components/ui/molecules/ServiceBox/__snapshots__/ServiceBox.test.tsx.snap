@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ServiceBox /> Deve renderizar o componente <ServiceBox /> 1`] = `
+<section
+  class="sc-aXZVg didiqX"
+>
+  <div
+    data-testid="Hair Icon"
+  />
+  <div
+    class="sc-gEvEer kpTJgg"
+  >
+    <div
+      class="sc-eqUAAy iuxvcY"
+    >
+      <div
+        class="sc-fqkvVR fGNScK"
+      >
+        <h5
+          class="sc-dcJsrY ilRhdg"
+        >
+          Corte de Cabelo Masculino
+        </h5>
+        <p
+          class="sc-iGgWBj bSMyOW"
+        >
+          R$ 40,00
+        </p>
+      </div>
+      <div
+        class="sc-gsFSXq eRwEdU"
+      >
+        Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.
+      </div>
+    </div>
+    <div
+      class="sc-eqUAAy iuxvcY"
+    >
+      <div
+        class="sc-fqkvVR fGNScK"
+      >
+        <h5
+          class="sc-dcJsrY ilRhdg"
+        >
+          Corte de Cabelo Infantil
+        </h5>
+        <p
+          class="sc-iGgWBj bSMyOW"
+        >
+          R$ 30,00
+        </p>
+      </div>
+      <div
+        class="sc-gsFSXq eRwEdU"
+      >
+        Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.
+      </div>
+    </div>
+    <div
+      class="sc-eqUAAy iuxvcY"
+    >
+      <div
+        class="sc-fqkvVR fGNScK"
+      >
+        <h5
+          class="sc-dcJsrY ilRhdg"
+        >
+          Cabeça Raspada
+        </h5>
+        <p
+          class="sc-iGgWBj bSMyOW"
+        >
+          R$ 30,00
+        </p>
+      </div>
+      <div
+        class="sc-gsFSXq eRwEdU"
+      >
+        Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.
+      </div>
+    </div>
+  </div>
+</section>
+`;

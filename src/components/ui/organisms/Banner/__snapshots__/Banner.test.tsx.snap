@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Banner /> Deve renderizar o componente <Banner /> com o componente <Heading /> 1`] = `
+<div
+  class="sc-aXZVg dJNyak"
+  src="/assets/img/slide-1.jpg"
+>
+  <div
+    data-testid="Heading"
+  />
+</div>
+`;

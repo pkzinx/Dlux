@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> Deve renderizar os estilos primarios do componente <Button /> 1`] = `
+<button
+  class="sc-aXZVg ibbUgc"
+>
+  Marcar Hora
+</button>
+`;
