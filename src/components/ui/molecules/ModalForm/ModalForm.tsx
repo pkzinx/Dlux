@@ -29,9 +29,9 @@ export const ModalForm = ({ status, isOpen, onClick }: ModalFormProps) => {
       <S.Background
         aria-hidden={isOpen}
         aria-label="Overlay Modal"
-        isOpen={isOpen}
+        $isOpen={isOpen}
       />
-      <S.Modal isOpen={isOpen} aria-label="Modal">
+      <S.Modal $isOpen={isOpen} aria-label="Modal">
         <S.Icon src={mapIcon[status]} alt="Ícone" />
         <S.Title>{mapTitle[status]}</S.Title>
         <S.Description>{mapMessage[status]}</S.Description>

@@ -1,23 +1,22 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+import { extraMedia } from '../../../../utils/media/customMedia';
 import { SubtitleProps } from './Subtitle';
 
-export const WrapperSubtitle = styled.div<
-  Pick<SubtitleProps, 'size' | '$lineBottom'>
->`
-  ${({ theme, size, $lineBottom }) => css`
+export const WrapperSubtitle = styled.div<Pick<SubtitleProps, 'size'>>`
+  ${({ theme, size }) => css`
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: ${theme.spacings.medium};
 
-    ${media.greaterThan('medium')`
+    ${extraMedia.between('medium', 'big')`
+      margin-bottom: ${theme.spacings.huge};
+    `}
+
+    ${extraMedia.greaterThan('big')`
       margin-bottom: ${
-        $lineBottom
-          ? theme.spacings.huge
-          : size === 'normal'
-            ? theme.spacings.large
-            : theme.spacings.xlarge
+        size === 'normal' ? theme.spacings.large : theme.spacings.xlarge
       };
     `}
   `}
@@ -43,7 +42,11 @@ export const Subtitle = styled.h2<Pick<SubtitleProps, 'size' | '$textAlign'>>`
   `}
 `;
 
-export const LineTitle = styled.div`
+export const LineTitle = styled.span`
+  display: none;
+  ${extraMedia.lessThan('big')`
+    display: block;
+  `}
   width: calc(100% + 2rem);
   height: 0.2rem;
   border-radius: 0.2rem;

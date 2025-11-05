@@ -5,7 +5,6 @@ import { Subtitle } from '../../atoms/Subtitle/Subtitle';
 export type HeadingAboutProps = {
   title: string;
   subtitle: string;
-  lineBottom?: boolean;
   lineLeft?: boolean;
   size?: 'normal' | 'large';
   icon?: string;
@@ -14,7 +13,6 @@ export type HeadingAboutProps = {
 export const HeadingAbout = ({
   title,
   subtitle,
-  lineBottom,
   lineLeft,
   icon,
   size = 'normal',
@@ -31,7 +29,7 @@ export const HeadingAbout = ({
     {!!lineLeft && <S.LineTitle aria-label="LineTitle" as={undefined as any} />}
     <S.Content>
       <S.TitleAbout>{title}</S.TitleAbout>
-      <Subtitle textAlign="left" lineBottom={lineBottom} size={size}>
+      <Subtitle $textAlign="left" size={size}>
         {subtitle}
       </Subtitle>
     </S.Content>

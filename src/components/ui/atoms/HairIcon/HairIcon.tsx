@@ -1,21 +1,12 @@
 import * as S from './HairIcon.styles';
 
 export type HairIconProps = {
-  type: 'hair' | 'baber' | 'full';
+  type?: 'hair' | 'baber' | 'full';
 };
 
-export const HairIcon = () => (
+export const HairIcon = ({ type = 'hair' }: HairIconProps) => (
   <S.Wrapper>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 92 152"
-      role="img"
-      style={{
-        width: '100%',
-        height: '100%',
-        color: 'currentColor',
-      }}
-    >
+    <S.Hair xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 152" role="img" type={type}>
       <path
         fill="currentColor"
         aria-label="Hair"
@@ -27,6 +18,6 @@ export const HairIcon = () => (
         aria-label="Baber"
         d="m82.726 94.45-7.508 22.406-31.356 15.815-31.355-16.255-6.625-24.6c-.794.06-1.408 0-2.208 0 .588 7.38 1.188 17.896.884 27.236 0 9.665 11.04 17.133 16.782 21.526C27.08 144.971 35.03 152 44.745 152c10.157 0 20.756-10.983 25.173-13.618 4.416-2.636 13.248-10.544 13.69-20.648.186-4.274.155-14.936.442-23.283h-1.325Z"
       />
-    </svg>
+    </S.Hair>
   </S.Wrapper>
 );

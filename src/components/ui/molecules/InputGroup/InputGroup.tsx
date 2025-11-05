@@ -21,7 +21,7 @@ export const InputGroup = ({
   onChange,
   marginBottom = false,
 }: InputGroupProps) => (
-  <S.Wrapper marginBottom={marginBottom} as={undefined as any}>
+  <S.Wrapper $marginBottom={marginBottom} as={undefined as any}>
     <S.Input
       placeholder={placeholder}
       name={labelFor}

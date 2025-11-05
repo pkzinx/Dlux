@@ -1,19 +1,18 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import { ModalFormProps } from './ModalForm';
 
-type ModalFormStylesProps = Pick<ModalFormProps, 'isOpen'>;
+type ModalFormStylesProps = { $isOpen: boolean };
 
 export const Background = styled.div<ModalFormStylesProps>`
-  ${({ theme, isOpen }) => css`
+  ${({ theme, $isOpen }) => css`
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    opacity: ${isOpen ? 0.9 : 0};
-    visibility: ${isOpen ? 'visible' : 'hidden'};
-    pointer-events: ${isOpen ? 'all' : 'none'};
+    opacity: ${$isOpen ? 0.9 : 0};
+    visibility: ${$isOpen ? 'visible' : 'hidden'};
+    pointer-events: ${$isOpen ? 'all' : 'none'};
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.35s ease-in-out;
     z-index: ${theme.layers.overlay};
@@ -21,7 +20,7 @@ export const Background = styled.div<ModalFormStylesProps>`
 `;
 
 export const Modal = styled.div<ModalFormStylesProps>`
-  ${({ theme, isOpen }) => css`
+  ${({ theme, $isOpen }) => css`
     position: fixed;
     top: 50%;
     left: 50%;
@@ -34,9 +33,9 @@ export const Modal = styled.div<ModalFormStylesProps>`
     justify-content: center;
     flex-direction: column;
     border-radius: 2rem;
-    opacity: ${isOpen ? 1 : 0};
-    visibility: ${isOpen ? 'visible' : 'hidden'};
-    pointer-events: ${isOpen ? 'all' : 'none'};
+    opacity: ${$isOpen ? 1 : 0};
+    visibility: ${$isOpen ? 'visible' : 'hidden'};
+    pointer-events: ${$isOpen ? 'all' : 'none'};
     transition: all 0.35s ease-in-out;
     transform: translate(-50%, -50%);
     z-index: ${theme.layers.modal};

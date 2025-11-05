@@ -1,15 +1,14 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import { InputGroupProps } from './InputGroup';
 
-type WrapperProps = Pick<InputGroupProps, 'marginBottom'>;
+type WrapperProps = { $marginBottom?: boolean };
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, marginBottom }) => css`
+  ${({ theme, $marginBottom }) => css`
     width: 100%;
     max-width: 52rem;
     height: 5.3rem;
-    margin-bottom: ${!!marginBottom && theme.spacings.xsmall};
+    margin-bottom: ${$marginBottom ? theme.spacings.xsmall : 0};
     position: relative;
   `}
 `;

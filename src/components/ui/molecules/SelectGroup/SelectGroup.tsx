@@ -22,7 +22,7 @@ export const SelectGroup = ({
   marginBottom = false,
   onChange,
 }: SelectGroupProps) => (
-  <S.Wrapper marginBottom={marginBottom}>
+  <S.Wrapper $marginBottom={marginBottom}>
     <S.Label htmlFor={labelFor}>{label}</S.Label>
     <S.Select
       id={labelFor}

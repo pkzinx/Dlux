@@ -1,6 +1,7 @@
+/// <reference types="jest" />
 import 'match-media-mock';
 
-import { renderWithTheme } from '~src/utils/tests/helpers';
+import { renderWithTheme } from '../../../../utils/tests/helpers';
 import { BannerProps } from '../Banner/Banner';
 
 import { BannerSlider } from './BannerSlider';
@@ -12,7 +13,6 @@ const props: BannerProps[] = [
     subtitle: 'We Are BarberShop!',
     description:
       'Enjoy the Ultimate Relaxed Grooming Experience For Men every time you step into the Boardroom',
-    buttons: 2,
     buttonLabelOne: 'Marcar Hora',
     buttonLabelTwo: 'Saiba Mais',
   },
@@ -22,13 +22,12 @@ const props: BannerProps[] = [
     subtitle: 'We Are BarberShop!',
     description:
       'Enjoy the Ultimate Relaxed Grooming Experience For Men every time you step into the Boardroom',
-    buttons: 2,
     buttonLabelOne: 'Marcar Hora',
     buttonLabelTwo: 'Saiba Mais',
   },
 ];
 
-jest.mock('~organisms/Banner/Banner', () => ({
+jest.mock('../Banner/Banner', () => ({
   __esModule: true,
   Banner: function Mock() {
     return <div data-testid="Banner" />;
@@ -36,11 +35,12 @@ jest.mock('~organisms/Banner/Banner', () => ({
 }));
 
 describe('<BannerSlider />', () => {
-  it('Deve renderizar o componente <BannerSlider /> com a propriedade vertical', () => {
+  it('Deve renderizar o componente <BannerSlider /> com orientação horizontal', () => {
     //Arrange
     const { container } = renderWithTheme(<BannerSlider items={props} />);
     //Assert
-    expect(container.querySelector('.slick-vertical')).toBeInTheDocument();
+    // Tipagem: evitar matcher de jest-dom em Element|null
+    expect(container.querySelector('.slick-vertical')).toBeNull();
 
     expect(container.firstChild).toMatchSnapshot();
   });

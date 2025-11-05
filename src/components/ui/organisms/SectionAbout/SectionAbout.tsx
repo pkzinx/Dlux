@@ -1,14 +1,11 @@
 import * as S from './SectionAbout.styles';
 
-import { useMediaQuery } from 'react-responsive';
 
 import { HeadingAbout } from '../../molecules/HeadingAbout/HeadingAbout';
 import { ButtonScroll } from '../../atoms/ButtonScroll/ButtonScroll';
 import MediaMatch from '../../molecules/MediaMatch/MediaMatch';
 
 export const SectionAbout = () => {
-  const isPortrait = useMediaQuery({ query: '(max-width: 1024px)' });
-
   return (
     <S.Wrapper>
       <S.AboutContainer>
@@ -16,12 +13,11 @@ export const SectionAbout = () => {
           <HeadingAbout
             icon="/assets/svg/icon-about.svg"
             title="Olá Pessoal"
-            subtitle="Nós Somos a 98BarberShop"
-            lineBottom={isPortrait}
+            subtitle="Nós Somos a Dlux Barbearia"
             lineLeft
           />
           <S.Description>
-            A 98 BarberShop é um espaço de serviços masculinos que combina
+            A Dlux Barbearia é um espaço de serviços masculinos que combina
             valores tradicionais com estilo moderno. Uma barbearia contemporânea
             com uma atmosfera informal e alegre. Um espaço para homens com
             estilo moderno, energia jovem e com pensamento inovador.

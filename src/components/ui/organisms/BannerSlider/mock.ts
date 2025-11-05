@@ -3,7 +3,7 @@ import { BannerProps } from '../Banner/Banner';
 const items: BannerProps[] = [
   {
     img: '/assets/img/slide-1.jpg',
-    title: 'Bem Vindo a BarberShop',
+    title: 'Bem Vindo a Dlux Barbearia',
     subtitle: 'Ótima aparência, sinta-se confiante',
     buttonTypeOne: 'scroll',
     buttonTypeTwo: 'scroll',

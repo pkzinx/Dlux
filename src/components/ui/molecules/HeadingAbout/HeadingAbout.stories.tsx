@@ -13,6 +13,6 @@ export const Basic: StoryFn<HeadingAboutProps> = (args: any) => (
 
 Basic.args = {
   title: 'Olá Pessoal',
-  subtitle: 'Nós Somos a 98BarberShop',
-  lineBottom: true,
+  subtitle: 'Nós Somos a Dlux Barbearia',
+  lineLeft: true,
 };

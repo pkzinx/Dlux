@@ -4,7 +4,7 @@ const services: ServiceBoxProps[] = [
   {
     infos: [
       {
-        title: 'Corte de Cabelo Masculino',
+        title: 'Corte de Cabelo',
         price: 'R$ 20,00',
         description:
           'Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.',
@@ -24,16 +24,10 @@ const services: ServiceBoxProps[] = [
   {
     infos: [
       {
-        title: 'Corte de Cabelo Masculino',
-        price: 'R$ 17,50',
+        title: 'Corte e Barba',
+        price: 'R$ 20,00',
         description:
-          'Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.',
-      },
-      {
-        title: 'Barba',
-        price: 'R$ 17,50',
-        description:
-          'Aparar o volume ou cortá-la, manutenção do desenho, da hidratação e esfoliação.',
+          'Visual completo: corte preciso e barba tratada com hidratação e acabamento de respeito.',
       },
     ],
   },

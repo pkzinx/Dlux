@@ -1,6 +1,5 @@
 import * as S from './Footer.styles';
 
-import Link from 'next/link';
 
 import { SocialMedia } from '../../atoms/SocialMedia/SocialMedia';
 import { Container } from '../../atoms/Container/Container';
@@ -12,7 +11,7 @@ export const Footer = () => (
       <S.BoxLogo>
         <Logotipo />
         <S.Description size="normal">
-          A 98 BarberShop é um espaço de serviços masculinos que combina valores
+          A Dlux Barbearia é um espaço de serviços masculinos que combina valores
           tradicionais com estilo moderno. Uma barbearia contemporânea com uma
           atmosfera informal e alegre.
         </S.Description>
@@ -36,8 +35,8 @@ export const Footer = () => (
       </S.BoxInfoSocialMedia>
       <S.BoxInfoInstitutional>
         <S.Heading>Institucional</S.Heading>
-        <Link href="#">Termos de Uso</Link>
-        <Link href="#">Política de Privacidade</Link>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Política de Privacidade</a>
       </S.BoxInfoInstitutional>
     </Container>
     <S.BoxInfoLocation>
@@ -55,7 +54,7 @@ export const Footer = () => (
         Rua Caminho Encanto 334 - Guarulhos - SP
       </S.Description>
       <S.Description size="small">
-        Copyright ©2021 <span>98Barbershop</span>. Todos os direitos reservados
+        Copyright ©2021 <span>Dlux Barbearia</span>. Todos os direitos reservados
       </S.Description>
     </S.BoxInfoLocation>
   </S.Footer>

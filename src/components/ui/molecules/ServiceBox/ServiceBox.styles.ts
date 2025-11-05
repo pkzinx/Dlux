@@ -68,3 +68,27 @@ export const Description = styled.div`
     margin-top: 0.5rem;
   `}
 `;
+
+export const ScheduleButton = styled.button`
+  ${({ theme }) => css`
+    display: block;
+    margin: ${theme.spacings.xxsmall} auto 0;
+    padding: 0.9rem 1.8rem;
+    border-radius: 0.6rem;
+    border: 0;
+    cursor: pointer;
+    color: ${theme.colors.white};
+    background: ${theme.colors.primary};
+    font-size: ${theme.font.sizes.small};
+    font-weight: 500;
+    min-width: 12rem;
+
+    &:hover {
+      filter: brightness(1.05);
+    }
+
+    ${media.greaterThan('medium')`
+      font-size: ${theme.font.sizes.medium};
+    `}
+  `}
+`;
