@@ -9,7 +9,6 @@ import { SectionAbout } from '../../organisms/SectionAbout/SectionAbout';
 import { MainServices } from '../../organisms/MainServices/MainServices';
 import { Review } from '../../organisms/Review/Review';
 import { SectionContributors } from '../../organisms/SectionContributors/SectionContributors';
-import { SectionContact } from '../../organisms/SectionContact/SectionContact';
 
 import items from '../../organisms/BannerSlider/mock';
 import services from '../../organisms/MainServices/mock';
@@ -42,10 +41,9 @@ const HomePage = () => {
       <StyledElement name="avaliacao">
         <Review />
       </StyledElement>
-      <StyledElement name="feedback">
-        <SectionContact />
+      <StyledElement name="localizacao">
+        <Map places={places} />
       </StyledElement>
-      <Map places={places} />
       <Footer />
     </>
   );

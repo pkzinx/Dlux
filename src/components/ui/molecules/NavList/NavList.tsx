@@ -21,7 +21,7 @@ export const NavList = () => {
           { nav: 'Serviços', link: 'servicos' },
           { nav: 'Equipe', link: 'equipe' },
           { nav: 'Avaliações', link: 'avaliacao' },
-          { nav: 'FeedBack', link: 'feedback' },
+          { nav: 'Localização', link: 'localizacao', offset: -220 },
         ]}
       >
         <Logotipo $hideOnMobile />

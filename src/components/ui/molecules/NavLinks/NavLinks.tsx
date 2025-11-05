@@ -5,6 +5,7 @@ import * as S from './NavLinks.styles';
 export type NavLinkNames = {
   nav: string;
   link: string;
+  offset?: number;
 };
 
 export type NavLinksProps = {
@@ -18,28 +19,38 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
   const [dimensions, setDimensions] = useState({ width: 0, left: 0 });
 
   const refLink = useRef<HTMLLIElement>(null);
+  const wrapperRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const updatePosition = () =>
+    const updatePosition = () => {
+      if (!refLink.current) return;
+      const linkRect = refLink.current.getBoundingClientRect();
+      const containerLeft = wrapperRef.current
+        ? wrapperRef.current.getBoundingClientRect().left
+        : 0;
       setDimensions({
-        width:
-          refLink.current!.getBoundingClientRect().width + paddingXLine * 2,
-        left: refLink.current!.getBoundingClientRect().left - paddingXLine,
+        width: linkRect.width + paddingXLine * 2,
+        left: linkRect.left - containerLeft - paddingXLine,
       });
+    };
 
     updatePosition();
 
     window.addEventListener('load', updatePosition);
     window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, { passive: true });
 
-    return () => window.removeEventListener('resize', updatePosition);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition);
+    };
   }, [state, paddingXLine]);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper ref={wrapperRef}>
       <MediaMatch $greaterThan="medium">
         <S.WrapperUl>
-          {names.slice(0, names.length / 2).map(({ nav, link }) => (
+          {names.slice(0, names.length / 2).map(({ nav, link, offset }) => (
             <S.List
               key={link}
               $isActive={state === link}
@@ -50,6 +61,7 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
                 aria-selected={state === link}
                 onSetActive={setState}
                 onClick={() => setState(link)}
+                offset={offset}
               >
                 {nav}
               </S.NavLink>
@@ -62,7 +74,7 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
 
       <MediaMatch $greaterThan="medium">
         <S.WrapperUl>
-          {names.slice(names.length / 2, names.length).map(({ nav, link }) => (
+          {names.slice(names.length / 2, names.length).map(({ nav, link, offset }) => (
             <S.List
               key={link}
               $isActive={state === link}
@@ -73,6 +85,7 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
                 aria-selected={state === link}
                 onSetActive={setState}
                 onClick={() => setState(link)}
+                offset={offset}
               >
                 {nav}
               </S.NavLink>

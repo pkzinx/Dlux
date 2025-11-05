@@ -16,7 +16,7 @@ export type MapProps = {
 };
 
 const Map = ({ places = [] }: MapProps) => {
-  const defaultCenter: [number, number] = [-15.70472, -44.02833];
+  const defaultCenter: [number, number] = [-15.7034965731365, -44.02618036034336];
   const hasPlaces = places.length > 0;
   const center: [number, number] = hasPlaces
     ? [places[0].location.latitude, places[0].location.longitude]

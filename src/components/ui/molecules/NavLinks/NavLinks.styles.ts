@@ -11,6 +11,7 @@ export const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   height: 100%;
+  position: relative;
 
   ${customMedia.greaterThan('medium')`
     width: auto;
@@ -50,6 +51,8 @@ export const NavLink = styled(Link).attrs({
   duration: 600,
   autoFocus: true,
   activeClass: 'active',
+  offset: -100,
+  isDynamic: true,
 })`
   ${({ theme }) => css`
     text-decoration: none;
