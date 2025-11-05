@@ -22,7 +22,7 @@ export const Footer = () => (
         <S.BoxSocialMedia>
           <SocialMedia
             $marginRight
-            link="https://www.instagram.com/98barbershop/"
+            link="https://www.instagram.com/dlux_barbearia_/"
             image="/assets/svg/instagram-icon.svg"
             alt="Link que leva para a página no instagram"
           />
@@ -51,10 +51,10 @@ export const Footer = () => (
       </S.BoxIcon>
 
       <S.Description size="small">
-        Rua Caminho Encanto 334 - Guarulhos - SP
+        Rua Montes Claros, nº 346 - Varzelândia - MG - CEP 39450-000
       </S.Description>
       <S.Description size="small">
-        Copyright ©2021 <span>Dlux Barbearia</span>. Todos os direitos reservados
+        Copyright ©2025 <span>Dlux Barbearia</span>. Todos os direitos reservados
       </S.Description>
     </S.BoxInfoLocation>
   </S.Footer>

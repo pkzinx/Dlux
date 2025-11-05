@@ -1,4 +1,5 @@
 import * as S from './Map.styles';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 export type Place = {
   id: string;
@@ -14,22 +15,44 @@ export type MapProps = {
   places?: Place[];
 };
 
-const Map = ({}: MapProps) => {
+const Map = ({ places = [] }: MapProps) => {
+  const defaultCenter: [number, number] = [-15.70472, -44.02833];
+  const hasPlaces = places.length > 0;
+  const center: [number, number] = hasPlaces
+    ? [places[0].location.latitude, places[0].location.longitude]
+    : defaultCenter;
+
+  // Bypass restrictive type inference on MapContainerProps in this setup
+  const RLMapContainer = MapContainer as unknown as (props: any) => JSX.Element;
+
   return (
     <S.Container>
       <S.Wrapper>
-        <div
-          style={{
-            height: '400px',
-            width: '100%',
-            backgroundColor: '#f0f0f0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+        <RLMapContainer
+          center={center}
+          zoom={16}
+          scrollWheelZoom
+          style={{ height: '100%', width: '100%' }}
         >
-          <p>Mapa temporariamente indisponível</p>
-        </div>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {places.map(place => (
+            <Marker
+              key={`marker-${place.id}`}
+              position={[place.location.latitude, place.location.longitude]}
+              {...({ title: place.name } as any)}
+            >
+              <Popup>
+                <div style={{ minWidth: '160px' }}>
+                  <strong>{place.name}</strong>
+                  <br />
+                  <a href={place.slug} target="_blank" rel="noreferrer">
+                    Ver rotas
+                  </a>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </RLMapContainer>
       </S.Wrapper>
       <S.ArrowMoldingUp xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 19">
         <path

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { MapContainer } from 'react-leaflet';
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -12,7 +11,7 @@ export const Container = styled.div`
   `}
 `;
 
-export const Wrapper = styled(MapContainer)`
+export const Wrapper = styled.div`
   width: 100%;
   height: 43.4rem;
   position: relative;
