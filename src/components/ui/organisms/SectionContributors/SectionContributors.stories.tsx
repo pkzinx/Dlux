@@ -1,5 +1,5 @@
-import { Story, Meta } from '@storybook/react';
-import contributors from '~organisms/SectionContributors/contributors.mock';
+import { StoryFn, Meta } from '@storybook/react';
+import contributors from './contributors.mock';
 
 import {
   SectionContributors,
@@ -11,7 +11,7 @@ export default {
   component: SectionContributors,
 } as Meta;
 
-export const Basic: Story<SectionContributorsProps> = args => (
+export const Basic: StoryFn<SectionContributorsProps> = (args: any) => (
   <SectionContributors {...args} />
 );
 

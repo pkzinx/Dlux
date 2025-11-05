@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Banner, BannerProps } from './Banner';
 
@@ -29,4 +29,4 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<BannerProps> = args => <Banner {...args} />;
+export const Basic: StoryFn<BannerProps> = (args: any) => <Banner {...args} />;

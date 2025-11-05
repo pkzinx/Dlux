@@ -1,4 +1,4 @@
-import { Heading, HeadingProps } from '~molecules/Heading/Heading';
+import { Heading, HeadingProps } from '../../molecules/Heading/Heading';
 import * as S from './Banner.styles';
 
 export type BannerProps = {

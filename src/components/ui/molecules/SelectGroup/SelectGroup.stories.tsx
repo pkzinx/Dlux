@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { SelectGroup, SelectGroupProps } from './SelectGroup';
 
@@ -7,7 +7,7 @@ export default {
   component: SelectGroup,
 } as Meta;
 
-export const Basic: Story<SelectGroupProps> = args => (
+export const Basic: StoryFn<SelectGroupProps> = (args: any) => (
   <SelectGroup {...args}>
     <option value="true">Sim</option>
     <option value="false">Não</option>

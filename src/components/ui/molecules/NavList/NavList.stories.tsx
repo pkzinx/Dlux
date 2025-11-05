@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { NavList } from './NavList';
 
@@ -14,9 +14,9 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story = () => <NavList />;
+export const Basic: StoryFn = () => <NavList />;
 
-export const Mobile: Story = () => <NavList />;
+export const Mobile: StoryFn = () => <NavList />;
 
 Mobile.parameters = {
   layout: 'fullscreen',

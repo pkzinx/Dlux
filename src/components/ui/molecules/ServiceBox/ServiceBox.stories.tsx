@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { ServiceBox, ServiceBoxProps } from './ServiceBox';
 
@@ -13,4 +13,6 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<ServiceBoxProps> = args => <ServiceBox {...args} />;
+export const Basic: StoryFn<ServiceBoxProps> = (args: any) => (
+  <ServiceBox {...args} />
+);

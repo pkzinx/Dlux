@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { InputRadio, InputRadioProps } from './InputRadio';
 
@@ -7,7 +7,9 @@ export default {
   component: InputRadio,
 } as Meta;
 
-export const Basic: Story<InputRadioProps> = args => <InputRadio {...args} />;
+export const Basic: StoryFn<InputRadioProps> = (args: any) => (
+  <InputRadio {...args} />
+);
 
 Basic.args = {
   labelFor: 'level',

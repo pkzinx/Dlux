@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { MainServices, MainServicesProps } from './MainServices';
 
@@ -15,11 +15,11 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<MainServicesProps> = args => (
+export const Basic: StoryFn<MainServicesProps> = (args: any) => (
   <MainServices {...args} />
 );
 
-export const Mobile: Story<MainServicesProps> = args => (
+export const Mobile: StoryFn<MainServicesProps> = (args: any) => (
   <MainServices {...args} />
 );
 

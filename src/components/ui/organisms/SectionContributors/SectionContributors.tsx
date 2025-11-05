@@ -1,6 +1,6 @@
 import * as S from './SectionContributors.styles';
 
-import { Heading } from '~molecules/Heading/Heading';
+import { Heading } from '../../molecules/Heading/Heading';
 
 export type Contributors = {
   src: string;

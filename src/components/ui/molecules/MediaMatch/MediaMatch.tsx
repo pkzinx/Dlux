@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { customMedia, extraMedia } from '~src/utils/media/customMedia';
+import { customMedia, extraMedia } from '../../../../utils/media/customMedia';
 
 interface breakpointPlus {
   huge: string;
@@ -12,8 +12,8 @@ interface breakpointPlus {
 type breakpoint = keyof breakpointPlus;
 
 export type MediaMatchProps = {
-  lessThan?: breakpoint;
-  greaterThan?: breakpoint;
+  $lessThan?: breakpoint;
+  $greaterThan?: breakpoint;
 };
 
 export const mediaMatchModifiers = {
@@ -31,10 +31,10 @@ export const mediaMatchModifiers = {
 };
 
 export default styled.div<MediaMatchProps>`
-  ${({ lessThan, greaterThan }) => css`
+  ${({ $lessThan, $greaterThan }) => css`
     display: none;
 
-    ${!!lessThan && mediaMatchModifiers.lessThan(lessThan)}
-    ${!!greaterThan && mediaMatchModifiers.greaterThan(greaterThan)}
+    ${!!$lessThan && mediaMatchModifiers.lessThan($lessThan)}
+    ${!!$greaterThan && mediaMatchModifiers.greaterThan($greaterThan)}
   `}
 `;

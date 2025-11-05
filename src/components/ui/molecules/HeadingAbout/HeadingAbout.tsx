@@ -1,6 +1,6 @@
 import * as S from './HeadingAbout.styles';
 
-import { Subtitle } from '~atoms/Subtitle/Subtitle';
+import { Subtitle } from '../../atoms/Subtitle/Subtitle';
 
 export type HeadingAboutProps = {
   title: string;

@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { SocialMedia, SocialMediaProps } from './SocialMedia';
 
@@ -7,10 +7,10 @@ export default {
   component: SocialMedia,
 } as Meta;
 
-export const Instagram: Story<SocialMediaProps> = args => (
+export const Instagram: StoryFn<SocialMediaProps> = (args: any) => (
   <SocialMedia {...args} />
 );
-export const Whatsapp: Story<SocialMediaProps> = args => (
+export const Whatsapp: StoryFn<SocialMediaProps> = (args: any) => (
   <SocialMedia {...args} />
 );
 

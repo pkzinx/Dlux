@@ -1,12 +1,13 @@
-import { Background } from '~atoms/Background/Background';
-import { Heading } from '~molecules/Heading/Heading';
-import { Slider, SliderSettings } from '~molecules/Slider/Slider';
-import { ReviewBox, ReviewBoxProps } from '~molecules/ReviewBox/ReviewBox';
+import { Background } from '../../atoms/Background/Background';
+import { Heading } from '../../molecules/Heading/Heading';
+import { Slider, SliderSettings } from '../../molecules/Slider/Slider';
+import { ReviewBox, ReviewBoxProps } from '../../molecules/ReviewBox/ReviewBox';
+import reviewsData from './mock';
 
 import * as S from './Review.styles';
 
 export type ReviewProps = {
-  reviews: ReviewBoxProps[];
+  reviews?: ReviewBoxProps[];
 };
 
 const settings: SliderSettings = {
@@ -69,25 +70,30 @@ const settings: SliderSettings = {
   ],
 };
 
-export const Review = ({ reviews }: ReviewProps) => (
-  <S.Wrapper>
-    <Background src="/assets/img/slide-4.jpg">
-      <Heading
-        title="O Que Dizem de Nós"
-        subtitle="Nossas Avaliações"
-        lineBottom
-      />
+export const Review = ({ reviews }: ReviewProps) => {
+  // Usar os reviews passados por props ou os dados mockados como fallback
+  const reviewsToShow = reviews || reviewsData;
 
-      <S.WrapperSlider>
-        <Slider settings={settings}>
-          {reviews?.map((item, index) => (
-            <ReviewBox
-              key={`${item.name} - ${item.answered} - ${index}`}
-              {...item}
-            />
-          ))}
-        </Slider>
-      </S.WrapperSlider>
-    </Background>
-  </S.Wrapper>
-);
+  return (
+    <S.Wrapper>
+      <Background src="/assets/img/slide-4.jpg">
+        <Heading
+          title="O Que Dizem de Nós"
+          subtitle="Nossas Avaliações"
+          lineBottom
+        />
+
+        <S.WrapperSlider>
+          <Slider settings={settings}>
+            {reviewsToShow?.map((item, index) => (
+              <ReviewBox
+                key={`${item.name} - ${item.answered} - ${index}`}
+                {...item}
+              />
+            ))}
+          </Slider>
+        </S.WrapperSlider>
+      </Background>
+    </S.Wrapper>
+  );
+};

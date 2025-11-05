@@ -1,4 +1,4 @@
-import { ServiceBoxProps } from '~molecules/ServiceBox/ServiceBox';
+import { ServiceBoxProps } from '../../molecules/ServiceBox/ServiceBox';
 
 const services: ServiceBoxProps[] = [
   {

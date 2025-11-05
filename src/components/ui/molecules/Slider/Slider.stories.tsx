@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { StoryFn, Meta } from '@storybook/react';
 import { Settings } from 'react-slick';
 import styled from 'styled-components';
 import { Slider } from './Slider';
@@ -37,7 +37,7 @@ const Slide = styled.div`
   text-align: center;
 `;
 
-export const Horizontal: Story = () => (
+export const Horizontal: StoryFn = () => (
   <Slider settings={horizontalBannerSettings}>
     <Slide>1</Slide>
     <Slide>2</Slide>
@@ -48,7 +48,7 @@ export const Horizontal: Story = () => (
   </Slider>
 );
 
-export const Vertical: Story = () => (
+export const Vertical: StoryFn = () => (
   <Slider settings={verticalBannerSettings}>
     <Slide>1</Slide>
     <Slide>2</Slide>

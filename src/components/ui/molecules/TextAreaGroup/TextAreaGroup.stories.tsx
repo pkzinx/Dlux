@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { TextAreaGroup, TextAreaGroupProps } from './TextAreaGroup';
 
@@ -7,7 +7,7 @@ export default {
   component: TextAreaGroup,
 } as Meta;
 
-export const Basic: Story<TextAreaGroupProps> = args => (
+export const Basic: StoryFn<TextAreaGroupProps> = (args: any) => (
   <TextAreaGroup {...args} />
 );
 

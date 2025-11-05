@@ -8,14 +8,14 @@ const descriptionModifiers = {
 };
 
 export const Description = styled.p<DescriptionProps>`
-  ${({ theme, size, color, marginBottom }) => css`
+  ${({ theme, size, color, $marginBottom }) => css`
     font-size: ${theme.font.sizes[size!]};
     font-family: ${theme.font.family.tertiary};
     font-weight: ${theme.font.light};
     text-align: center;
     color: ${theme.colors[color!]};
 
-    ${!!marginBottom && descriptionModifiers.marginBottom}
+    ${!!$marginBottom && descriptionModifiers.marginBottom}
 
     & span {
       ${({ theme }) => css`

@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { ReviewBox, ReviewBoxProps } from './ReviewBox';
 
@@ -15,4 +15,6 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<ReviewBoxProps> = args => <ReviewBox {...args} />;
+export const Basic: StoryFn<ReviewBoxProps> = (args: any) => (
+  <ReviewBox {...args} />
+);

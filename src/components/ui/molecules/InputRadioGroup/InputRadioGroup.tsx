@@ -1,6 +1,6 @@
 import * as S from './InputRadioGroup.styles';
 
-import { InputRadio, InputRadioProps } from '~atoms/InputRadio/InputRadio';
+import { InputRadio, InputRadioProps } from '../../atoms/InputRadio/InputRadio';
 
 export type InputRadioGroupProps = Pick<
   InputRadioProps,

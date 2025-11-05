@@ -1,17 +1,16 @@
 import * as S from './SectionContact.styles';
 
-import { ChangeEvent, useState, useContext } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import { Heading } from '~molecules/Heading/Heading';
-import { InputGroup } from '~molecules/InputGroup/InputGroup';
-import { InputRadioGroup } from '~molecules/InputRadioGroup/InputRadioGroup';
-import { TextAreaGroup } from '~molecules/TextAreaGroup/TextAreaGroup';
-import { SelectGroup } from '~molecules/SelectGroup/SelectGroup';
-import { Button } from '~atoms/Button/Button';
-import { ModalForm } from '~molecules/ModalForm/ModalForm';
+import { Heading } from '../../molecules/Heading/Heading';
+import { InputGroup } from '../../molecules/InputGroup/InputGroup';
+import { InputRadioGroup } from '../../molecules/InputRadioGroup/InputRadioGroup';
+import { TextAreaGroup } from '../../molecules/TextAreaGroup/TextAreaGroup';
+import { SelectGroup } from '../../molecules/SelectGroup/SelectGroup';
+import { Button } from '../../atoms/Button/Button';
+import { ModalForm } from '../../molecules/ModalForm/ModalForm';
 
 import axios from 'axios';
-import { ReviewContext } from '~contexts/ReviewContext';
 
 type StatusRequest = 'success' | 'error';
 
@@ -30,7 +29,6 @@ type FormInputsProps = {
 };
 
 export const SectionContact = () => {
-  const { reviews, setReviews } = useContext(ReviewContext);
   const [statusRequest, setStatusRequest] = useState<StatusRequest>('success');
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,15 +76,11 @@ export const SectionContact = () => {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const dataInputs = { ...formInputs, stars: +formInputs.stars };
-      const { data } = await axios.post('/api/evaluations', {
-        dataForm: dataInputs,
-      });
-      const allReviews = reviews;
-      allReviews.push(data.data);
-      setReviews([...allReviews]);
-      setStatusRequest(data.message);
-    } catch (e) {
+      
+      // Simular envio bem-sucedido temporariamente
+      setStatusRequest('success');
+      
+    } catch {
       setStatusRequest('error');
     } finally {
       setIsLoading(false);

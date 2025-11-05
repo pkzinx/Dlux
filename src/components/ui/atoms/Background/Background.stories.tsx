@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Background, BackgroundProps } from './Background';
 
@@ -13,7 +13,7 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<BackgroundProps> = args => (
+export const Basic: StoryFn<BackgroundProps> = (args: any) => (
   <Background {...args}>
     <h1 style={{ textAlign: 'center', color: '#fff' }}>Background</h1>
   </Background>

@@ -1,8 +1,8 @@
-import { Container } from '~atoms/Container/Container';
-import { Title } from '~atoms/Title/Title';
-import { Subtitle } from '~atoms/Subtitle/Subtitle';
-import { Description } from '~atoms/Description/Description';
-import { Button } from '~atoms/Button/Button';
+import { Container } from '../../atoms/Container/Container';
+import { Title } from '../../atoms/Title/Title';
+import { Subtitle } from '../../atoms/Subtitle/Subtitle';
+import { Description } from '../../atoms/Description/Description';
+import { Button } from '../../atoms/Button/Button';
 import { ButtonScroll } from '../../atoms/ButtonScroll/ButtonScroll';
 
 import * as S from './Heading.styles';
@@ -39,17 +39,17 @@ export const Heading = ({
   <Container>
     <Title size={size}>{title}</Title>
 
-    <Subtitle lineBottom={lineBottom} size={size}>
+    <Subtitle $lineBottom={lineBottom} size={size}>
       {subtitle}
     </Subtitle>
 
-    <Description marginBottom size="xsmall">
+    <Description $marginBottom size="xsmall">
       {description}
     </Description>
 
     {children}
 
-    <S.WrapperButtons hasChildren={!!children} as={undefined as any}>
+    <S.WrapperButtons $hasChildren={!!children} as={undefined as any}>
       {buttonLabelOne &&
         (buttonTypeOne === 'link' ? (
           <Button>{buttonLabelOne}</Button>
@@ -59,9 +59,9 @@ export const Heading = ({
 
       {buttonLabelTwo &&
         (buttonTypeTwo === 'link' ? (
-          <Button buttonStyle="secondary">{buttonLabelTwo}</Button>
+          <Button $buttonStyle="secondary">{buttonLabelTwo}</Button>
         ) : (
-          <ButtonScroll buttonStyle="secondary" to={buttonLinkTwo!}>
+          <ButtonScroll $buttonStyle="secondary" to={buttonLinkTwo!}>
             {buttonLabelTwo}
           </ButtonScroll>
         ))}

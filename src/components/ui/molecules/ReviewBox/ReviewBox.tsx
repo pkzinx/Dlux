@@ -1,5 +1,5 @@
-import { Stars } from '~atoms/Stars/Stars';
-import { UserInfo, UserInfoProps } from '~atoms/UserInfo/UserInfo';
+import { Stars } from '../../atoms/Stars/Stars';
+import { UserInfo, UserInfoProps } from '../../atoms/UserInfo/UserInfo';
 import * as S from './ReviewBox.styles';
 
 export type ReviewBoxProps = {

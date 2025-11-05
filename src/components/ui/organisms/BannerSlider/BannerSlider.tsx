@@ -1,5 +1,5 @@
-import { Slider, SliderSettings } from '~molecules/Slider/Slider';
-import { Banner, BannerProps } from '~organisms/Banner/Banner';
+import { Slider, SliderSettings } from '../../molecules/Slider/Slider';
+import { Banner, BannerProps } from '../Banner/Banner';
 
 import * as S from './BannerSlider.styles';
 

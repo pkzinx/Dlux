@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { SectionContact } from './SectionContact';
 
@@ -7,4 +7,4 @@ export default {
   component: SectionContact,
 } as Meta;
 
-export const Basic: Story = () => <SectionContact />;
+export const Basic: StoryFn = () => <SectionContact />;

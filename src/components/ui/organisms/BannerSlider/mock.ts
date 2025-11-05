@@ -1,4 +1,4 @@
-import { BannerProps } from '~organisms/Banner/Banner';
+import { BannerProps } from '../Banner/Banner';
 
 const items: BannerProps[] = [
   {

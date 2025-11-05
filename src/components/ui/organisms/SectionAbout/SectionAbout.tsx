@@ -2,9 +2,9 @@ import * as S from './SectionAbout.styles';
 
 import { useMediaQuery } from 'react-responsive';
 
-import { HeadingAbout } from '~molecules/HeadingAbout/HeadingAbout';
-import { ButtonScroll } from '~atoms/ButtonScroll/ButtonScroll';
-import MediaMatch from '~molecules/MediaMatch/MediaMatch';
+import { HeadingAbout } from '../../molecules/HeadingAbout/HeadingAbout';
+import { ButtonScroll } from '../../atoms/ButtonScroll/ButtonScroll';
+import MediaMatch from '../../molecules/MediaMatch/MediaMatch';
 
 export const SectionAbout = () => {
   const isPortrait = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -26,8 +26,8 @@ export const SectionAbout = () => {
             com uma atmosfera informal e alegre. Um espaço para homens com
             estilo moderno, energia jovem e com pensamento inovador.
           </S.Description>
-          <MediaMatch greaterThan="big">
-            <ButtonScroll to="servicos" marginLeft="big">
+          <MediaMatch $greaterThan="big">
+            <ButtonScroll to="servicos" $marginLeft="big">
               Saiba Mais
             </ButtonScroll>
           </MediaMatch>
@@ -38,7 +38,7 @@ export const SectionAbout = () => {
             alt="Foto ilustrativa do interior de uma barbearia"
             loading="lazy"
           />
-          <MediaMatch lessThan="big">
+          <MediaMatch $lessThan="big">
             <ButtonScroll to="servicos">Saiba Mais</ButtonScroll>
           </MediaMatch>
         </S.ContentImage>

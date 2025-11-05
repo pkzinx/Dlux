@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { ButtonScroll, ButtonScrollProps } from './ButtonScroll';
 
@@ -13,7 +13,7 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<ButtonScrollProps> = args => (
+export const Basic: StoryFn<ButtonScrollProps> = (args: any) => (
   <ButtonScroll {...args} />
 );
 
@@ -22,7 +22,7 @@ Basic.args = {
   to: 'servicos',
 };
 
-export const Secondary: Story<ButtonScrollProps> = args => (
+export const Secondary: StoryFn<ButtonScrollProps> = (args: any) => (
   <ButtonScroll {...args} />
 );
 

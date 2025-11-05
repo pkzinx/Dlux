@@ -1,7 +1,7 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { NavLinks, NavLinksProps } from './NavLinks';
-import { Logotipo } from '~atoms/Logotipo/Logotipo';
+import { Logotipo } from '../../atoms/Logotipo/Logotipo';
 import { NavList } from '../NavList/NavList.styles';
 
 export default {
@@ -20,7 +20,7 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<NavLinksProps> = args => (
+export const Basic: StoryFn<NavLinksProps> = (args: any) => (
   <NavList>
     <NavLinks {...args}>
       <Logotipo />

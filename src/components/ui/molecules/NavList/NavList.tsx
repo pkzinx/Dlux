@@ -3,10 +3,10 @@ import * as S from './NavList.styles';
 import { useState } from 'react';
 import { Sling as Hamburger } from 'hamburger-react';
 
-import MediaMatch from '~molecules/MediaMatch/MediaMatch';
-import { Logotipo } from '~atoms/Logotipo/Logotipo';
-import { MenuMobile } from '~molecules/MenuMobile/MenuMobile';
-import { NavLinks } from '~molecules/NavLinks/NavLinks';
+import MediaMatch from '../MediaMatch/MediaMatch';
+import { Logotipo } from '../../atoms/Logotipo/Logotipo';
+import { MenuMobile } from '../MenuMobile/MenuMobile';
+import { NavLinks } from '../NavLinks/NavLinks';
 
 export const NavList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,10 +24,10 @@ export const NavList = () => {
           { nav: 'FeedBack', link: 'feedback' },
         ]}
       >
-        <Logotipo hideOnMobile />
+        <Logotipo $hideOnMobile />
       </NavLinks>
 
-      <MediaMatch lessThan="medium">
+      <MediaMatch $lessThan="medium">
         <Hamburger
           color="#FFF"
           duration={0.4}
@@ -41,7 +41,7 @@ export const NavList = () => {
           label="Abrir e Fechar"
         />
 
-        <MenuMobile isOpen={isOpen} setIsOpen={setIsOpen} />
+        <MenuMobile $isOpen={isOpen} setIsOpen={setIsOpen} />
       </MediaMatch>
     </S.NavList>
   );

@@ -1,4 +1,4 @@
-import { HairIcon } from '~atoms/HairIcon/HairIcon';
+import { HairIcon } from '../../atoms/HairIcon/HairIcon';
 
 import * as S from './ServiceBox.styles';
 

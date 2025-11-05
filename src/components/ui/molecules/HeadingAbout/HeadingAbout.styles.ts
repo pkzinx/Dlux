@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { customMedia, extraMedia } from '~src/utils/media/customMedia';
+import { customMedia, extraMedia } from '../../../../utils/media/customMedia';
 import media from 'styled-media-query';
 
 export const Wrapper = styled.div`

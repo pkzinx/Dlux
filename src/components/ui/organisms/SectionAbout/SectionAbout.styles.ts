@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import { customMedia, extraMedia } from '~src/utils/media/customMedia';
-import { Container } from '~atoms/Container/Container';
-import { HeadingAbout } from '~molecules/HeadingAbout/HeadingAbout';
+import { customMedia, extraMedia } from '../../../../utils/media/customMedia';
+import { Container } from '../../atoms/Container/Container';
+import { HeadingAbout } from '../../molecules/HeadingAbout/HeadingAbout';
 
 export const Wrapper = styled.section`
   height: 60rem;

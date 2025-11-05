@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Header } from './Header';
 
@@ -14,4 +14,4 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story = () => <Header />;
+export const Basic: StoryFn = () => <Header />;

@@ -1,4 +1,4 @@
-import { ReviewBoxProps } from '~molecules/ReviewBox/ReviewBox';
+import { ReviewBoxProps } from '../../molecules/ReviewBox/ReviewBox';
 
 const reviews: ReviewBoxProps[] = [
   {

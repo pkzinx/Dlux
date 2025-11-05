@@ -1,5 +1,5 @@
 import * as S from './SelectGroup.styles';
-import { InputGroupProps } from '~molecules/InputGroup/InputGroup';
+import { InputGroupProps } from '../InputGroup/InputGroup';
 
 type InputProps = Pick<
   InputGroupProps,

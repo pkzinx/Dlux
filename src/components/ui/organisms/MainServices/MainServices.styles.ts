@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
-import { Container } from '~atoms/Container/Container';
+import { Container } from '../../atoms/Container/Container';
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`

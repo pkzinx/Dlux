@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { ModalForm, ModalFormProps } from './ModalForm';
 
@@ -7,14 +7,18 @@ export default {
   component: ModalForm,
 } as Meta;
 
-export const Success: Story<ModalFormProps> = args => <ModalForm {...args} />;
+export const Success: StoryFn<ModalFormProps> = (args: any) => (
+  <ModalForm {...args} />
+);
 
 Success.args = {
   isOpen: true,
   status: 'success',
 };
 
-export const Error: Story<ModalFormProps> = args => <ModalForm {...args} />;
+export const Error: StoryFn<ModalFormProps> = (args: any) => (
+  <ModalForm {...args} />
+);
 
 Error.args = {
   isOpen: true,

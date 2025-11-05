@@ -2,9 +2,9 @@ import * as S from './Footer.styles';
 
 import Link from 'next/link';
 
-import { SocialMedia } from '~atoms/SocialMedia/SocialMedia';
-import { Container } from '~atoms/Container/Container';
-import { Logotipo } from '~atoms/Logotipo/Logotipo';
+import { SocialMedia } from '../../atoms/SocialMedia/SocialMedia';
+import { Container } from '../../atoms/Container/Container';
+import { Logotipo } from '../../atoms/Logotipo/Logotipo';
 
 export const Footer = () => (
   <S.Footer>
@@ -22,7 +22,7 @@ export const Footer = () => (
         <S.Heading>Siga-nos</S.Heading>
         <S.BoxSocialMedia>
           <SocialMedia
-            marginRight
+            $marginRight
             link="https://www.instagram.com/98barbershop/"
             image="/assets/svg/instagram-icon.svg"
             alt="Link que leva para a página no instagram"

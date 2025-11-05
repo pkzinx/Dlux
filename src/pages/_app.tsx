@@ -1,22 +1,25 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyles from '../styles/global';
+import theme from '../styles/theme';
+import ReviewContextProvider from '../contexts/ReviewContext';
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Dlux Barber</title>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#080808" />
-        <meta
-          name="description"
-          content="Dlux Barber, sua barbearia preferida agora em uma plataforma."
-        />
-      </Head>
-      <div style={{ backgroundColor: '#080808', minHeight: '100vh' }}>
+    <ThemeProvider theme={theme}>
+      <ReviewContextProvider>
+        <Head>
+          <title>Dlux Barber</title>
+          <meta
+            name="description"
+            content="Dlux Barber - Sua barbearia de confiança"
+          />
+        </Head>
+        <GlobalStyles />
         <Component {...pageProps} />
-      </div>
-    </>
+      </ReviewContextProvider>
+    </ThemeProvider>
   );
 }
 

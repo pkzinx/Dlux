@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import { customMedia } from '~src/utils/media/customMedia';
+import { customMedia } from '../../../../utils/media/customMedia';
 import { Link } from 'react-scroll';
 
 type ActiveProps = {
-  isActive?: boolean;
+  $isActive?: boolean;
 };
 
 export const Wrapper = styled.nav`
@@ -36,10 +36,10 @@ export const WrapperUl = styled.ul`
 `;
 
 export const List = styled.li<ActiveProps>`
-  ${({ theme, isActive }) => css`
+  ${({ theme, $isActive }) => css`
     list-style: none;
-    color: ${isActive ? theme.colors.primary : theme.colors.white};
-    text-shadow: ${isActive && `0 0 1rem ${theme.colors.primary}`};
+    color: ${$isActive ? theme.colors.primary : theme.colors.white};
+    text-shadow: ${$isActive && `0 0 1rem ${theme.colors.primary}`};
   `}
 `;
 

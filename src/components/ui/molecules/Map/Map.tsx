@@ -1,8 +1,5 @@
 import * as S from './Map.styles';
 
-import { TileLayer, Marker } from 'react-leaflet';
-import { useMediaQuery } from 'react-responsive';
-
 export type Place = {
   id: string;
   name: string;
@@ -17,52 +14,22 @@ export type MapProps = {
   places?: Place[];
 };
 
-const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
-const MAPBOX_USERID = process.env.NEXT_PUBLIC_MAPBOX_USERID;
-const MAPBOX_STYLEID = process.env.NEXT_PUBLIC_MAPBOX_STYLEID;
-
-const CustomTileLayer = () => {
-  return MAPBOX_API_KEY ? (
-    <TileLayer
-      attribution='© <a href="https://apps.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      url={`https://api.mapbox.com/styles/v1/${MAPBOX_USERID}/${MAPBOX_STYLEID}/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_API_KEY}`}
-    />
-  ) : (
-    <TileLayer
-      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-  );
-};
-
-const Map = ({ places }: MapProps) => {
-  const isPortrait = useMediaQuery({ query: '(max-width: 768px)' });
-
+const Map = ({}: MapProps) => {
   return (
     <S.Container>
-      <S.Wrapper
-        center={[-23.403033674122092, -46.46941343726713]}
-        zoom={16}
-        minZoom={3}
-        dragging={!isPortrait}
-        touchZoom={true}
-        scrollWheelZoom={false}
-        maxBounds={[
-          [-180, 180],
-          [180, -180],
-        ]}
-      >
-        <CustomTileLayer />
-        {places?.map(({ id, name, location }) => {
-          const { latitude, longitude } = location;
-          return (
-            <Marker
-              key={`place-${id}`}
-              position={[latitude, longitude]}
-              title={name}
-            />
-          );
-        })}
+      <S.Wrapper>
+        <div
+          style={{
+            height: '400px',
+            width: '100%',
+            backgroundColor: '#f0f0f0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <p>Mapa temporariamente indisponível</p>
+        </div>
       </S.Wrapper>
       <S.ArrowMoldingUp xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 19">
         <path

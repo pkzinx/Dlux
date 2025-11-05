@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { HeadingAbout, HeadingAboutProps } from './HeadingAbout';
 
@@ -7,7 +7,7 @@ export default {
   component: HeadingAbout,
 } as Meta;
 
-export const Basic: Story<HeadingAboutProps> = args => (
+export const Basic: StoryFn<HeadingAboutProps> = (args: any) => (
   <HeadingAbout {...args} />
 );
 

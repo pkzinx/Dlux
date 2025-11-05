@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import { customMedia } from '~src/utils/media/customMedia';
+import { customMedia } from '../../../../utils/media/customMedia';
 
 import { LogotipoProps } from './Logotipo';
 
@@ -29,7 +29,7 @@ const wrapperModifiers = {
 };
 
 export const Wrapper = styled.div<LogotipoProps>`
-  ${({ theme, color, size, hideOnMobile }) => css`
+  ${({ theme, color, size, $hideOnMobile }) => css`
     color: ${theme.colors[color!]};
     cursor: pointer;
 
@@ -38,6 +38,6 @@ export const Wrapper = styled.div<LogotipoProps>`
     `}
 
     ${!!size && wrapperModifiers[size]}
-    ${!!hideOnMobile && wrapperModifiers.hideOnMobile}
+    ${!!$hideOnMobile && wrapperModifiers.hideOnMobile}
   `}
 `;

@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { MenuMobile, MenuMobileProps } from './MenuMobile';
 
@@ -15,4 +15,6 @@ export default {
   component: MenuMobile,
 } as Meta;
 
-export const Basic: Story<MenuMobileProps> = args => <MenuMobile {...args} />;
+export const Basic: StoryFn<MenuMobileProps> = (args: any) => (
+  <MenuMobile {...args} />
+);

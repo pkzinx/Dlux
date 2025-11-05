@@ -29,7 +29,7 @@ export const InputGroup = ({
       value={value}
       required={required}
       type={type}
-      onChange={e => onChange(e)}
+      onChange={(e: any) => onChange(e)}
       as={undefined as any}
     />
     <S.Label htmlFor={labelFor} as={undefined as any}>

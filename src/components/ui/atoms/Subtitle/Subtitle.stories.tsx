@@ -1,7 +1,7 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Subtitle } from './Subtitle';
-import { TitleProps } from '~atoms/Title/Title';
+import { TitleProps } from '../Title/Title';
 import { Container } from '../Container/Container';
 
 export default {
@@ -20,7 +20,7 @@ export default {
   },
 } as Meta;
 
-export const BasicHowTitle: Story<TitleProps> = args => (
+export const BasicHowTitle: StoryFn<TitleProps> = (args: any) => (
   <Container>
     <Subtitle {...args} />
   </Container>
@@ -30,7 +30,7 @@ BasicHowTitle.args = {
   children: 'Tenha uma ótima aparência, sinta-se confiante',
 };
 
-export const BasicHowTitleMobile: Story<TitleProps> = args => (
+export const BasicHowTitleMobile: StoryFn<TitleProps> = (args: any) => (
   <Container>
     <Subtitle {...args} />
   </Container>

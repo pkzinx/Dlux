@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { customMedia } from '~src/utils/media/customMedia';
+import { customMedia } from '../../../../utils/media/customMedia';
 
 export const Header = styled.header`
   ${({ theme }) => css`

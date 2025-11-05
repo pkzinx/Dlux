@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
-import { Container } from '~atoms/Container/Container';
+import { Container } from '../../atoms/Container/Container';
 
 type BoxClerkProps = {
   src: string;

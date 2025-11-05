@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { SectionAbout } from './SectionAbout';
 
@@ -7,4 +7,4 @@ export default {
   component: SectionAbout,
 } as Meta;
 
-export const Basic: Story = () => <SectionAbout />;
+export const Basic: StoryFn = () => <SectionAbout />;

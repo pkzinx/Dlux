@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Title, TitleProps } from './Title';
 
@@ -22,13 +22,13 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<TitleProps> = args => (
+export const Basic: StoryFn<TitleProps> = (args: any) => (
   <div style={{ textAlign: 'center' }}>
     <Title {...args} />
   </div>
 );
 
-export const Mobile: Story<TitleProps> = args => (
+export const Mobile: StoryFn<TitleProps> = (args: any) => (
   <div style={{ textAlign: 'center' }}>
     <Title {...args} />
   </div>

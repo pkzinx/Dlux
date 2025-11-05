@@ -4,16 +4,16 @@ export type SocialMediaProps = {
   link: string;
   image: string;
   alt: string;
-  marginRight?: boolean;
+  $marginRight?: boolean;
 };
 
 export const SocialMedia = ({
   link,
   image,
   alt,
-  marginRight = false,
+  $marginRight = false,
 }: SocialMediaProps) => (
-  <S.SocialMedia marginRight={marginRight} as={undefined as any}>
+  <S.SocialMedia $marginRight={$marginRight} as={undefined as any}>
     <S.WraperImage
       href={link}
       rel="noreferrer noopener"

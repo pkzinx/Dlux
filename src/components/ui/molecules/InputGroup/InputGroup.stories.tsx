@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { InputGroup, InputGroupProps } from './InputGroup';
 
@@ -7,7 +7,9 @@ export default {
   component: InputGroup,
 } as Meta;
 
-export const Basic: Story<InputGroupProps> = args => <InputGroup {...args} />;
+export const Basic: StoryFn<InputGroupProps> = (args: any) => (
+  <InputGroup {...args} />
+);
 
 Basic.args = {
   label: 'Nome:',

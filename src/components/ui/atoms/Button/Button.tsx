@@ -6,17 +6,17 @@ type ButtonTypes =
   | ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type ButtonProps = {
-  buttonStyle?: 'primary' | 'secondary';
+  $buttonStyle?: 'primary' | 'secondary';
   as?: React.ElementType;
 } & ButtonTypes;
 
 export const Button = ({
   children,
-  buttonStyle = 'primary',
+  $buttonStyle = 'primary',
   as,
   ...props
 }: ButtonProps) => (
-  <S.Wrapper as={as as any} buttonStyle={buttonStyle} {...props}>
+  <S.Wrapper as={as as any} $buttonStyle={$buttonStyle} {...props}>
     {children}
   </S.Wrapper>
 );

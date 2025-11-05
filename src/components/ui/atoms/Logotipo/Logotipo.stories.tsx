@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Logotipo, LogotipoProps } from './Logotipo';
 
@@ -13,4 +13,6 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<LogotipoProps> = args => <Logotipo {...args} />;
+export const Basic: StoryFn<LogotipoProps> = (args: any) => (
+  <Logotipo {...args} />
+);

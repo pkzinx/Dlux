@@ -3,8 +3,8 @@ import { darken } from 'polished';
 import { Link } from 'react-scroll';
 
 type ButtonScrollWrapperProps = {
-  buttonStyle?: 'primary' | 'secondary';
-  marginLeft?: 'small' | 'medium' | 'large' | 'big';
+  $buttonStyle?: 'primary' | 'secondary';
+  $marginLeft?: 'small' | 'medium' | 'large' | 'big';
 };
 
 const buttonStylesModifiers = {
@@ -31,7 +31,7 @@ const buttonStylesModifiers = {
 };
 
 export const Wrapper = styled.div<ButtonScrollWrapperProps>`
-  ${({ theme, buttonStyle, marginLeft }) => css`
+  ${({ theme, $buttonStyle, $marginLeft }) => css`
     color: ${theme.colors.white};
     font-size: ${theme.font.sizes.small};
     font-weight: 600;
@@ -40,9 +40,9 @@ export const Wrapper = styled.div<ButtonScrollWrapperProps>`
     text-align: center;
     cursor: pointer;
     transition: all 0.3s linear;
-    margin-left: ${!!marginLeft && theme.spacings[marginLeft!]};
+    margin-left: ${!!$marginLeft && theme.spacings[$marginLeft!]};
 
-    ${buttonStylesModifiers[buttonStyle!](theme)}
+    ${buttonStylesModifiers[$buttonStyle!](theme)}
   `}
 `;
 

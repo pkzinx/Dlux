@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { InputRadioGroup, InputRadioGroupProps } from './InputRadioGroup';
 
@@ -7,7 +7,7 @@ export default {
   component: InputRadioGroup,
 } as Meta;
 
-export const Basic: Story<InputRadioGroupProps> = args => (
+export const Basic: StoryFn<InputRadioGroupProps> = (args: any) => (
   <InputRadioGroup {...args} />
 );
 

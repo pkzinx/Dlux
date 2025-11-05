@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { UserInfo, UserInfoProps } from './UserInfo';
 
@@ -11,4 +11,6 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<UserInfoProps> = args => <UserInfo {...args} />;
+export const Basic: StoryFn<UserInfoProps> = (args: any) => (
+  <UserInfo {...args} />
+);

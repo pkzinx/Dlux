@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Footer } from './Footer';
 
@@ -10,4 +10,4 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story = () => <Footer />;
+export const Basic: StoryFn = () => <Footer />;

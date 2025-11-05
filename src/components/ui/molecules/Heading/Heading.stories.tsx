@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Heading, HeadingProps } from './Heading';
 
@@ -25,14 +25,16 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<HeadingProps> = args => <Heading {...args} />;
+export const Basic: StoryFn<HeadingProps> = (args: any) => (
+  <Heading {...args} />
+);
 
 Basic.args = {
   buttonLabelOne: 'Marcar Hora',
   buttonLabelTwo: 'Saiba Mais',
 };
 
-export const BasicWithoutButtons: Story<HeadingProps> = args => (
+export const BasicWithoutButtons: StoryFn<HeadingProps> = (args: any) => (
   <Heading {...args} />
 );
 
@@ -41,7 +43,9 @@ BasicWithoutButtons.args = {
   buttonLabelTwo: '',
 };
 
-export const Mobile: Story<HeadingProps> = args => <Heading {...args} />;
+export const Mobile: StoryFn<HeadingProps> = (args: any) => (
+  <Heading {...args} />
+);
 
 Mobile.parameters = {
   layout: 'fullscreen',
@@ -50,7 +54,7 @@ Mobile.parameters = {
   },
 };
 
-export const MobileWithoutButtons: Story<HeadingProps> = args => (
+export const MobileWithoutButtons: StoryFn<HeadingProps> = (args: any) => (
   <Heading {...args} />
 );
 
@@ -66,7 +70,7 @@ MobileWithoutButtons.parameters = {
   },
 };
 
-export const MobileWithContent: Story<HeadingProps> = args => (
+export const MobileWithContent: StoryFn<HeadingProps> = (args: any) => (
   <Heading lineBottom {...args}>
     <h1 style={{ color: '#FFF', textAlign: 'center' }}>Conteúdo</h1>
   </Heading>

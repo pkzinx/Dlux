@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import reviews from './mock';
 
@@ -15,9 +15,9 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<ReviewProps> = args => <Review {...args} />;
+export const Basic: StoryFn<ReviewProps> = (args: any) => <Review {...args} />;
 
-export const Mobile: Story<ReviewProps> = args => <Review {...args} />;
+export const Mobile: StoryFn<ReviewProps> = (args: any) => <Review {...args} />;
 
 Mobile.parameters = {
   viewport: {

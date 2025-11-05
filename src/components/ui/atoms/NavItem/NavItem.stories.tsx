@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { NavItem } from './NavItem';
 
@@ -13,4 +13,4 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story = () => <NavItem>O melhor está por vir!</NavItem>;
+export const Basic: StoryFn = () => <NavItem>O melhor está por vir!</NavItem>;

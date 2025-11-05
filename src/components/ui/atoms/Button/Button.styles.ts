@@ -27,7 +27,7 @@ const buttonStylesModifiers = {
 };
 
 export const Wrapper = styled.button<ButtonProps>`
-  ${({ theme, buttonStyle }) => css`
+  ${({ theme, $buttonStyle }) => css`
     color: ${theme.colors.white};
     font-size: ${theme.font.sizes.small};
     font-weight: 600;
@@ -37,6 +37,6 @@ export const Wrapper = styled.button<ButtonProps>`
     cursor: pointer;
     transition: all 0.3s linear;
 
-    ${buttonStylesModifiers[buttonStyle!](theme)}
+    ${buttonStylesModifiers[$buttonStyle!](theme)}
   `}
 `;

@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { StarProps, Stars } from './Stars';
 
@@ -10,4 +10,4 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<StarProps> = args => <Stars {...args} />;
+export const Basic: StoryFn<StarProps> = (args: any) => <Stars {...args} />;

@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 
 import { ArrowUp } from '@styled-icons/bootstrap/ArrowUp';
 
-import { Container } from '~atoms/Container/Container';
+import { Container } from '../../atoms/Container/Container';
 
 type DescriptionProps = {
   size: 'small' | 'normal';

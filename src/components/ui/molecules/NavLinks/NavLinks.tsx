@@ -37,12 +37,12 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
 
   return (
     <S.Wrapper>
-      <MediaMatch greaterThan="medium">
+      <MediaMatch $greaterThan="medium">
         <S.WrapperUl>
           {names.slice(0, names.length / 2).map(({ nav, link }) => (
             <S.List
               key={link}
-              isActive={state === link}
+              $isActive={state === link}
               ref={state === link ? refLink : null}
             >
               <S.NavLink
@@ -60,12 +60,12 @@ export const NavLinks = ({ children, names, paddingXLine }: NavLinksProps) => {
 
       {children}
 
-      <MediaMatch greaterThan="medium">
+      <MediaMatch $greaterThan="medium">
         <S.WrapperUl>
           {names.slice(names.length / 2, names.length).map(({ nav, link }) => (
             <S.List
               key={link}
-              isActive={state === link}
+              $isActive={state === link}
               ref={state === link ? refLink : null}
             >
               <S.NavLink

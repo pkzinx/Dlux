@@ -1,9 +1,12 @@
-import MediaMatch from '~molecules/MediaMatch/MediaMatch';
+import MediaMatch from '../../molecules/MediaMatch/MediaMatch';
 
-import { Background } from '~atoms/Background/Background';
-import { Heading } from '~molecules/Heading/Heading';
-import { ServiceBox, ServiceBoxProps } from '~molecules/ServiceBox/ServiceBox';
-import { Slider, SliderSettings } from '~molecules/Slider/Slider';
+import { Background } from '../../atoms/Background/Background';
+import { Heading } from '../../molecules/Heading/Heading';
+import {
+  ServiceBox,
+  ServiceBoxProps,
+} from '../../molecules/ServiceBox/ServiceBox';
+import { Slider, SliderSettings } from '../../molecules/Slider/Slider';
 
 import * as S from './MainServices.styles';
 
@@ -38,7 +41,7 @@ export const MainServices = ({ items }: MainServicesProps) => (
         lineBottom
       />
 
-      <MediaMatch greaterThan="large">
+      <MediaMatch $greaterThan="large">
         <S.WrapperServicesBox>
           {items.map(({ infos }, index) => (
             <ServiceBox key={`Service - ${index}`} infos={infos} />
@@ -46,7 +49,7 @@ export const MainServices = ({ items }: MainServicesProps) => (
         </S.WrapperServicesBox>
       </MediaMatch>
 
-      <MediaMatch lessThan="large">
+      <MediaMatch $lessThan="large">
         <Slider settings={settings}>
           {items.map(({ infos }, index) => (
             <ServiceBox

@@ -1,19 +1,19 @@
 import * as S from './ButtonScroll.styles';
 
 export type ButtonScrollProps = {
-  buttonStyle?: 'primary' | 'secondary';
+  $buttonStyle?: 'primary' | 'secondary';
   children: React.ReactNode;
-  marginLeft?: 'small' | 'medium' | 'large' | 'big';
+  $marginLeft?: 'small' | 'medium' | 'large' | 'big';
   to: string;
 };
 
 export const ButtonScroll = ({
   children,
   to,
-  buttonStyle = 'primary',
-  marginLeft,
+  $buttonStyle = 'primary',
+  $marginLeft,
 }: ButtonScrollProps) => (
-  <S.Wrapper buttonStyle={buttonStyle} marginLeft={marginLeft}>
+  <S.Wrapper $buttonStyle={$buttonStyle} $marginLeft={$marginLeft}>
     <S.StyledLink
       to={to}
       spy={true}

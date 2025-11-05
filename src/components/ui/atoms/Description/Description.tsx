@@ -4,19 +4,19 @@ export type DescriptionProps = {
   children: React.ReactNode;
   size?: 'xsmall' | 'small' | 'medium' | 'xmedium';
   color?: 'white' | 'black';
-  marginBottom?: boolean;
+  $marginBottom?: boolean;
 };
 
 export const Description = ({
   children,
   size = 'small',
-  marginBottom = false,
+  $marginBottom = false,
   color = 'white',
 }: DescriptionProps) => (
   <S.Description
     size={size}
     color={color}
-    marginBottom={marginBottom}
+    $marginBottom={$marginBottom}
     data-testid="description"
   >
     {children}

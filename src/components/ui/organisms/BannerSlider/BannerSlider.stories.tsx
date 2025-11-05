@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { BannerSlider, BannerSliderProps } from './BannerSlider';
 import items from './mock';
@@ -18,6 +18,6 @@ export default {
   component: BannerSlider,
 } as Meta;
 
-export const Basic: Story<BannerSliderProps> = args => (
+export const Basic: StoryFn<BannerSliderProps> = (args: any) => (
   <BannerSlider {...args} />
 );

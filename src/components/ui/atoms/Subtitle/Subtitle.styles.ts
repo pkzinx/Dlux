@@ -3,9 +3,9 @@ import media from 'styled-media-query';
 import { SubtitleProps } from './Subtitle';
 
 export const WrapperSubtitle = styled.div<
-  Pick<SubtitleProps, 'size' | 'lineBottom'>
+  Pick<SubtitleProps, 'size' | '$lineBottom'>
 >`
-  ${({ theme, size, lineBottom }) => css`
+  ${({ theme, size, $lineBottom }) => css`
     width: 100%;
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@ export const WrapperSubtitle = styled.div<
 
     ${media.greaterThan('medium')`
       margin-bottom: ${
-        lineBottom
+        $lineBottom
           ? theme.spacings.huge
           : size === 'normal'
             ? theme.spacings.large
@@ -23,8 +23,8 @@ export const WrapperSubtitle = styled.div<
   `}
 `;
 
-export const Subtitle = styled.h2<Pick<SubtitleProps, 'size' | 'textAlign'>>`
-  ${({ theme, size, textAlign }) => css`
+export const Subtitle = styled.h2<Pick<SubtitleProps, 'size' | '$textAlign'>>`
+  ${({ theme, size, $textAlign }) => css`
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ export const Subtitle = styled.h2<Pick<SubtitleProps, 'size' | 'textAlign'>>`
       font-size: ${
         size === 'normal' ? theme.font.sizes.xxlarge : theme.font.sizes.extra
       };
-      text-align: ${textAlign};
+      text-align: ${$textAlign};
     `}
   `}
 `;

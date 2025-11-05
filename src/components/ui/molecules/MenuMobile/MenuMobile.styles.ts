@@ -3,17 +3,17 @@ import { Link } from 'react-scroll';
 
 import { MenuMobileProps } from './MenuMobile';
 
-type OpenMenuMobileProps = Pick<MenuMobileProps, 'isOpen'>;
+type OpenMenuMobileProps = Pick<MenuMobileProps, '$isOpen'>;
 
 type ListProps = {
-  isActive: boolean;
+  $isActive: boolean;
 };
 
 export const Wrapper = styled.div<OpenMenuMobileProps>`
-  ${({ theme, isOpen }) => css`
+  ${({ theme, $isOpen }) => css`
     background: ${theme.colors.darkGray};
-    opacity: ${isOpen ? 0.9 : 0};
-    pointer-events: ${isOpen ? 'all' : 'none'};
+    opacity: ${$isOpen ? 0.9 : 0};
+    pointer-events: ${$isOpen ? 'all' : 'none'};
     transition: 0.3s linear;
     position: fixed;
     top: 0;
@@ -41,13 +41,13 @@ export const WrapperList = styled.ul`
 `;
 
 export const List = styled.li<ListProps>`
-  ${({ theme, isActive }) => css`
+  ${({ theme, $isActive }) => css`
     position: relative;
     list-style: none;
     text-align: center;
     display: flex;
     justify-content: center;
-    color: ${isActive ? theme.colors.primary : theme.colors.white};
+    color: ${$isActive ? theme.colors.primary : theme.colors.white};
 
     &::after {
       content: '';
@@ -55,7 +55,7 @@ export const List = styled.li<ListProps>`
       justify-self: center;
       bottom: -0.5rem;
       height: 0.2rem;
-      width: ${isActive ? '100%' : `0`};
+      width: ${$isActive ? '100%' : `0`};
       background: ${theme.colors.primary};
       box-shadow: 0 0 1rem ${theme.colors.primary};
       transition: 0.3s linear;
