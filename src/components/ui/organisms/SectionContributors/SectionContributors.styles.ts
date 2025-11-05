@@ -1,10 +1,17 @@
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
+import { customMedia } from '../../../../utils/media/customMedia';
 import { Container } from '../../atoms/Container/Container';
 
 export const Wrapper = styled.section`
+  padding: 2rem 0;
+
+  ${media.greaterThan('small')`
+    padding: 3rem 0;
+  `}
+
   ${media.greaterThan('huge')`
-    min-height: 106rem;
+    padding: 4rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,12 +24,17 @@ export const ContainerContributors = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2rem;
+
+  ${customMedia.greaterThan('big')`
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  `}
 `;
 
 export const BoxContributors = styled.div`
-  max-width: 15.5rem;
-  height: 28.6rem;
+  width: 14rem;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,33 +42,34 @@ export const BoxContributors = styled.div`
   text-align: center;
 
   ${media.greaterThan('small')`
-    max-width: 32rem;
-    height: 52.2rem;    
+    width: 15rem;
+    height: auto;    
   `}
 
   ${media.greaterThan('medium')`
-    max-width: 41rem;
-    height: 64.2rem;
+    width: 16rem;
+    height: auto;
   `}
 `;
 
 export const Image = styled.img`
   ${({ theme }) => css`
-    width: 15.5rem;
-    height: 22rem;
+    width: 12rem;
+    height: 12rem;
     object-fit: cover;
-    border-radius: ${theme.border.radius.light};
+    border-radius: 50%;
     background-size: cover;
     background-position: center;
+    max-width: 100%;
 
     ${media.greaterThan('small')`
-      width: 32rem;
-      height: 40.2rem;
+      width: 13rem;
+      height: 13rem;
     `}
 
     ${media.greaterThan('medium')`
-      width: 41rem;
-      height: 54.6rem;
+      width: 14.5rem;
+      height: 14.5rem;
     `}
   `}
 `;

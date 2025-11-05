@@ -88,8 +88,8 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: local('Dancing Script 700'),
-      url('../fonts/kaushan-script-v9-latin-regular.woff2') format('woff2');
+    src: local('Kaushan Script'),
+      url('/fonts/kaushan-script-v9-latin-regular.woff2') format('woff2');
   }
 
   * {

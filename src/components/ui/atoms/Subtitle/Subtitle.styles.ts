@@ -8,15 +8,15 @@ export const WrapperSubtitle = styled.div<Pick<SubtitleProps, 'size'>>`
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: ${theme.spacings.medium};
+    margin-bottom: ${theme.spacings.small};
 
     ${extraMedia.between('medium', 'big')`
-      margin-bottom: ${theme.spacings.huge};
+      margin-bottom: ${theme.spacings.large};
     `}
 
     ${extraMedia.greaterThan('big')`
       margin-bottom: ${
-        size === 'normal' ? theme.spacings.large : theme.spacings.xlarge
+        size === 'normal' ? theme.spacings.medium : theme.spacings.large
       };
     `}
   `}
