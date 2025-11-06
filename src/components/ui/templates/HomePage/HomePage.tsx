@@ -1,4 +1,5 @@
 import { Element } from 'react-scroll';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
@@ -22,7 +23,37 @@ const StyledElement = styled(Element)`
   /* Additional styles if needed */
 `;
 
+const MapSectionContainer = styled.div`
+  /* Wrapper para garantir um elemento DOM para o IntersectionObserver */
+`;
+
 const HomePage = () => {
+  const [showMap, setShowMap] = useState(false);
+  const mapSectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = mapSectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setShowMap(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { root: null, threshold: 0.1 }
+    );
+
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -41,9 +72,11 @@ const HomePage = () => {
       <StyledElement name="avaliacao">
         <Review />
       </StyledElement>
-      <StyledElement name="localizacao">
-        <Map places={places} />
-      </StyledElement>
+      <MapSectionContainer ref={mapSectionRef}>
+        <StyledElement name="localizacao">
+          {showMap ? <Map places={places} /> : null}
+        </StyledElement>
+      </MapSectionContainer>
       <Footer />
     </>
   );

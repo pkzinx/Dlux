@@ -58,6 +58,17 @@ export const MainServices = ({ items }: MainServicesProps) => (
             />
           ))}
         </Slider>
+        <S.SwipeHint>
+          Rolar para ver os outros serviços
+          <S.SwipeVisual aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="0,0 6,6 0,12" stroke="currentColor" strokeWidth="2" fill="none" />
+            </svg>
+            <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="0,0 6,6 0,12" stroke="currentColor" strokeWidth="2" fill="none" />
+            </svg>
+          </S.SwipeVisual>
+        </S.SwipeHint>
       </MediaMatch>
     </Background>
   </S.Wrapper>

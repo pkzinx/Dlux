@@ -39,7 +39,7 @@ export const Heading = ({
   <Container>
     <Title size={size}>{title}</Title>
 
-    <Subtitle $lineBottom={lineBottom} size={size}>
+    <Subtitle lineBottom={lineBottom} size={size}>
       {subtitle}
     </Subtitle>
 

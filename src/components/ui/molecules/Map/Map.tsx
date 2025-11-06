@@ -1,5 +1,6 @@
 import * as S from './Map.styles';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useCallback } from 'react';
 
 export type Place = {
   id: string;
@@ -25,6 +26,13 @@ const Map = ({ places = [] }: MapProps) => {
   // Bypass restrictive type inference on MapContainerProps in this setup
   const RLMapContainer = MapContainer as unknown as (props: any) => JSX.Element;
 
+  const handleTileError = useCallback((e: any) => {
+    const img = e?.tile as HTMLImageElement | undefined;
+    if (img) {
+      img.src = '/assets/img/foto_indisponivel.jpg';
+    }
+  }, []);
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -34,7 +42,14 @@ const Map = ({ places = [] }: MapProps) => {
           scrollWheelZoom
           style={{ height: '100%', width: '100%' }}
         >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            updateWhenIdle
+            reuseTiles
+            keepBuffer={2}
+            crossOrigin="anonymous"
+            eventHandlers={{ tileerror: handleTileError }}
+          />
           {places.map(place => (
             <Marker
               key={`marker-${place.id}`}

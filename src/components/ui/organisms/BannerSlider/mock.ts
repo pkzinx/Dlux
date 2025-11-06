@@ -2,7 +2,7 @@ import { BannerProps } from '../Banner/Banner';
 
 const items: BannerProps[] = [
   {
-    img: '/assets/img/slide-1.jpg',
+    img: '/assets/img/bemvindo.jpg',
     title: 'Bem Vindo a Dlux Barbearia',
     subtitle: 'Ótima aparência, sinta-se confiante',
     buttonTypeOne: 'scroll',
@@ -21,7 +21,7 @@ const items: BannerProps[] = [
     buttonLinkTwo: 'servicos',
   },
   {
-    img: '/assets/img/slide-3.jpg',
+    img: '/assets/img/slide3.jpg',
     title: 'Cada Detalhe',
     subtitle: 'Equilíbrio entre a modernidade e tradição',
     buttonTypeTwo: 'scroll',
@@ -29,9 +29,9 @@ const items: BannerProps[] = [
     buttonLinkTwo: 'avaliacao',
   },
   {
-    img: '/assets/img/slide-4.jpg',
-    title: 'Agendar Online',
-    subtitle: 'Em Breve',
+    img: '/assets/img/IMG_0936.jpg',
+    title: 'Corte na régua e gelada no copo.',
+    subtitle: 'Estilo e descanso no mesmo rolê.',
   },
 ];
 
