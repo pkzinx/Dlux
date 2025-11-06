@@ -4,6 +4,7 @@ import * as S from './ScheduleModal.styles';
 import { Button } from '../../atoms/Button/Button';
 import { InputGroup } from '../InputGroup/InputGroup';
 import { SelectGroup } from '../SelectGroup/SelectGroup';
+import { ModalForm } from '../ModalForm/ModalForm';
 
 export type Barber = {
   name: string;
@@ -23,12 +24,52 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [barberName, setBarberName] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackStatus, setFeedbackStatus] = useState<'success' | 'error'>('success');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui poderíamos enviar para uma API ou integrar com backend.
-    // Por ora, apenas fechamos o modal.
-    onClose();
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      // Monta datas
+      const startDatetime = `${date}T${time}:00`;
+      // Heurística simples de duração
+      const durationMinutes = /barba/i.test(serviceTitle || '') ? 30 : 40;
+      const start = new Date(startDatetime);
+      const end = new Date(start.getTime() + durationMinutes * 60000);
+      const pad = (n: number) => String(n).padStart(2, '0');
+      const endDatetime = `${end.getFullYear()}-${pad(end.getMonth() + 1)}-${pad(end.getDate())}T${pad(end.getHours())}:${pad(end.getMinutes())}:00`;
+
+      // Envia via API do Next.js (proxy) para o backend
+      const resp = await fetch('/api/appointments/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          barberName,
+          clientName: name,
+          clientPhone: phone,
+          serviceTitle,
+          startDatetime,
+          endDatetime,
+          notes: `Agendado via site${serviceTitle ? ' - ' + serviceTitle : ''}`,
+        }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data?.detail || 'Falha ao agendar');
+      // Sucesso: fecha modal de agendamento e abre feedback de sucesso
+      onClose();
+      setFeedbackStatus('success');
+      setFeedbackOpen(true);
+      // Opcional: limpar campos
+      setName(''); setPhone(''); setDate(''); setTime(''); setBarberName('');
+    } catch (err) {
+      setFeedbackStatus('error');
+      setFeedbackOpen(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // Utilidades para datas e horários
@@ -120,7 +161,7 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
           <InputGroup
             label="Telefone"
             labelFor="telefone"
-            required={false}
+            required
             type="text"
             value={phone}
             placeholder="Ex: (11) 99999-9999"
@@ -181,12 +222,13 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
             <Button as="button" type="button" onClick={onClose}>
               Cancelar
             </Button>
-            <Button as="button" type="submit" disabled={!barberName || !name || !date || !time}>
-              Agendar
+            <Button as="button" type="submit" disabled={!barberName || !name || !phone || !date || !time || submitting}>
+              {submitting ? 'Agendando...' : 'Agendar'}
             </Button>
           </S.Actions>
         </S.Form>
       </S.Modal>
+      <ModalForm status={feedbackStatus} isOpen={feedbackOpen} onClick={() => setFeedbackOpen(false)} />
     </>
   );
 };

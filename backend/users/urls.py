@@ -11,7 +11,7 @@ from .views import (
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/login/'), name='logout'),
     path('painel/', painel_index, name='painel_index'),
     path('painel/barbeiro/', dashboard_barber, name='dashboard_barber'),
     path('painel/admin/', dashboard_admin, name='dashboard_admin'),

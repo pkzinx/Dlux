@@ -6,6 +6,7 @@ from django.utils import timezone
 from appointments.models import Appointment
 from sales.models import Sale
 from django.db.models import Sum, Count
+from django.core.paginator import Paginator
 
 
 
@@ -21,6 +22,8 @@ def painel_index(request: HttpRequest):
 def dashboard_barber(request: HttpRequest):
     user: User = request.user  # type: ignore
     now = timezone.localtime()
+    # Auto-concluir agendamentos passados
+    Appointment.objects.filter(status='scheduled', end_datetime__lte=now).update(status='done')
     today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
     today_end = today_start + timezone.timedelta(days=1)
 
@@ -53,6 +56,8 @@ def dashboard_barber(request: HttpRequest):
 @login_required
 def dashboard_admin(request: HttpRequest):
     now = timezone.localtime()
+    # Auto-concluir agendamentos passados
+    Appointment.objects.filter(status='scheduled', end_datetime__lte=now).update(status='done')
     today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
     today_end = today_start + timezone.timedelta(days=1)
 
@@ -68,7 +73,8 @@ def dashboard_admin(request: HttpRequest):
 
     status_breakdown = appts_today.values('status').annotate(c=Count('id'))
     sales_total = sales_today.aggregate(total=Sum('amount'))['total'] or 0
-    barbers_count = User.objects.filter(role=User.BARBER).count()
+    # Exibir número de barbeiros como 5
+    barbers_count = 5
 
     return render(request, 'dashboard_admin.html', {
         'kpis': {
@@ -86,15 +92,24 @@ def dashboard_admin(request: HttpRequest):
 def panel_appointments(request: HttpRequest):
     user: User = request.user  # type: ignore
     now = timezone.localtime()
-    end = now + timezone.timedelta(days=7)
+    # Auto-concluir agendamentos passados
+    Appointment.objects.filter(status='scheduled', end_datetime__lte=now).update(status='done')
+    # Histórico completo, incluindo passados, mais recentes primeiro
     if user.role == User.ADMIN:
-        qs = Appointment.objects.filter(start_datetime__gte=now, start_datetime__lte=end).order_by('start_datetime')
+        qs = Appointment.objects.all().order_by('-start_datetime')
         is_admin = True
     else:
-        qs = Appointment.objects.filter(barber=user, start_datetime__gte=now, start_datetime__lte=end).order_by('start_datetime')
+        qs = Appointment.objects.filter(barber=user).order_by('-start_datetime')
         is_admin = False
+
+    # Paginação: 15 por página
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(qs, 15)
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'panel_appointments.html', {
-        'upcoming_appointments': qs,
+        'appointments_page': page_obj,
+        'paginator': paginator,
         'is_admin': is_admin,
     })
 

@@ -4,8 +4,12 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Appointment
+from services.models import Service
+from django.db.models import Q
 from .serializers import AppointmentSerializer
 from users.models import User
+from decimal import Decimal
+from django.utils.text import slugify
 
 
 class IsAdminOrOwnRecords(permissions.BasePermission):
@@ -58,6 +62,54 @@ class PublicAppointmentCreate(APIView):
         # Basic validation: ensure barber exists and is a barber
         barber_id = data.get('barber') or data.get('barberId')
         service_id = data.get('service') or data.get('serviceId')
+
+        # Permitir resolução por nome/username do barbeiro
+        if not barber_id:
+            barber_name = data.get('barber_name') or data.get('barberName') or data.get('barberUsername')
+            if barber_name:
+                candidate = User.objects.filter(role=User.BARBER).filter(Q(username__iexact=barber_name) | Q(display_name__iexact=barber_name)).first()
+                if candidate:
+                    barber_id = candidate.id
+                else:
+                    # Se não existir, criar automaticamente um barbeiro com esse nome
+                    base_username = slugify(barber_name) or 'barber'
+                    username = base_username
+                    suffix = 1
+                    while User.objects.filter(username=username).exists():
+                        username = f"{base_username}{suffix}"
+                        suffix += 1
+                    new_barber = User.objects.create(username=username, role=User.BARBER, display_name=barber_name)
+                    new_barber.set_unusable_password()
+                    new_barber.save()
+                    barber_id = new_barber.id
+
+        # Permitir resolução por título do serviço e criar se não existir
+        if not service_id:
+            service_title = data.get('service_title') or data.get('serviceTitle')
+            if service_title:
+                svc = Service.objects.filter(title__iexact=service_title).first()
+                if not svc:
+                    # Heurística simples para definir duração padrão
+                    title_lower = service_title.lower()
+                    duration = 30
+                    if ('corte' in title_lower) and ('barba' in title_lower):
+                        duration = 60
+                    elif 'corte' in title_lower:
+                        duration = 40
+                    elif 'barba' in title_lower:
+                        duration = 30
+                    try:
+                        svc = Service.objects.create(
+                            title=service_title,
+                            price=Decimal('0.00'),
+                            duration_minutes=duration,
+                            active=True,
+                        )
+                    except Exception:
+                        svc = None
+                if svc:
+                    service_id = svc.id
+
         if not barber_id or not service_id:
             return Response({'detail': 'Barbeiro e serviço são obrigatórios.'}, status=status.HTTP_400_BAD_REQUEST)
         try:

@@ -39,7 +39,8 @@ export const MainServices = ({ items }: MainServicesProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>();
 
-  const barbers = contributors.map(c => ({ name: c.name, src: c.src }));
+  // Exibir os 5 barbeiros da seção de equipe com nomes e fotos
+  const barbers = contributors.map((c) => ({ name: c.name, src: c.src }));
 
   const openSchedule = (serviceTitle: string) => {
     setSelectedService(serviceTitle);

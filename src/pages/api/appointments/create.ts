@@ -7,15 +7,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   const {
     barberId,
+    barberName,
     clientName,
     clientPhone,
     serviceId,
+    serviceTitle,
     startDatetime,
     endDatetime,
     notes,
   } = req.body || {}
 
-  if (!barberId || !clientName || !clientPhone || !serviceId || !startDatetime) {
+  // Flexibiliza: aceita nomes/títulos, desde que haja dados suficientes para criar
+  if ((!barberId && !barberName) || !clientName || !clientPhone || (!serviceId && !serviceTitle) || !startDatetime) {
     return res.status(400).json({ detail: 'Missing required fields' })
   }
 
@@ -25,9 +28,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         barberId,
+        barberName,
         clientName,
         clientPhone,
         serviceId,
+        serviceTitle,
         startDatetime,
         endDatetime,
         notes,
