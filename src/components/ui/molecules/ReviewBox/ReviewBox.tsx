@@ -3,7 +3,15 @@ import { UserInfo, UserInfoProps } from '../../atoms/UserInfo/UserInfo';
 import * as S from './ReviewBox.styles';
 
 export type ReviewBoxProps = {
-  answered: 'cleber_mariano' | 'luan_silva' | 'fabricio_marques';
+  answered:
+    | 'cleber_mariano'
+    | 'luan_silva'
+    | 'fabricio_marques'
+    | 'rikelv'
+    | 'emerso'
+    | 'kaue'
+    | 'kevin'
+    | 'alafi';
   feedback: string;
   stars: 1 | 2 | 3 | 4 | 5;
 } & UserInfoProps;
@@ -19,6 +27,11 @@ export const ReviewBox = ({
     cleber_mariano: 'Cleber',
     luan_silva: 'Luan',
     fabricio_marques: 'Fabrício',
+    rikelv: 'Rikelv',
+    emerso: 'Emerso',
+    kaue: 'Kaue',
+    kevin: 'Kevin',
+    alafi: 'Alafi',
   };
 
   return (
@@ -31,7 +44,7 @@ export const ReviewBox = ({
       </S.Bookmark>
 
       <S.Answered>
-        Atentido por <span>{nameAnswered[answered]}</span>
+        Atendido por: <span>{nameAnswered[answered]}</span>
       </S.Answered>
 
       <Stars feedbackNote={stars} />

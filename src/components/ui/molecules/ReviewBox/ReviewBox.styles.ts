@@ -7,10 +7,19 @@ export const Wrapper = styled.div`
     flex-direction: column;
     min-width: 31rem;
     width: 31rem;
+    max-width: 100%;
+    box-sizing: border-box;
     position: relative;
     background: ${theme.colors.white};
     padding: 2rem;
     border-radius: 1rem;
+    /* Garantir altura consistente entre cards */
+    min-height: 28rem;
+
+    ${media.lessThan('medium')`
+      width: 100%;
+      min-width: auto;
+    `}
 
     ${media.greaterThan('medium')`
       width: 41rem;
@@ -55,6 +64,12 @@ export const Comment = styled.h5`
     text-align: center;
     margin-bottom: 1.5rem;
     word-wrap: break-word;
+    /* Clamp para manter altura uniforme */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 8rem;
 
     ${media.greaterThan('medium')`
       font-size: ${theme.font.sizes.xbig};

@@ -39,23 +39,25 @@ export const Wrapper = styled.main`
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 3.6rem;
+        height: 3.6rem;
         background: ${theme.colors.primary};
         border-radius: ${theme.border.radius.regular};
         box-shadow: 0 0 1rem rgba(26, 255, 234, 0.3);
         z-index: ${theme.layers.overlay};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none;
       }
 
       .slick-prev { left: ${theme.spacings.xsmall}; }
       .slick-next { right: ${theme.spacings.xsmall}; }
 
+      /* Remover pseudo-content, usamos setas customizadas */
       .slick-prev:before,
-      .slick-next:before {
-        color: ${theme.colors.black};
-        font-size: 2rem;
-        opacity: 1;
-      }
+      .slick-next:before { content: none; }
     `}
 
     /* Mobile: garantir altura automática dos slides e evitar colapso */
@@ -118,6 +120,11 @@ export const Wrapper = styled.main`
         cursor: pointer;
       }
     }
+
+    /* Ocultar dots no mobile */
+    ${media.lessThan('medium')`
+      .slick-dots { display: none !important; }
+    `}
 
     ${media.greaterThan('medium')`
       margin-bottom: ${theme.spacings.section};

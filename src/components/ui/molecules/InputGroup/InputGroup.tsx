@@ -4,7 +4,7 @@ export type InputGroupProps = {
   label: string;
   labelFor: string;
   required?: boolean;
-  type: 'number' | 'text' | 'email' | 'password';
+  type: 'number' | 'text' | 'email' | 'password' | 'date' | 'time';
   value?: string;
   marginBottom?: boolean;
   placeholder?: string;

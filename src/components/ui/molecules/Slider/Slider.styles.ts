@@ -86,6 +86,25 @@ export const Wrapper = styled.section`
   .slick-arrow.slick-hidden {
     display: none;
   }
+
+  /* Mobile adjustments to prevent slide overlap */
+  @media (max-width: 600px) {
+    .slick-track {
+      display: flex; /* Use flex to respect child widths and avoid float stacking */
+      align-items: stretch;
+    }
+    .slick-slide {
+      float: none; /* With flex track, disable float to prevent overlay */
+      height: auto;
+    }
+    .slick-slide > div {
+      height: 100%;
+      width: 100%;
+    }
+    .slick-list {
+      overflow: hidden; /* keep clipping */
+    }
+  }
 `;
 
 export const StyledSlider = styled(SlickSlider)`

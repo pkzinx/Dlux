@@ -10,6 +10,7 @@ type InfosProps = {
 
 export type ServiceBoxProps = {
   infos: InfosProps[];
+  onSchedule?: (serviceTitle: string) => void;
 };
 
 const detectIconType = (items: InfosProps[]) => {
@@ -21,7 +22,7 @@ const detectIconType = (items: InfosProps[]) => {
   return 'hair' as const;
 };
 
-export const ServiceBox = ({ infos }: ServiceBoxProps) => (
+export const ServiceBox = ({ infos, onSchedule }: ServiceBoxProps) => (
   <S.Wrapper>
     <HairIcon type={detectIconType(infos)} />
 
@@ -34,7 +35,9 @@ export const ServiceBox = ({ infos }: ServiceBoxProps) => (
           </S.InfoPrimary>
 
           <S.Description>{description}</S.Description>
-          <S.ScheduleButton type="button">Agendar</S.ScheduleButton>
+          <S.ScheduleButton type="button" onClick={() => onSchedule?.(title)}>
+            Agendar
+          </S.ScheduleButton>
         </S.Content>
       ))}
     </S.ContentInfos>

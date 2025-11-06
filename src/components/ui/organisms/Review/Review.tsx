@@ -10,6 +10,12 @@ export type ReviewProps = {
   reviews?: ReviewBoxProps[];
 };
 
+const Arrow = ({ className, onClick, dir }: { className?: string; onClick?: () => void; dir: 'prev' | 'next' }) => (
+  <button className={className} onClick={onClick} aria-label={dir === 'prev' ? 'Voltar avaliação' : 'Próxima avaliação'}>
+    <span style={{ display: 'block', width: '100%', textAlign: 'center' }}>{dir === 'prev' ? '<' : '>'}</span>
+  </button>
+);
+
 const settings: SliderSettings = {
   slidesToShow: 3,
   arrows: false,
@@ -25,6 +31,8 @@ const settings: SliderSettings = {
   swipeToSlide: true,
   touchMove: true,
   touchThreshold: 10,
+  prevArrow: <Arrow dir="prev" />,
+  nextArrow: <Arrow dir="next" />,
   responsive: [
     {
       breakpoint: 940,
@@ -42,12 +50,12 @@ const settings: SliderSettings = {
       settings: {
         slidesToShow: 1,
         arrows: true,
-        dots: true,
-        infinite: false,
+        dots: false,
+        infinite: true,
         speed: 600,
         centerMode: false,
         slidesToScroll: 1,
-        adaptiveHeight: true,
+        adaptiveHeight: false,
         centerPadding: '0px',
       },
     },
@@ -56,12 +64,12 @@ const settings: SliderSettings = {
       settings: {
         slidesToShow: 1,
         arrows: true,
-        dots: true,
-        infinite: false,
+        dots: false,
+        infinite: true,
         speed: 600,
         centerMode: false,
         slidesToScroll: 1,
-        adaptiveHeight: true,
+        adaptiveHeight: false,
         centerPadding: '0px',
       },
     },
@@ -70,12 +78,12 @@ const settings: SliderSettings = {
       settings: {
         slidesToShow: 1,
         arrows: true,
-        dots: true,
-        infinite: false,
+        dots: false,
+        infinite: true,
         speed: 600,
         centerMode: false,
         slidesToScroll: 1,
-        adaptiveHeight: true,
+        adaptiveHeight: false,
         centerPadding: '0px',
       },
     },
