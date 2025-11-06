@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Painel do Barbeiro{% endblock %}
+{% block content %}
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">{{ kpis.appointments_count }}</div>
+        <div class="kpi-label">Agendamentos Hoje</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">{{ kpis.sales_count }}</div>
+        <div class="kpi-label">Vendas Hoje</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">R$ {{ kpis.sales_total }}</div>
+        <div class="kpi-label">Faturamento do Dia</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">{% if kpis.next_appointment %}{{ kpis.next_appointment.start_datetime|date:'H:i' }}{% else %}-{% endif %}</div>
+        <div class="kpi-label">Próximo horário</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-panel mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span class="fw-semibold">Agenda de hoje</span>
+    <div>
+      <a href="#" class="btn btn-sm btn-accent">Nova venda</a>
+      <a href="#" class="btn btn-sm btn-outline-light">Novo agendamento</a>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-dark table-striped mb-0">
+      <thead>
+        <tr>
+          <th style="width: 80px;">Hora</th>
+          <th>Cliente</th>
+          <th>Telefone</th>
+          <th>Serviço</th>
+          <th style="width: 140px;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in appointments_today %}
+        <tr>
+          <td>{{ a.start_datetime|date:'H:i' }}</td>
+          <td>{{ a.client_name }}</td>
+          <td>{{ a.client_phone }}</td>
+          <td>{{ a.service.title }}</td>
+          <td>
+            {% if a.status == 'scheduled' %}
+              <span class="badge rounded-pill text-bg-secondary">Agendado</span>
+            {% elif a.status == 'done' %}
+              <span class="badge rounded-pill bg-success">Concluído</span>
+            {% elif a.status == 'cancelled' %}
+              <span class="badge rounded-pill bg-danger">Cancelado</span>
+            {% else %}
+              <span class="badge rounded-pill badge-accent">{{ a.status }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center muted">Sem agendamentos para hoje.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="alert alert-info">Você está vendo apenas seus próprios dados.</div>
+{% endblock %}

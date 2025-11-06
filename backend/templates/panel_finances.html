@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block title %}Finanças{% endblock %}
+{% block content %}
+<h3 class="mb-3">Finanças</h3>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel"><div class="card-body">
+      <div class="kpi">R$ {{ kpis.today_revenue }}</div>
+      <div class="kpi-label">Faturamento Hoje</div>
+    </div></div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel"><div class="card-body">
+      <div class="kpi">R$ {{ kpis.month_revenue }}</div>
+      <div class="kpi-label">Faturamento do Mês</div>
+    </div></div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel"><div class="card-body">
+      <div class="kpi">{{ kpis.sales_count }}</div>
+      <div class="kpi-label">Vendas (hoje)</div>
+    </div></div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel"><div class="card-body">
+      <div class="kpi">{{ kpis.appts_completed }}</div>
+      <div class="kpi-label">Atendimentos Concluídos (hoje)</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Vendas recentes</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Data</th>
+              {% if is_admin %}<th>Barbeiro</th>{% endif %}
+              <th>Valor</th>
+              <th>Método</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in recent_sales %}
+            <tr>
+              <td>{{ s.created_at|date:'d/m/Y H:i' }}</td>
+              {% if is_admin %}<td>{{ s.barber.display_name|default:s.barber.username }}</td>{% endif %}
+              <td>R$ {{ s.amount }}</td>
+              <td>{{ s.payment_method }}</td>
+              <td>
+                {% if s.status == 'paid' %}
+                  <span class="badge rounded-pill bg-success">Pago</span>
+                {% elif s.status == 'pending' %}
+                  <span class="badge rounded-pill text-bg-secondary">Pendente</span>
+                {% elif s.status == 'refunded' %}
+                  <span class="badge rounded-pill bg-warning text-dark">Estornado</span>
+                {% else %}
+                  <span class="badge rounded-pill badge-accent">{{ s.status }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center muted">Sem vendas.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Agendamentos concluídos (hoje)</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Hora</th>
+              {% if is_admin %}<th>Barbeiro</th>{% endif %}
+              <th>Cliente</th>
+              <th>Serviço</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in completed_today %}
+            <tr>
+              <td>{{ a.end_datetime|date:'H:i' }}</td>
+              {% if is_admin %}<td>{{ a.barber.display_name|default:a.barber.username }}</td>{% endif %}
+              <td>{{ a.client_name }}</td>
+              <td>{{ a.service.title }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center muted">Sem atendimentos concluídos.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Resumo por serviço (mês, concluídos)</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Serviço</th>
+              <th style="width: 120px;">Qtd</th>
+              <th style="width: 160px;">Valor total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in breakdown_by_service %}
+            <tr>
+              <td>{{ row.service__title }}</td>
+              <td>{{ row.count }}</td>
+              <td>R$ {{ row.total_value }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center muted">Sem registros nesse período.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Resumo por barbeiro (mês, concluídos)</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Barbeiro</th>
+              <th style="width: 120px;">Qtd</th>
+              <th style="width: 160px;">Valor total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in breakdown_by_barber %}
+            <tr>
+              <td>{{ row.barber__display_name|default:row.barber__username }}</td>
+              <td>{{ row.count }}</td>
+              <td>R$ {{ row.total_value }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center muted">Sem registros nesse período.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

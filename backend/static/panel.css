@@ -1,0 +1,35 @@
+/* Painel Dlux - tema simples inspirado no visual do site */
+:root {
+  --dlux-bg: #0f0f10;
+  --dlux-card: #18181a;
+  --dlux-accent: #c59d5f; /* dourado */
+  --dlux-text: #eaeaea;
+  --dlux-muted: #a3a3a3;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+body { background: var(--dlux-bg); color: var(--dlux-text); }
+.navbar-dark.bg-dark { background-color: #121212 !important; }
+.brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--dlux-accent); display: inline-block; }
+
+.card-panel { background: var(--dlux-card); border: 1px solid #232325; color: var(--dlux-text); }
+.card-panel .card-header { border-bottom: 1px solid #232325; }
+.kpi { font-weight: 700; font-size: 1.6rem; }
+.kpi-label { color: var(--dlux-muted); font-size: .85rem; }
+
+.table-dark.table { --bs-table-bg: #151516; --bs-table-striped-bg: #1a1a1c; --bs-table-border-color: #2a2a2d; }
+.badge-accent { background-color: var(--dlux-accent); }
+.text-accent { color: var(--dlux-accent) !important; }
+
+.btn-accent { background: var(--dlux-accent); color: #111; border: none; }
+.btn-accent:hover { filter: brightness(1.1); }
+
+.muted { color: var(--dlux-muted); }
+
+/* Sidebar */
+.sidebar { background: #111; border-right: 1px solid #1f1f21; min-height: calc(100vh - 56px); }
+.sidebar .list-group-item { background: transparent; color: var(--dlux-text); border: 0; border-radius: 0; padding-top: .8rem; padding-bottom: .8rem; }
+.sidebar .list-group-item:hover { background: #171719; }
+.sidebar .list-group-item.active { background: var(--dlux-card); color: var(--dlux-text); border-left: 3px solid var(--dlux-accent); }

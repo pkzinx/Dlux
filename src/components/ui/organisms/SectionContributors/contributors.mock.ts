@@ -17,7 +17,7 @@ const contributors: Contributors[] = [
     occupation: 'Barbeiro',
   },
   {
-    src: '/assets/img/perfil-sem.png',
+    src: '/assets/img/kevin.JPEG',
     name: 'Kevin',
     occupation: 'Barbeiro',
   },
