@@ -44,10 +44,6 @@ const Map = ({ places = [] }: MapProps) => {
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            updateWhenIdle
-            reuseTiles
-            keepBuffer={2}
-            crossOrigin="anonymous"
             eventHandlers={{ tileerror: handleTileError }}
           />
           {places.map(place => (
