@@ -2,6 +2,8 @@ import MediaMatch from '../../molecules/MediaMatch/MediaMatch';
 import { useState } from 'react';
 
 import { Background } from '../../atoms/Background/Background';
+import { Button } from '../../atoms/Button/Button';
+import { ServicesModal, ServiceItem } from '../../molecules/ServicesModal/ServicesModal';
 import { Heading } from '../../molecules/Heading/Heading';
 import {
   ServiceBox,
@@ -38,6 +40,7 @@ const settings: SliderSettings = {
 export const MainServices = ({ items }: MainServicesProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>();
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   // Exibir os 5 barbeiros da seção de equipe com nomes e fotos
   const barbers = contributors.map((c) => ({ name: c.name, src: c.src }));
@@ -46,6 +49,19 @@ export const MainServices = ({ items }: MainServicesProps) => {
     setSelectedService(serviceTitle);
     setIsOpen(true);
   };
+
+  const extraServices: ServiceItem[] = [
+    { title: 'Corte + escova', duration: '35min', price: 'a partir de R$ 35,00' },
+    { title: 'Corte + luzes', duration: '1h:30min', price: 'a partir de R$ 70,00' },
+    { title: 'Corte + sobrancelha', duration: '35min', price: 'a partir de R$ 35,00' },
+    { title: 'Escova', duration: '15min', price: 'a partir de R$ 10,00' },
+    { title: 'Hidratação', duration: '15min', price: 'a partir de R$ 25,00' },
+    { title: 'Luzes', duration: '1h:00min', price: 'a partir de R$ 40,00' },
+    { title: 'Pezinho perfil acabamento', duration: '10min', price: 'a partir de R$ 10,00' },
+    { title: 'Progressiva', duration: '1h:00min', price: 'a partir de R$ 50,00' },
+    { title: 'Sobrancelha', duration: '30min', price: 'a partir de R$ 20,00' },
+    { title: 'Tintura na barba', duration: '30min', price: 'a partir de R$ 25,00' },
+  ];
 
   return (
     <S.Wrapper>
@@ -87,12 +103,25 @@ export const MainServices = ({ items }: MainServicesProps) => {
           </S.SwipeHint>
         </MediaMatch>
 
-        <ScheduleModal
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          barbers={barbers}
-          serviceTitle={selectedService}
-        />
+        <S.BottomAction>
+          <Button as="button" type="button" $buttonStyle="secondary" onClick={() => setIsServicesOpen(true)}>
+            Ver todos os serviços
+          </Button>
+        </S.BottomAction>
+
+      <ScheduleModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        barbers={barbers}
+        serviceTitle={selectedService}
+      />
+
+      <ServicesModal
+        isOpen={isServicesOpen}
+        onClose={() => setIsServicesOpen(false)}
+        services={extraServices}
+        onSchedule={openSchedule}
+      />
       </Background>
     </S.Wrapper>
   );

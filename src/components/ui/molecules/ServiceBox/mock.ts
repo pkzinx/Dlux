@@ -1,7 +1,7 @@
 const servicesMock = [
   {
     title: 'Corte de Cabelo Masculino',
-    price: 'R$ 40,00',
+    price: 'R$ 30,00',
     description:
       'Realizado em qualquer tecnica de corte de cabelo, incluindo tesouras.',
   },

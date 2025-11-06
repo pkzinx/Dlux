@@ -29,6 +29,16 @@ export const WrapperServicesBox = styled(Container)`
   gap: 3rem;
 `;
 
+export const BottomAction = styled.div`
+  ${({ theme }) => css`
+    position: absolute;
+    left: 50%;
+    bottom: ${theme.spacings.xsmall};
+    transform: translateX(-50%);
+    z-index: 1;
+  `}
+`;
+
 export const SwipeHint = styled.div`
   ${({ theme }) => css`
     display: none;

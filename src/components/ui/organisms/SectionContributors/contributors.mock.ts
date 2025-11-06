@@ -2,17 +2,17 @@ import { Contributors } from './SectionContributors';
 
 const contributors: Contributors[] = [
   {
-    src: '/assets/img/perfil-sem.png',
+    src: '/assets/img/rikelv.JPEG',
     name: 'Rikelv',
     occupation: 'Barbeiro',
   },
   {
-    src: '/assets/img/perfil-sem.png',
-    name: 'Emerso',
+    src: '/assets/img/emerson.JPG',
+    name: 'Emerson',
     occupation: 'Barbeiro',
   },
   {
-    src: '/assets/img/perfil-sem.png',
+    src: '/assets/img/kaue.JPG',
     name: 'Kaue',
     occupation: 'Barbeiro',
   },
@@ -22,8 +22,8 @@ const contributors: Contributors[] = [
     occupation: 'Barbeiro',
   },
   {
-    src: '/assets/img/perfil-sem.png',
-    name: 'Alafi',
+    src: '/assets/img/alafy.JPEG',
+    name: 'Alafy',
     occupation: 'Barbeiro',
   },
 ];
