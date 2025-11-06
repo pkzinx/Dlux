@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
+import csv
 from .models import User
 from django.utils import timezone
 from appointments.models import Appointment
+from services.models import Service
 from sales.models import Sale
 from django.db.models import Sum, Count
 from django.core.paginator import Paginator
@@ -132,10 +134,13 @@ def panel_finances(request: HttpRequest):
     sales_today = Sale.objects.filter(created_at__gte=today_start, created_at__lt=today_end, **sales_filter)
     sales_month = Sale.objects.filter(created_at__gte=month_start, created_at__lt=today_end, **sales_filter)
     appts_completed_today = Appointment.objects.filter(status='done', start_datetime__gte=today_start, start_datetime__lt=today_end, **appts_filter)
+    # Month-to-date done appointments (needed for KPIs and breakdowns)
+    appts_month_done = Appointment.objects.filter(status='done', start_datetime__gte=month_start, start_datetime__lt=today_end, **appts_filter)
 
+    # KPIs baseados em agendamentos concluídos (somando valores dos serviços)
     kpis = {
-        'today_revenue': sales_today.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0,
-        'month_revenue': sales_month.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0,
+        'today_revenue': appts_completed_today.aggregate(total=Sum('service__price'))['total'] or 0,
+        'month_revenue': appts_month_done.aggregate(total=Sum('service__price'))['total'] or 0,
         'sales_count': sales_today.count(),
         'appts_completed': appts_completed_today.count(),
     }
@@ -143,7 +148,6 @@ def panel_finances(request: HttpRequest):
     recent_sales = Sale.objects.filter(**sales_filter).order_by('-created_at')[:10]
 
     # Breakdowns for month-to-date (done appointments)
-    appts_month_done = Appointment.objects.filter(status='done', start_datetime__gte=month_start, start_datetime__lt=today_end, **appts_filter)
     breakdown_by_service = appts_month_done.values('service__id', 'service__title').annotate(
         count=Count('id'),
         total_value=Sum('service__price')
@@ -153,6 +157,39 @@ def panel_finances(request: HttpRequest):
         total_value=Sum('service__price')
     ).order_by('-total_value')
 
+    # CSV export (month-to-date paid sales)
+    if request.GET.get('export') == 'csv':
+        rows = sales_month.filter(status='paid').select_related('barber').order_by('-created_at')
+        response = HttpResponse(content_type='text/csv; charset=utf-8')
+        response['Content-Disposition'] = 'attachment; filename="financas_mensal.csv"'
+        writer = csv.writer(response)
+        # Header differs for admin vs barber view
+        if is_admin:
+            writer.writerow(['Data', 'Hora', 'Barbeiro', 'Valor', 'Pagamento', 'Status'])
+        else:
+            writer.writerow(['Data', 'Hora', 'Valor', 'Pagamento', 'Status'])
+        for s in rows:
+            date_str = timezone.localtime(s.created_at).strftime('%d/%m/%Y')
+            time_str = timezone.localtime(s.created_at).strftime('%H:%M')
+            if is_admin:
+                writer.writerow([
+                    date_str,
+                    time_str,
+                    getattr(s.barber, 'display_name', None) or getattr(s.barber, 'username', ''),
+                    str(s.amount),
+                    s.get_payment_method_display(),
+                    s.status,
+                ])
+            else:
+                writer.writerow([
+                    date_str,
+                    time_str,
+                    str(s.amount),
+                    s.get_payment_method_display(),
+                    s.status,
+                ])
+        return response
+
     return render(request, 'panel_finances.html', {
         'kpis': kpis,
         'recent_sales': recent_sales,
@@ -160,6 +197,7 @@ def panel_finances(request: HttpRequest):
         'is_admin': is_admin,
         'breakdown_by_service': breakdown_by_service,
         'breakdown_by_barber': breakdown_by_barber,
+        'all_services': Service.objects.filter(active=True).order_by('title'),
     })
 
 

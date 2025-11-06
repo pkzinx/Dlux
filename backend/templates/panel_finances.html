@@ -1,10 +1,56 @@
 {% extends 'base.html' %}
 {% block title %}Finanças{% endblock %}
 {% block content %}
-<h3 class="mb-3">Finanças</h3>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Finanças</h3>
+  <div>
+    <a href="?export=csv" class="btn btn-sm btn-accent d-inline-flex align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download me-2" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5-.5h3.5V1.5a.5.5 0 0 1 1 0v7.9H9a.5.5 0 0 1 .354.854l-2.5 2.5a.5.5 0 0 1-.708 0l-2.5-2.5A.5.5 0 0 1 3.5 9.4H1a.5.5 0 0 1-.5-.5Z"/>
+        <path d="M.5 15a.5.5 0 0 0 .5.5h14a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-1 0v2.5H1V12a.5.5 0 0 0-1 0v3Z"/>
+      </svg>
+      Exportar CSV (mês)
+    </a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">R$ {{ kpis.today_revenue }}</div>
+        <div class="kpi-label">Faturamento Hoje</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">R$ {{ kpis.month_revenue }}</div>
+        <div class="kpi-label">Faturamento no Mês</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">{{ kpis.sales_count }}</div>
+        <div class="kpi-label">Vendas Hoje</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">{{ kpis.appts_completed }}</div>
+        <div class="kpi-label">Concluídos Hoje</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row g-3">
-  <div class="col-12">
+  <div class="col-lg-6">
     <div class="card card-panel mb-4">
       <div class="card-header fw-semibold">Resumo por serviço (mês, concluídos)</div>
       <div class="card-body p-0">
@@ -31,5 +77,109 @@
       </div>
     </div>
   </div>
+
+  <div class="col-lg-6">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Todos os serviços</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Serviço</th>
+              <th style="width: 160px;">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in all_services %}
+            <tr>
+              <td>{{ s.title }}</td>
+              <td>R$ {{ s.price }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="2" class="text-center muted">Nenhum serviço cadastrado.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+{% if is_admin %}
+<div class="row g-3">
+  <div class="col-12">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Resumo por barbeiro (mês, concluídos)</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Barbeiro</th>
+              <th style="width: 120px;">Qtd</th>
+              <th style="width: 160px;">Valor total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in breakdown_by_barber %}
+            <tr>
+              <td>
+                {% with display=row.barber__display_name username=row.barber__username %}
+                  {% if display %}{{ display }}{% else %}{{ username }}{% endif %}
+                {% endwith %}
+              </td>
+              <td>{{ row.count }}</td>
+              <td>R$ {{ row.total_value }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center muted">Sem registros nesse período.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="card card-panel mb-4">
+      <div class="card-header fw-semibold">Concluídos hoje</div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Data</th>
+              <th style="width: 80px;">Hora</th>
+              {% if is_admin %}<th>Barbeiro</th>{% endif %}
+              <th>Cliente</th>
+              <th>Serviço</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in completed_today %}
+            <tr>
+              <td>{{ a.start_datetime|date:'d/m/Y' }}</td>
+              <td>{{ a.start_datetime|date:'H:i' }}</td>
+              {% if is_admin %}
+              <td>
+                {% if a.barber.avatar %}
+                  <img src="{{ a.barber.avatar.url }}" alt="avatar" class="rounded-circle me-2" style="width:24px;height:24px;object-fit:cover;">
+                {% endif %}
+                {{ a.barber.display_name|default:a.barber.username }}
+              </td>
+              {% endif %}
+              <td>{{ a.client_name }}</td>
+              <td>{{ a.service.title }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center muted">Sem concluídos hoje.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
