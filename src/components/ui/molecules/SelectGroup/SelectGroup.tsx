@@ -10,6 +10,7 @@ export type SelectGroupProps = {
   children: React.ReactNode;
   value?: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  disabled?: boolean;
 } & InputProps;
 
 export const SelectGroup = ({
@@ -20,6 +21,7 @@ export const SelectGroup = ({
   children,
   value = '',
   marginBottom = false,
+  disabled = false,
   onChange,
 }: SelectGroupProps) => (
   <S.Wrapper $marginBottom={marginBottom}>
@@ -31,6 +33,7 @@ export const SelectGroup = ({
       required={required}
       role="combobox"
       value={value}
+      disabled={disabled}
     >
       <option value="">{placeholder}</option>
       {children}
