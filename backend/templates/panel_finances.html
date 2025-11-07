@@ -15,7 +15,7 @@
 </div>
 
 <div class="row g-3 mb-4">
-  <div class="col-sm-6 col-lg-3">
+  <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
         <div class="kpi">R$ {{ kpis.today_revenue }}</div>
@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-lg-3">
+  <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
         <div class="kpi">R$ {{ kpis.month_revenue }}</div>
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-lg-3">
+  <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
         <div class="kpi">{{ kpis.sales_count }}</div>
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-lg-3">
+  <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
         <div class="kpi">{{ kpis.appts_completed }}</div>
@@ -47,6 +47,16 @@
       </div>
     </div>
   </div>
+  {% if not is_admin and kpis.barber_share_today %}
+  <div class="col-sm-6 col-lg">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">R$ {{ kpis.barber_share_today }}</div>
+        <div class="kpi-label">Participação (Hoje)</div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
 
 <div class="row g-3">

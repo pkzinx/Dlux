@@ -22,9 +22,23 @@
               {% if user.avatar %}
                 <img src="{{ user.avatar.url }}" alt="avatar" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
               {% else %}
-                <span class="rounded-circle bg-secondary d-inline-flex justify-content-center align-items-center" style="width:24px;height:24px;">
-                  <span class="small">{{ user.display_name|default:user.username|first }}</span>
-                </span>
+                {% with name=user.display_name|default:user.username %}
+                  {% if name|lower == 'kaue' %}
+                    <img src="{% static 'assets/img/kaue.jpg' %}" alt="Kaue" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
+                  {% elif name|lower == 'kevin' %}
+                    <img src="{% static 'assets/img/kevin.JPEG' %}" alt="Kevin" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
+                  {% elif name|lower == 'emerson' %}
+                    <img src="{% static 'assets/img/emerson.JPG' %}" alt="Emerson" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
+                  {% elif name|lower == 'rikelv' %}
+                    <img src="{% static 'assets/img/rikelv.JPEG' %}" alt="Rikelv" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
+                  {% elif name|lower == 'alefi' or name|lower == 'alafy' %}
+                    <img src="{% static 'assets/img/alafy.JPEG' %}" alt="Alefi" class="rounded-circle" style="width:24px;height:24px;object-fit:cover;">
+                  {% else %}
+                    <span class="rounded-circle bg-secondary d-inline-flex justify-content-center align-items-center" style="width:24px;height:24px;">
+                      <span class="small">{{ name|first }}</span>
+                    </span>
+                  {% endif %}
+                {% endwith %}
               {% endif %}
               <span>{{ user.display_name|default:user.username }}</span>
             </span>
@@ -214,5 +228,140 @@
     </script>
     <!-- Container de toasts -->
     <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1080"></div>
+    
+    <!-- Modal de nova venda -->
+    <div class="modal fade" id="newSaleModal" tabindex="-1" aria-labelledby="newSaleLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newSaleLabel">Nova venda</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="newSaleForm">
+              <input type="hidden" name="barber_id" value="{{ user.id }}">
+              <div class="mb-3">
+                <label class="form-label">Serviço (opcional)</label>
+                <select class="form-select" name="service_id" id="nsService"></select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Descrição (quando não for um serviço)</label>
+                <input type="text" class="form-control" name="description" placeholder="Ex.: Pomada, produto, etc">
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label class="form-label">Valor</label>
+                  <input type="number" step="0.01" min="0" class="form-control" name="amount" id="nsAmount" placeholder="0,00" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Pagamento</label>
+                  <select class="form-select" name="payment_method" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="cash">Dinheiro</option>
+                    <option value="pix">Pix</option>
+                    <option value="card">Cartão</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-accent">Salvar venda</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Carregar serviços para nova venda e popular select com preço disponível
+      (function loadServicesForSale(){
+        const sel = document.getElementById('nsService');
+        if (!sel) return;
+        fetch('/api/services/')
+          .then(r => r.json())
+          .then(data => {
+            const results = Array.isArray(data) ? data : (data.results || []);
+            sel.innerHTML = '<option value="" selected>Nenhum (venda avulsa)</option>';
+            results.forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s.id;
+              opt.textContent = s.title + ' — R$ ' + s.price;
+              opt.dataset.price = s.price;
+              sel.appendChild(opt);
+            });
+          }).catch(() => {
+            sel.innerHTML = '<option disabled>Falha ao carregar serviços</option>';
+          });
+      })();
+
+      // Preencher automaticamente o valor ao escolher um serviço
+      (function bindServicePriceToAmount(){
+        const sel = document.getElementById('nsService');
+        const amountInput = document.getElementById('nsAmount');
+        if (!sel || !amountInput) return;
+        sel.addEventListener('change', () => {
+          const price = parseFloat(sel.options[sel.selectedIndex]?.dataset?.price || '0');
+          if (!isNaN(price) && price > 0) {
+            amountInput.value = price.toFixed(2);
+          }
+        });
+      })();
+
+      // Submeter nova venda
+      (function bindNewSale(){
+        const form = document.getElementById('newSaleForm');
+        if (!form) return;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Salvando...'; }
+          const fd = new FormData(form);
+          const payload = {
+            barber: parseInt(fd.get('barber_id'), 10),
+            service: fd.get('service_id') ? parseInt(fd.get('service_id'), 10) : null,
+            description: (fd.get('description') || '').toString(),
+            amount: parseFloat((fd.get('amount') || '0').toString()),
+            payment_method: fd.get('payment_method'),
+            status: 'paid',
+          };
+          try {
+            const res = await fetch('/api/sales/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error('Falha ao registrar venda');
+            const data = await res.json();
+            const toastContainer = document.getElementById('toastContainer');
+            const label = payload.description || (document.querySelector('#nsService option:checked')?.textContent || 'Venda');
+            const toastEl = document.createElement('div');
+            toastEl.className = 'toast align-items-center text-bg-success border-0';
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">Venda registrada (#${data.id})<br><small>${label} — R$ ${payload.amount.toFixed(2)}</small></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+            toastContainer.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+            toast.show();
+            const modalEl = document.getElementById('newSaleModal');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.hide();
+            form.reset();
+            // Atualiza página para refletir KPIs de faturamento
+            setTimeout(() => { window.location.reload(); }, 1200);
+          } catch (err) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastEl = document.createElement('div');
+            toastEl.className = 'toast align-items-center text-bg-danger border-0';
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">Erro ao registrar venda. Verifique os dados e tente novamente.</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+            toastContainer.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+          }
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Salvar venda'; }
+        });
+      })();
+    </script>
   </body>
 </html>

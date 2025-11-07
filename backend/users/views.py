@@ -7,7 +7,7 @@ from django.utils import timezone
 from appointments.models import Appointment
 from services.models import Service
 from sales.models import Sale
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
 from django.core.paginator import Paginator
 
 
@@ -42,10 +42,15 @@ def dashboard_barber(request: HttpRequest):
         status='paid'
     )
 
+    appts_done_today = appts_today.filter(status='done')
+    appts_value_today = appts_done_today.aggregate(total=Sum('service__price'))['total'] or 0
+    sales_value_today = sales_today.aggregate(total=Sum('amount'))['total'] or 0
+    day_revenue = (appts_value_today or 0) + (sales_value_today or 0)
+
     kpis = {
         'appointments_count': appts_today.count(),
         'sales_count': sales_today.count(),
-        'sales_total': sales_today.aggregate(total=Sum('amount'))['total'] or 0,
+        'sales_total': day_revenue,
         'next_appointment': appts_today.first(),
     }
 
@@ -74,7 +79,10 @@ def dashboard_admin(request: HttpRequest):
     )
 
     status_breakdown = appts_today.values('status').annotate(c=Count('id'))
-    sales_total = sales_today.aggregate(total=Sum('amount'))['total'] or 0
+    appts_done_today = appts_today.filter(status='done')
+    appts_value_today = appts_done_today.aggregate(total=Sum('service__price'))['total'] or 0
+    sales_value_today = sales_today.aggregate(total=Sum('amount'))['total'] or 0
+    sales_total = (appts_value_today or 0) + (sales_value_today or 0)
     # Exibir número de barbeiros como 5
     barbers_count = 5
 
@@ -103,6 +111,26 @@ def panel_appointments(request: HttpRequest):
     else:
         qs = Appointment.objects.filter(barber=user).order_by('-start_datetime')
         is_admin = False
+
+    # Exportação CSV
+    if request.GET.get('export') == 'csv':
+        rows = qs.select_related('barber', 'service').order_by('-start_datetime')
+        response = HttpResponse(content_type='text/csv; charset=utf-8')
+        response['Content-Disposition'] = 'attachment; filename="agendamentos.csv"'
+        writer = csv.writer(response)
+        if is_admin:
+            writer.writerow(['Data', 'Hora', 'Barbeiro', 'Cliente', 'Telefone', 'Serviço', 'Status'])
+        else:
+            writer.writerow(['Data', 'Hora', 'Cliente', 'Telefone', 'Serviço', 'Status'])
+        for a in rows:
+            date_str = timezone.localtime(a.start_datetime).strftime('%d/%m/%Y')
+            time_str = timezone.localtime(a.start_datetime).strftime('%H:%M')
+            base = [date_str, time_str]
+            if is_admin:
+                base.append(getattr(a.barber, 'display_name', None) or getattr(a.barber, 'username', ''))
+            base.extend([a.client_name, a.client_phone or '', getattr(a.service, 'title', ''), a.status])
+            writer.writerow(base)
+        return response
 
     # Paginação: 15 por página
     page_number = request.GET.get('page', 1)
@@ -137,13 +165,37 @@ def panel_finances(request: HttpRequest):
     # Month-to-date done appointments (needed for KPIs and breakdowns)
     appts_month_done = Appointment.objects.filter(status='done', start_datetime__gte=month_start, start_datetime__lt=today_end, **appts_filter)
 
-    # KPIs baseados em agendamentos concluídos (somando valores dos serviços)
+    # KPIs baseados em agendamentos concluídos + vendas pagas
+    appts_today_value = appts_completed_today.aggregate(total=Sum('service__price'))['total'] or 0
+    appts_month_value = appts_month_done.aggregate(total=Sum('service__price'))['total'] or 0
+    sales_today_value = sales_today.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0
+    sales_month_value = sales_month.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0
     kpis = {
-        'today_revenue': appts_completed_today.aggregate(total=Sum('service__price'))['total'] or 0,
-        'month_revenue': appts_month_done.aggregate(total=Sum('service__price'))['total'] or 0,
+        'today_revenue': (appts_today_value or 0) + (sales_today_value or 0),
+        'month_revenue': (appts_month_value or 0) + (sales_month_value or 0),
         'sales_count': sales_today.count(),
         'appts_completed': appts_completed_today.count(),
     }
+
+    # Participação do barbeiro (Hoje) baseada somente em serviços concluídos
+    if not is_admin:
+        uname = (user.username or '').lower()
+        # Total de serviços concluídos do próprio barbeiro hoje
+        self_services_today = appts_completed_today.aggregate(total=Sum('service__price'))['total'] or 0
+        share_today = 0
+        if uname in ['rikelv', 'emerson', 'kevin']:
+            # 60% do total dos serviços do próprio barbeiro
+            share_today = self_services_today * 0.60
+        elif uname in ['kaue', 'alefi', 'alafy']:
+            # 40% dos serviços dos três barbeiros + 100% dos próprios serviços
+            others_q = Q(barber__username__iexact='rikelv') | Q(barber__username__iexact='emerson') | Q(barber__username__iexact='kevin')
+            others_services_today = Appointment.objects.filter(
+                status='done',
+                start_datetime__gte=today_start,
+                start_datetime__lt=today_end,
+            ).filter(others_q).aggregate(total=Sum('service__price'))['total'] or 0
+            share_today = (others_services_today * 0.40) + (self_services_today * 1.00)
+        kpis['barber_share_today'] = round(share_today, 2)
 
     recent_sales = Sale.objects.filter(**sales_filter).order_by('-created_at')[:10]
 
