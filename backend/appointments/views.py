@@ -10,6 +10,8 @@ from .serializers import AppointmentSerializer
 from users.models import User
 from decimal import Decimal
 from django.utils.text import slugify
+from django.utils import timezone
+import datetime
 
 
 class IsAdminOrOwnRecords(permissions.BasePermission):
@@ -17,7 +19,10 @@ class IsAdminOrOwnRecords(permissions.BasePermission):
         return request.user and request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj: Appointment):
-        if request.user.role == User.ADMIN:
+        # Permitir administradores e usuários especiais (Kaue/Alafy variações) editar qualquer registro
+        uname = (getattr(request.user, 'username', '') or '').lower()
+        special_all_edit = uname in ['kaue', 'alafy', 'alafi', 'alefi']
+        if request.user.role == User.ADMIN or special_all_edit:
             return True
         return obj.barber_id == request.user.id
 
@@ -52,6 +57,110 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         appt.status = status
         appt.save()
         return Response(AppointmentSerializer(appt).data)
+
+    @action(detail=False, methods=['get'], url_path='barbers')
+    def list_barbers(self, request):
+        """Lista barbeiros disponíveis para seleção no agendamento rápido."""
+        barbers = User.objects.filter(role=User.BARBER).order_by('display_name', 'username')
+        data = [
+            {
+                'id': b.id,
+                'name': (b.display_name or b.username),
+            }
+            for b in barbers
+        ]
+        return Response({'barbers': data})
+
+    @action(detail=False, methods=['get'], url_path='available', permission_classes=[permissions.AllowAny])
+    def available_slots(self, request):
+        """Retorna horários disponíveis (HH:MM) para um barbeiro em uma data.
+        Considera a duração do serviço para que o próximo horário só apareça após o término.
+        Query params:
+        - barberId (opcional; padrão: usuário atual se barbeiro)
+        - date (YYYY-MM-DD)
+        - serviceId (opcional)
+        - durationMinutes (opcional; usado se serviceId ausente)
+        """
+        date_str = request.query_params.get('date')
+        if not date_str:
+            return Response({'detail': 'Parâmetro "date" é obrigatório (YYYY-MM-DD).'}, status=400)
+
+        try:
+            day = datetime.date.fromisoformat(date_str)
+        except ValueError:
+            return Response({'detail': 'Data inválida.'}, status=400)
+
+        barber_id = request.query_params.get('barberId')
+        user = request.user
+        if not barber_id and getattr(user, 'role', None) == User.BARBER:
+            barber_id = user.id
+        if not barber_id:
+            # Tentar resolver por nome do barbeiro (display_name ou username)
+            barber_name = request.query_params.get('barberName')
+            if barber_name:
+                candidate = User.objects.filter(role=User.BARBER).filter(Q(username__iexact=barber_name) | Q(display_name__iexact=barber_name)).first()
+                if candidate:
+                    barber_id = candidate.id
+            if not barber_id:
+                return Response({'detail': 'Parâmetro "barberId" ou "barberName" é obrigatório.'}, status=400)
+
+        # Determinar duração
+        duration_minutes = None
+        service_id = request.query_params.get('serviceId')
+        if service_id:
+            svc = Service.objects.filter(pk=service_id).first()
+            duration_minutes = getattr(svc, 'duration_minutes', None)
+        if duration_minutes is None:
+            dm = request.query_params.get('durationMinutes')
+            if dm:
+                try:
+                    duration_minutes = int(dm)
+                except ValueError:
+                    return Response({'detail': 'durationMinutes inválido.'}, status=400)
+        if not duration_minutes or duration_minutes <= 0:
+            return Response({'detail': 'Duração do serviço é obrigatória.'}, status=400)
+
+        tz = timezone.get_current_timezone()
+        # Janela padrão de funcionamento: 08:00 às 20:00 (ajuste se necessário)
+        window_start_naive = datetime.datetime.combine(day, datetime.time(8, 0))
+        window_end_naive = datetime.datetime.combine(day, datetime.time(20, 0))
+        window_start = timezone.make_aware(window_start_naive, tz)
+        window_end = timezone.make_aware(window_end_naive, tz)
+
+        # Se for hoje, não ofertar horários no passado (arredonda para próximo múltiplo de 10 min)
+        now_local = timezone.localtime()
+        if day == now_local.date():
+            # Arredondar para cima para próximo múltiplo de 10 minutos
+            minutes = (now_local.minute + 9) // 10 * 10
+            now_rounded = now_local.replace(minute=0, second=0, microsecond=0) + datetime.timedelta(minutes=minutes)
+            if now_rounded > window_start:
+                window_start = now_rounded
+
+        # Buscar agendamentos existentes do barbeiro que sobrepõem a janela (excluir apenas cancelados)
+        existing = Appointment.objects.filter(
+            barber_id=barber_id,
+            status__in=[Appointment.STATUS_SCHEDULED, Appointment.STATUS_DONE],
+            start_datetime__lt=window_end,
+            end_datetime__gt=window_start,
+        ).values('start_datetime', 'end_datetime')
+
+        # Gera slots a cada 10 minutos, garantindo que [start, end) não sobreponha existentes
+        step = datetime.timedelta(minutes=10)
+        duration = datetime.timedelta(minutes=duration_minutes)
+        slots = []
+        cur = window_start
+        # Para otimizar, prepara lista de ranges
+        ranges = [(timezone.localtime(r['start_datetime']), timezone.localtime(r['end_datetime'])) for r in existing]
+        while cur + duration <= window_end:
+            proposed_start = cur
+            proposed_end = cur + duration
+            # Conflito se existir range com start < proposed_end e end > proposed_start
+            conflict = any(rs < proposed_end and re > proposed_start for rs, re in ranges)
+            if not conflict:
+                slots.append(proposed_start.strftime('%H:%M'))
+            cur += step
+
+        return Response({'slots': slots})
 
 
 class PublicAppointmentCreate(APIView):

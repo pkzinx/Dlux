@@ -98,7 +98,16 @@
           </div>
           <div class="modal-body">
             <form id="quickScheduleForm">
+              {% if user.role == 'admin' %}
+              <div class="mb-3">
+                <label class="form-label">Barbeiro</label>
+                <select class="form-select" name="barber_id" id="qsBarber" required>
+                  <option value="" disabled selected>Selecione...</option>
+                </select>
+              </div>
+              {% else %}
               <input type="hidden" name="barber_id" value="{{ user.id }}">
+              {% endif %}
               <div class="mb-3">
                 <label class="form-label">Serviço</label>
                 <select class="form-select" name="service_id" id="qsService" required></select>
@@ -110,7 +119,9 @@
                 </div>
                 <div class="col-6">
                   <label class="form-label">Hora</label>
-                  <input type="time" class="form-control" name="time" required>
+                  <select class="form-select" name="time" id="qsTime" required>
+                    <option value="" disabled selected>Selecione serviço e data</option>
+                  </select>
                 </div>
               </div>
               <div class="mb-3">
@@ -154,17 +165,85 @@
           });
       })();
 
+      // Carregar barbeiros (apenas para admin)
+      (function loadBarbers(){
+        const sel = document.getElementById('qsBarber');
+        if (!sel) return; // só existe para admin
+        fetch('/api/appointments/barbers/')
+          .then(r => r.json())
+          .then(data => {
+            const list = Array.isArray(data?.barbers) ? data.barbers : [];
+            sel.innerHTML = '<option value="" disabled selected>Selecione...</option>';
+            list.forEach(b => {
+              const opt = document.createElement('option');
+              opt.value = b.id;
+              opt.textContent = b.name;
+              sel.appendChild(opt);
+            });
+          })
+          .catch(() => {
+            sel.innerHTML = '<option disabled>Falha ao carregar barbeiros</option>';
+          });
+      })();
+
       // Submeter agendamento público com cálculo de end_datetime + toast bonito
       (function bindQuickSchedule(){
         const form = document.getElementById('quickScheduleForm');
         if (!form) return;
+
+        // Carregar horários disponíveis conforme serviço e data selecionados
+        const serviceSel = document.getElementById('qsService');
+        const dateInput = form.querySelector('input[name="date"]');
+        const timeSel = document.getElementById('qsTime');
+        function loadAvailable(){
+          if (!serviceSel || !dateInput || !timeSel) return;
+          const date = dateInput.value;
+          const barberHidden = form.querySelector('input[name="barber_id"]');
+          const barberSel = document.getElementById('qsBarber');
+          const barberId = barberSel ? barberSel.value : (barberHidden ? barberHidden.value : '');
+          const selectedOpt = serviceSel.options[serviceSel.selectedIndex];
+          const serviceId = serviceSel.value;
+          const duration = parseInt((selectedOpt && selectedOpt.dataset && selectedOpt.dataset.duration) || '0', 10);
+          if (!date || (!serviceId && !duration)) {
+            timeSel.innerHTML = '<option value="" disabled selected>Selecione serviço e data</option>';
+            return;
+          }
+          const params = new URLSearchParams({ date, barberId });
+          if (serviceId) params.append('serviceId', serviceId);
+          else params.append('durationMinutes', String(duration));
+          fetch('/api/appointments/available/?' + params.toString())
+            .then(r => r.json())
+            .then(data => {
+              const slots = Array.isArray(data?.slots) ? data.slots : [];
+              if (slots.length === 0) {
+                timeSel.innerHTML = '<option value="" disabled selected>Sem horários disponíveis</option>';
+                return;
+              }
+              timeSel.innerHTML = '';
+              slots.forEach(hm => {
+                const opt = document.createElement('option');
+                opt.value = hm;
+                opt.textContent = hm;
+                timeSel.appendChild(opt);
+              });
+            })
+            .catch(() => {
+              timeSel.innerHTML = '<option value="" disabled selected>Falha ao carregar horários</option>';
+            });
+        }
+        if (serviceSel) serviceSel.addEventListener('change', loadAvailable);
+        if (dateInput) dateInput.addEventListener('change', loadAvailable);
+        const barberSel = document.getElementById('qsBarber');
+        if (barberSel) barberSel.addEventListener('change', loadAvailable);
+        // Inicializar em caso de serviço já selecionado
+        loadAvailable();
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Agendando...'; }
           const fd = new FormData(form);
-          const barber_id = fd.get('barber_id');
-          const service_id = fd.get('service_id');
+          const barber = fd.get('barber_id');
+          const service = fd.get('service_id');
           const notes = (fd.get('notes') || '').toString();
           const date = fd.get('date');
           const time = fd.get('time');
@@ -175,8 +254,8 @@
           const pad = (n) => n.toString().padStart(2, '0');
           const end_iso = `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}T${pad(end.getHours())}:${pad(end.getMinutes())}:00`;
           const payload = {
-            barber_id: parseInt(barber_id, 10),
-            service_id: parseInt(service_id, 10),
+            barber: parseInt(barber, 10),
+            service: parseInt(service, 10),
             client_name: fd.get('client_name'),
             client_phone: fd.get('client_phone'),
             start_datetime: start_iso,

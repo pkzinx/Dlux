@@ -27,6 +27,8 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
   const [submitting, setSubmitting] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedbackStatus, setFeedbackStatus] = useState<'success' | 'error'>('success');
+  const [timeOptions, setTimeOptions] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,18 +128,56 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
 
   const allSlots = React.useMemo(() => generateSlots(), []);
 
-  const timeOptions = React.useMemo(() => {
-    if (date === todayYMD) {
-      const nowRounded = roundUpTo20(new Date());
-      return allSlots.filter(s => s > nowRounded);
-    }
-    return allSlots;
-  }, [date, allSlots, todayYMD]);
+  const serviceDurationMinutes = React.useMemo(() => {
+    const normalized = (serviceTitle || '').toLowerCase();
+    if (normalized.includes('barba') && normalized.includes('cabelo')) return 60;
+    if (normalized.includes('barba')) return 30;
+    if (normalized.includes('cabelo')) return 40;
+    return 40; // padrão
+  }, [serviceTitle]);
 
-  // Se o horário atual ficar inválido após trocar a data, limpar tempo
+  const fetchAvailableSlots = async (selectedDate: string, selectedBarberName: string) => {
+    if (!selectedDate || !selectedBarberName) {
+      setTimeOptions([]);
+      return;
+    }
+    try {
+      setLoadingSlots(true);
+      const params = new URLSearchParams({
+        date: selectedDate,
+        barberName: selectedBarberName,
+        durationMinutes: String(serviceDurationMinutes),
+      });
+      const r = await fetch(`/api/appointments/available?${params.toString()}`, {
+        headers: { Accept: 'application/json' },
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        console.error('Erro ao buscar horários disponíveis:', data);
+        setTimeOptions([]);
+      } else {
+        const slots: string[] = Array.isArray(data?.slots) ? data.slots : [];
+        setTimeOptions(slots);
+        if (time && !slots.includes(time)) setTime('');
+      }
+    } catch (e) {
+      console.error('Falha na requisição de disponibilidade:', e);
+      setTimeOptions([]);
+    } finally {
+      setLoadingSlots(false);
+    }
+  };
+
+  // Se o horário atual ficar inválido após trocar dependências, limpar tempo
   React.useEffect(() => {
     if (time && !timeOptions.includes(time)) setTime('');
-  }, [date, timeOptions]);
+  }, [timeOptions, time]);
+
+  // Atualiza horários ao trocar serviço (pois muda a duração)
+  React.useEffect(() => {
+    if (date && barberName) fetchAvailableSlots(date, barberName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serviceDurationMinutes]);
 
   return (
     <>
@@ -145,6 +185,29 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
       <S.Modal $isOpen={isOpen} aria-label="Modal">
         <S.Title>Agendar Serviço {serviceTitle ? `- ${serviceTitle}` : ''}</S.Title>
         <S.Form onSubmit={handleSubmit}>
+          {/* Seleção de barbeiros logo abaixo do título */}
+          <S.FullRow>
+            <S.BarberGrid>
+              {barbers.map(({ name: bName, src }) => (
+                <S.BarberCard key={bName} $selected={barberName === bName}>
+                  <input
+                    type="radio"
+                    name="barber"
+                    value={bName}
+                    checked={barberName === bName}
+                    onChange={() => {
+                      setBarberName(bName);
+                      if (date) fetchAvailableSlots(date, bName);
+                    }}
+                    style={{ display: 'none' }}
+                  />
+                  <S.BarberAvatar src={src} alt={`Foto do barbeiro ${bName}`} />
+                  <span>{bName}</span>
+                </S.BarberCard>
+              ))}
+            </S.BarberGrid>
+          </S.FullRow>
+
           <S.FullRow>
             <InputGroup
               label="Nome"
@@ -175,7 +238,11 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
               required
               placeholder="Selecione a data"
               value={date}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setDate(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const v = e.target.value;
+                setDate(v);
+                if (barberName) fetchAvailableSlots(v, barberName);
+              }}
             >
               {dateOptions.map(opt => (
                 <option key={opt.value} value={opt.value}>
@@ -187,9 +254,10 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
               label="Horário"
               labelFor="horario"
               required
-              placeholder="Selecione o horário"
+              placeholder={loadingSlots ? 'Carregando...' : (timeOptions.length ? 'Selecione o horário' : (date && barberName ? 'Sem horários disponíveis' : 'Selecione data e barbeiro'))}
               value={time}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTime(e.target.value)}
+              disabled={!date || !barberName || loadingSlots || timeOptions.length === 0}
             >
               {timeOptions.map(t => (
                 <option key={t} value={t}>
@@ -199,24 +267,7 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
             </SelectGroup>
           </S.FieldInline>
 
-          <S.FullRow>
-            <S.BarberGrid>
-              {barbers.map(({ name: bName, src }) => (
-                <S.BarberCard key={bName} $selected={barberName === bName}>
-                  <input
-                    type="radio"
-                    name="barber"
-                    value={bName}
-                    checked={barberName === bName}
-                    onChange={() => setBarberName(bName)}
-                    style={{ display: 'none' }}
-                  />
-                  <S.BarberAvatar src={src} alt={`Foto do barbeiro ${bName}`} />
-                  <span>{bName}</span>
-                </S.BarberCard>
-              ))}
-            </S.BarberGrid>
-          </S.FullRow>
+          {/* Seleção de barbeiros movida para cima; campos de data/hora permanecem aqui */}
 
           <S.Actions>
             <Button as="button" type="button" onClick={onClose}>
