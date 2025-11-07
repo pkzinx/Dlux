@@ -3,19 +3,19 @@
 {% block content %}
 <h3 class="mb-3">Perfil</h3>
 
-<div class="card card-panel">
-  <div class="card-body">
-    <div class="d-flex align-items-center gap-3">
+  <div class="card card-panel">
+    <div class="card-body">
+      <div class="d-flex align-items-center gap-3">
       {% if user.avatar %}
-        <img src="{{ user.avatar.url }}" alt="Avatar" class="rounded-circle" style="width:72px;height:72px;object-fit:cover;">
+        <div class="avatar-circle" style="background-image: url('{{ user.avatar.url }}');"></div>
       {% else %}
-        <div class="rounded-circle bg-secondary" style="width:72px;height:72px;"></div>
+        <div class="avatar-circle"></div>
       {% endif %}
-      <div>
-        <div class="fw-semibold">{{ user.display_name|default:user.username }}</div>
-        <div class="muted">Papel: {{ user.role }}</div>
+        <div>
+          <div class="fw-semibold">{{ user.display_name|default:user.username }}</div>
+          <div class="muted">Papel: {{ user.role }}</div>
+        </div>
       </div>
-    </div>
     <hr>
     <div class="row g-3">
       <div class="col-md-6">
@@ -34,7 +34,98 @@
     <div class="mt-3">
       <a href="#" class="btn btn-accent btn-sm">Editar perfil</a>
       <a href="#" class="btn btn-outline-light btn-sm">Alterar senha</a>
-    </div>
+    </div>f
   </div>
 </div>
+
+{% if user.role == 'barber' %}
+  {% if message %}
+    <div class="alert alert-{{ message_type }} mt-3">{{ message }}</div>
+  {% endif %}
+  <div class="card card-panel mt-3">
+    <div class="card-header fw-semibold">Bloquear horários (até 30 dias)</div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="blockDate" class="form-label">Data</label>
+            <input type="date" class="form-control" id="blockDate" name="date" min="{{ min_date }}" max="{{ max_date }}" value="{{ selected_date|date:'Y-m-d' }}">
+            <div class="muted mt-1">Selecione o dia a bloquear (até 1 mês).</div>
+          </div>
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="fullDaySwitch" name="full_day">
+          <label class="form-check-label" for="fullDaySwitch">Indisponível o dia inteiro</label>
+        </div>
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label for="startTime" class="form-label">Início</label>
+            <input type="time" class="form-control" id="startTime" name="start_time" placeholder="10:00">
+          </div>
+          <div class="col-md-4">
+            <label for="endTime" class="form-label">Fim</label>
+            <input type="time" class="form-control" id="endTime" name="end_time" placeholder="12:00">
+          </div>
+          <div class="col-md-4">
+            <label for="reason" class="form-label">Motivo (opcional)</label>
+            <input type="text" class="form-control" id="reason" name="reason" placeholder="Almoço, saída rápida...">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-accent mt-3">Bloquear</button>
+        <div class="muted mt-2">Dica: marque "dia inteiro" para indisponibilidade total. Caso contrário, preencha início e fim.</div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card card-panel mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold">Bloqueios do dia selecionado</span>
+      <form method="post" class="m-0 p-0">
+        {% csrf_token %}
+        <input type="hidden" name="date" value="{{ selected_date|date:'Y-m-d' }}">
+        <input type="hidden" name="action" value="unblock_day">
+        <button type="submit" class="btn btn-outline-light btn-sm" onclick="return confirm('Remover todos os bloqueios deste dia?')">Desbloquear dia</button>
+      </form>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-dark table-striped mb-0">
+        <thead>
+          <tr>
+            <th style="width: 160px;">Data</th>
+            <th style="width: 120px;">Intervalo</th>
+            <th>Motivo</th>
+            <th style="width: 140px;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in blocks_today %}
+            <tr>
+              <td>{{ b.date|date:'d/m/Y' }}</td>
+              <td>
+                {% if b.full_day %}
+                  Dia inteiro
+                {% else %}
+                  {{ b.start_time|time:'H:i' }} – {{ b.end_time|time:'H:i' }}
+                {% endif %}
+              </td>
+              <td>{{ b.reason }}</td>
+              <td>
+                <form method="post" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="date" value="{{ selected_date|date:'Y-m-d' }}">
+                  <input type="hidden" name="action" value="unblock_one">
+                  <input type="hidden" name="block_id" value="{{ b.id }}">
+                  <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Remover este bloqueio?')">Desbloquear</button>
+                </form>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="4" class="text-center muted">Nenhum bloqueio para hoje.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}
 {% endblock %}

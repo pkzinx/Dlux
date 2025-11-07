@@ -11,6 +11,11 @@
       </svg>
       Exportar CSV (mês)
     </a>
+    {% if can_withdraw %}
+    <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+      Retirada
+    </button>
+    {% endif %}
   </div>
 </div>
 
@@ -31,14 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-lg">
-    <div class="card card-panel">
-      <div class="card-body">
-        <div class="kpi">{{ kpis.sales_count }}</div>
-        <div class="kpi-label">Vendas Hoje</div>
-      </div>
-    </div>
-  </div>
+  
   <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
@@ -47,17 +45,57 @@
       </div>
     </div>
   </div>
-  {% if not is_admin and kpis.barber_share_today %}
+  {% if not is_admin %}
   <div class="col-sm-6 col-lg">
     <div class="card card-panel">
       <div class="card-body">
-        <div class="kpi">R$ {{ kpis.barber_share_today }}</div>
-        <div class="kpi-label">Participação (Hoje)</div>
+        <div class="kpi">R$ {{ kpis.barber_share_month }}</div>
+        <div class="kpi-label">Participação de Serviços (Mês)</div>
+      </div>
+    </div>
+  </div>
+  {% if is_special_finances_view %}
+  <div class="col-sm-6 col-lg">
+    <div class="card card-panel">
+      <div class="card-body">
+        <div class="kpi">R$ {{ kpis.month_total_all }}</div>
+        <div class="kpi-label">Faturamento Total (Mês)</div>
       </div>
     </div>
   </div>
   {% endif %}
+  {% endif %}
 </div>
+
+{% if can_withdraw %}
+<div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light border-secondary">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="withdrawModalLabel">Registrar retirada de caixa</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="number" step="0.01" min="0" class="form-control bg-dark text-light border-secondary" id="withdrawAmount" name="withdraw_amount" placeholder="0,00" required>
+            <label for="withdrawAmount">Valor (R$)</label>
+          </div>
+          <div class="form-floating">
+            <textarea class="form-control bg-dark text-light border-secondary" placeholder="Observação (opcional)" id="withdrawNote" name="withdraw_note" style="height: 100px"></textarea>
+            <label for="withdrawNote">Observação (opcional)</label>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Confirmar retirada</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <div class="row g-3">
   <div class="col-lg-6">

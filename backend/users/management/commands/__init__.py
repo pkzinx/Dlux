@@ -1,1 +1,1 @@
-
+"""Commands for users app."""

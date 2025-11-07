@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Appointment
+from .models import TimeBlock
 from services.models import Service
 from django.db.models import Q
 from .serializers import AppointmentSerializer
@@ -144,13 +145,28 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             end_datetime__gt=window_start,
         ).values('start_datetime', 'end_datetime')
 
-        # Gera slots a cada 10 minutos, garantindo que [start, end) não sobreponha existentes
+        # Buscar bloqueios de horário do barbeiro para o dia
+        blocks = TimeBlock.objects.filter(barber_id=barber_id, date=day)
+        # Se houver bloqueio de dia inteiro, não há slots disponíveis
+        if blocks.filter(full_day=True).exists():
+            return Response({'slots': []})
+
+        # Gera slots a cada 10 minutos, garantindo que [start, end) não sobreponha existentes nem bloqueios
         step = datetime.timedelta(minutes=10)
         duration = datetime.timedelta(minutes=duration_minutes)
         slots = []
         cur = window_start
         # Para otimizar, prepara lista de ranges
         ranges = [(timezone.localtime(r['start_datetime']), timezone.localtime(r['end_datetime'])) for r in existing]
+        # Adicionar ranges de bloqueio
+        tz = timezone.get_current_timezone()
+        for b in blocks:
+            if not b.full_day and b.start_time and b.end_time:
+                bs_naive = datetime.datetime.combine(day, b.start_time)
+                be_naive = datetime.datetime.combine(day, b.end_time)
+                bs = timezone.make_aware(bs_naive, tz)
+                be = timezone.make_aware(be_naive, tz)
+                ranges.append((timezone.localtime(bs), timezone.localtime(be)))
         while cur + duration <= window_end:
             proposed_start = cur
             proposed_end = cur + duration

@@ -66,6 +66,11 @@
             <a class="list-group-item list-group-item-action px-3 sidebar-link {% if '/painel/financas' in request.path %}active{% endif %}" href="/painel/financas/">
               <span class="me-2">💰</span> Finanças
             </a>
+            {% if user.username|lower in 'kaue,alafy' %}
+            <a class="list-group-item list-group-item-action px-3 sidebar-link {% if '/painel/historico' in request.path %}active{% endif %}" href="/painel/historico/">
+              <span class="me-2">📝</span> Histórico
+            </a>
+            {% endif %}
             <a class="list-group-item list-group-item-action px-3 sidebar-link {% if '/painel/perfil' in request.path %}active{% endif %}" href="/painel/perfil/">
               <span class="me-2">👤</span> Perfil
             </a>

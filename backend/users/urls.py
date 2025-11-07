@@ -7,6 +7,7 @@ from .views import (
     panel_appointments,
     panel_finances,
     panel_profile,
+    panel_history,
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('painel/agendamentos/', panel_appointments, name='panel_appointments'),
     path('painel/financas/', panel_finances, name='panel_finances'),
     path('painel/perfil/', panel_profile, name='panel_profile'),
+    path('painel/historico/', panel_history, name='panel_history'),
 ]

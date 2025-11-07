@@ -39,14 +39,78 @@ class Appointment(models.Model):
         if not self.end_datetime and self.service:
             self.end_datetime = self.start_datetime + timezone.timedelta(minutes=self.service.duration_minutes)
 
-        # validar conflito: (existing.start < new.end) AND (new.start < existing.end)
+        # validar conflito com buffer de 1 minuto entre agendamentos
+        # Regra: não permitir encostar agendamentos, exigindo 1min entre o fim/início
+        # Conflito se: existing.start < (new.end + 1min) E (existing.end + 1min) > new.start
         if self.barber_id and self.start_datetime and self.end_datetime:
             qs = Appointment.objects.filter(barber=self.barber, status=self.STATUS_SCHEDULED)
             if self.pk:
                 qs = qs.exclude(pk=self.pk)
-            conflict = qs.filter(start_datetime__lt=self.end_datetime, end_datetime__gt=self.start_datetime).exists()
+            conflict = qs.filter(
+                start_datetime__lt=(self.end_datetime + timezone.timedelta(minutes=1)),
+                end_datetime__gt=(self.start_datetime - timezone.timedelta(minutes=1))
+            ).exists()
             if conflict:
                 raise ValidationError('Conflito de horário: barbeiro já possui agendamento nesse intervalo.')
+
+            # validar conflito com bloqueios de horário (TimeBlock)
+            try:
+                from .models import TimeBlock  # local import para evitar ordem de definição
+                # Converter para horário local para comparação por data
+                start_local = timezone.localtime(self.start_datetime)
+                end_local = timezone.localtime(self.end_datetime)
+                day = start_local.date()
+                blocks = TimeBlock.objects.filter(barber=self.barber, date=day)
+                for b in blocks:
+                    if b.full_day:
+                        raise ValidationError('Conflito: barbeiro indisponível o dia inteiro.')
+                    if b.start_time and b.end_time:
+                        block_start = start_local.replace(hour=b.start_time.hour, minute=b.start_time.minute, second=0, microsecond=0)
+                        block_end = start_local.replace(hour=b.end_time.hour, minute=b.end_time.minute, second=0, microsecond=0)
+                        # Conflito se houver interseção
+                        if block_start < end_local and block_end > start_local:
+                            raise ValidationError('Conflito: intervalo bloqueado pelo barbeiro.')
+            except Exception:
+                # Em caso de erro inesperado, não bloquear o save, mas evitar quebra
+                pass
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+
+
+class TimeBlock(models.Model):
+    """Bloqueio de horários para barbeiros (pausas, almoço, indisponibilidade).
+    Se full_day=True, o barbeiro fica indisponível o dia inteiro.
+    Caso contrário, usar start_time e end_time como intervalo dentro do dia.
+    """
+    barber = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': User.BARBER}, related_name='time_blocks')
+    date = models.DateField()
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
+    full_day = models.BooleanField(default=False)
+    reason = models.CharField(max_length=120, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['barber', 'date']),
+        ]
+        verbose_name = 'Bloqueio de horário'
+        verbose_name_plural = 'Bloqueios de horário'
+
+    def __str__(self):
+        label = self.reason or 'Bloqueio'
+        if self.full_day:
+            return f"{label} - {self.date} (dia inteiro)"
+        return f"{label} - {self.date} {self.start_time}–{self.end_time}"
+
+    def clean(self):
+        if not self.full_day:
+            if not self.start_time or not self.end_time:
+                raise ValidationError('Para bloqueios parciais, informe início e fim.')
+            if self.start_time >= self.end_time:
+                raise ValidationError('Horário de início deve ser antes do fim.')
 
     def save(self, *args, **kwargs):
         self.clean()
