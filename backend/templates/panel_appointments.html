@@ -40,7 +40,14 @@
               </a>
             {% endif %}
           </td>
-          <td>{{ a.service.title }}</td>
+          <td>
+            {{ a.service.title }}
+            {% for s in a.sale_set.all %}
+              {% if s.service and s.status == 'paid' %}
+                + {{ s.service.title }}
+              {% endif %}
+            {% endfor %}
+          </td>
           {% if is_admin %}<td>{{ a.created_at|date:'d/m H:i' }}</td>{% endif %}
           <td>
             {% if a.status == 'scheduled' %}
@@ -225,7 +232,8 @@
       try {
         let res;
         if (action === 'cancel') {
-          res = await fetch(`/api/appointments/${apptId}/status/`, {
+          // Usar PATCH no recurso principal evita 404 e permite lógica de servidor
+          res = await fetch(`/api/appointments/${apptId}/`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
             body: JSON.stringify({ status: 'cancelled' })

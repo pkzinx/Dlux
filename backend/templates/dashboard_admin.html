@@ -105,7 +105,14 @@
                   </a>
                 {% endif %}
               </td>
-              <td>{{ a.service.title }}</td>
+              <td>
+                {{ a.service.title }}
+                {% for s in a.sale_set.all %}
+                  {% if s.service and s.status == 'paid' %}
+                    + {{ s.service.title }}
+                  {% endif %}
+                {% endfor %}
+              </td>
               <td>{{ a.created_at|date:'d/m H:i' }}</td>
               <td>
                 {% if a.status == 'scheduled' %}

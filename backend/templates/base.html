@@ -191,12 +191,52 @@
         const form = document.getElementById('quickScheduleForm');
         if (!form) return;
 
+        function getCsrfToken(){
+          const match = document.cookie.match(/csrftoken=([^;]+)/);
+          return match ? match[1] : '';
+        }
+
         // Carregar horários disponíveis conforme serviço e data selecionados
         const serviceSel = document.getElementById('qsService');
         const dateInput = form.querySelector('input[name="date"]');
         const timeInput = document.getElementById('qsTime');
+        async function postAppointment(payload){
+          // Tenta primeiro endpoint público, depois o protegido do painel
+          const common = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCsrfToken(),
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload)
+          };
+          let res = await fetch('/api/appointments/public/', common);
+          if (!res.ok && (res.status === 400 || res.status === 404 || res.status === 405)) {
+            res = await fetch('/api/appointments/', common);
+          }
+          return res;
+        }
+
+        function showToast(kind, message){
+          const toastContainer = document.getElementById('toastContainer');
+          const toastEl = document.createElement('div');
+          toastEl.className = `toast align-items-center text-bg-${kind} border-0`;
+          toastEl.setAttribute('role', 'alert');
+          toastEl.setAttribute('aria-live', 'assertive');
+          toastEl.setAttribute('aria-atomic', 'true');
+          toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">${message}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+          toastContainer.appendChild(toastEl);
+          const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+          toast.show();
+        }
+
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
+          // Validação nativa do formulário (não bypassar required)
+          if (typeof form.reportValidity === 'function' && !form.reportValidity()) {
+            return;
+          }
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Agendando...'; }
           const fd = new FormData(form);
@@ -205,15 +245,46 @@
           const notes = '';
           const date = fd.get('date');
           const time = fd.get('time');
-          const start_iso = `${date}T${time}:00`;
+          // Construir string ISO com offset de timezone para evitar datetimes "naive"
+          const startLocal = new Date(`${date}T${time}:00`);
+          const tzOffsetMin = -startLocal.getTimezoneOffset();
+          const sign = tzOffsetMin >= 0 ? '+' : '-';
+          const abs = Math.abs(tzOffsetMin);
+          const offHH = String(Math.floor(abs / 60)).padStart(2, '0');
+          const offMM = String(abs % 60).padStart(2, '0');
+          const offsetStr = `${sign}${offHH}:${offMM}`;
+          const start_iso = `${date}T${time}:00${offsetStr}`;
           const duration = parseInt(form.querySelector('#qsService option:checked')?.dataset?.duration || '0', 10);
-          const start = new Date(start_iso);
-          const end = new Date(start.getTime() + duration * 60000);
+          const startMs = startLocal.getTime();
+          const end = new Date(startMs + (isNaN(duration) ? 0 : duration) * 60000);
           const pad = (n) => n.toString().padStart(2, '0');
-          const end_iso = `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}T${pad(end.getHours())}:${pad(end.getMinutes())}:00`;
+          const tzOffsetMinEnd = -end.getTimezoneOffset();
+          const signEnd = tzOffsetMinEnd >= 0 ? '+' : '-';
+          const absEnd = Math.abs(tzOffsetMinEnd);
+          const offHHEnd = String(Math.floor(absEnd / 60)).padStart(2, '0');
+          const offMMEnd = String(absEnd % 60).padStart(2, '0');
+          const offsetStrEnd = `${signEnd}${offHHEnd}:${offMMEnd}`;
+          const end_iso = `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}T${pad(end.getHours())}:${pad(end.getMinutes())}:00${offsetStrEnd}`;
+          // Garantir seleção de barbeiro/serviço (evitar NaN/null)
+          const barberIdInt = parseInt(barber, 10);
+          const serviceIdInt = parseInt(service, 10);
+          if (!barberIdInt || !serviceIdInt) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastEl = document.createElement('div');
+            toastEl.className = 'toast align-items-center text-bg-danger border-0';
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">Selecione um barbeiro e um serviço.</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+            toastContainer.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+            toast.show();
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Agendar'; }
+            return;
+          }
           const payload = {
-            barber: parseInt(barber, 10),
-            service: parseInt(service, 10),
+            barber: barberIdInt,
+            service: serviceIdInt,
             client_name: fd.get('client_name'),
             client_phone: fd.get('client_phone'),
             start_datetime: start_iso,
@@ -221,26 +292,13 @@
             notes: notes || 'Agendado via painel',
           };
           try {
-            const res = await fetch('/api/appointments/public/', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            });
+            const res = await postAppointment(payload);
             if (!res.ok) throw new Error('Falha ao agendar');
             const data = await res.json();
             // Toast bonito de sucesso
-            const toastContainer = document.getElementById('toastContainer');
             const serviceText = form.querySelector('#qsService option:checked')?.textContent || 'Serviço';
             const timeText = `${pad(start.getHours())}:${pad(start.getMinutes())}`;
-            const toastEl = document.createElement('div');
-            toastEl.className = 'toast align-items-center text-bg-success border-0';
-            toastEl.setAttribute('role', 'alert');
-            toastEl.setAttribute('aria-live', 'assertive');
-            toastEl.setAttribute('aria-atomic', 'true');
-            toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">Agendamento concluído (#${data.id})<br><small>${fd.get('client_name')} — ${timeText} — ${serviceText}</small></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
-            toastContainer.appendChild(toastEl);
-            const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
-            toast.show();
+            showToast('success', `Agendamento concluído (#${data.id})<br><small>${fd.get('client_name')} — ${timeText} — ${serviceText}</small>`);
             const modalEl = document.getElementById('quickScheduleModal');
             const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
             modal.hide();
@@ -248,16 +306,15 @@
             // Redireciona para o painel de agendamentos para visualizar
             setTimeout(() => { window.location.href = '/painel/agendamentos/'; }, 1200);
           } catch (err) {
-            const toastContainer = document.getElementById('toastContainer');
-            const toastEl = document.createElement('div');
-            toastEl.className = 'toast align-items-center text-bg-danger border-0';
-            toastEl.setAttribute('role', 'alert');
-            toastEl.setAttribute('aria-live', 'assertive');
-            toastEl.setAttribute('aria-atomic', 'true');
-            toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">Erro ao agendar. Verifique os dados e tente novamente.</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
-            toastContainer.appendChild(toastEl);
-            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-            toast.show();
+            // Tenta ler erro detalhado
+            try {
+              const res = await postAppointment(payload);
+              const errText = await res.text();
+              const msg = (errText && errText.length < 500 ? errText : 'Erro ao agendar. Verifique os dados e tente novamente.');
+              showToast('danger', msg);
+            } catch (_) {
+              showToast('danger', 'Erro ao agendar. Verifique os dados e tente novamente.');
+            }
           }
           if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Agendar'; }
         });

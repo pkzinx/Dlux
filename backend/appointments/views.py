@@ -8,6 +8,7 @@ from .models import TimeBlock
 from services.models import Service
 from django.db.models import Q
 from .serializers import AppointmentSerializer
+from sales.models import Sale
 from users.models import User
 from decimal import Decimal
 from django.utils.text import slugify
@@ -35,6 +36,12 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
+        # Importante: para rotas de detalhe (com pk), não aplique filtro por barbeiro aqui.
+        # Isso evita 404 indevido ao buscar um objeto existente que não está no queryset filtrado.
+        # A checagem de permissão por objeto continuará garantindo acesso correto.
+        if 'pk' in getattr(self, 'kwargs', {}):
+            return qs
+
         user = self.request.user
         barber_id = self.request.query_params.get('barberId')
         if user.role == User.BARBER:
@@ -49,9 +56,29 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+    def partial_update(self, request, *args, **kwargs):
+        """Atualiza parcialmente e registra o ator; se status=cancelled, cancela vendas."""
+        appt = self.get_object()
+        # Registrar quem realizou a edição para os sinais de auditoria
+        setattr(appt, '_actor', request.user)
+        serializer = self.get_serializer(appt, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        resp = Response(serializer.data)
+        try:
+            new_status = request.data.get('status')
+            if new_status == Appointment.STATUS_CANCELLED:
+                Sale.objects.filter(appointment=appt).update(status='cancelled')
+        except Exception:
+            # Evitar quebrar a resposta do update por erro secundário
+            pass
+        return resp
+
     @action(detail=True, methods=['patch'], url_path='status')
     def update_status(self, request, pk=None):
         appt = self.get_object()
+        # Registrar o ator que realizou a mudança de status
+        setattr(appt, '_actor', request.user)
         status = request.data.get('status')
         if status not in dict(Appointment.STATUS_CHOICES):
             return Response({'detail': 'Status inválido.'}, status=400)
@@ -242,15 +269,50 @@ class PublicAppointmentCreate(APIView):
         except User.DoesNotExist:
             return Response({'detail': 'Barbeiro inválido.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Normalizar datetime: aceitar start_datetime/end_datetime prontos
+        # ou construir a partir de date/time e calcular fim pela duração do serviço
+        start_dt = data.get('start_datetime') or data.get('startDatetime')
+        end_dt = data.get('end_datetime') or data.get('endDatetime')
+        if not start_dt:
+            date_str = data.get('date') or data.get('start_date') or data.get('startDate')
+            time_str = data.get('time') or data.get('start_time') or data.get('startTime')
+            if not date_str or not time_str:
+                return Response({'detail': 'Data e horário são obrigatórios.'}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                # Construir aware datetime no timezone atual
+                tz = timezone.get_current_timezone()
+                y, m, d = [int(x) for x in date_str.split('-')]
+                hh, mm = [int(x) for x in time_str.split(':')[:2]]
+                naive = datetime.datetime(y, m, d, hh, mm, 0)
+                start_aware = timezone.make_aware(naive, tz)
+                start_dt = start_aware.isoformat(timespec='seconds')
+            except Exception:
+                return Response({'detail': 'Data/horário inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not end_dt:
+            try:
+                svc = Service.objects.filter(pk=service_id).first()
+                duration_minutes = getattr(svc, 'duration_minutes', None) or 30
+                # Parse start_dt (aceita offset ISO 8601)
+                try:
+                    start_parsed = datetime.datetime.fromisoformat(str(start_dt))
+                except Exception:
+                    return Response({'detail': 'Início inválido.'}, status=status.HTTP_400_BAD_REQUEST)
+                if timezone.is_naive(start_parsed):
+                    start_parsed = timezone.make_aware(start_parsed, timezone.get_current_timezone())
+                end_parsed = start_parsed + datetime.timedelta(minutes=duration_minutes)
+                end_dt = end_parsed.isoformat(timespec='seconds')
+            except Exception:
+                return Response({'detail': 'Falha ao calcular término.'}, status=status.HTTP_400_BAD_REQUEST)
+
         # Use serializer to validate and create
         payload = {
             'barber': barber.id,
-            'client_name': data.get('client_name') or data.get('clientName'),
-            'client_phone': data.get('client_phone') or data.get('clientPhone'),
+            'client_name': data.get('client_name') or data.get('clientName') or data.get('nome'),
+            'client_phone': data.get('client_phone') or data.get('clientPhone') or data.get('telefone'),
             'service': service_id,
-            'start_datetime': data.get('start_datetime') or data.get('startDatetime'),
-            'end_datetime': data.get('end_datetime') or data.get('endDatetime'),
-            'notes': data.get('notes')
+            'start_datetime': start_dt,
+            'end_datetime': end_dt,
+            'notes': data.get('notes') or data.get('obs')
         }
         serializer = AppointmentSerializer(data=payload)
         if serializer.is_valid():

@@ -191,7 +191,12 @@ def panel_finances(request: HttpRequest):
                     action='create',
                     target_type='Withdrawal',
                     target_id=str(w.pk),
-                    payload={'amount': str(amt), 'note': note}
+                    payload={
+                        'amount': str(amt),
+                        'note': note,
+                        'barber': getattr(user, 'id', None),
+                        'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
+                    }
                 )
             except Exception:
                 pass
@@ -270,10 +275,43 @@ def panel_finances(request: HttpRequest):
         ) if (is_admin or is_special_finances_view) else appts_month_done
     )
 
-    breakdown_by_service = breakdown_source_qs.values('service__id', 'service__title').annotate(
+    # Quebra por serviço baseada em agendamentos concluídos
+    appt_breakdown = breakdown_source_qs.values('service__id', 'service__title').annotate(
         count=Count('id'),
         total_value=Sum('service__price')
-    ).order_by('-total_value')
+    )
+    # Incluir vendas com serviço como novos serviços feitos (mês)
+    sales_breakdown = Sale.objects.filter(
+        created_at__gte=month_start,
+        created_at__lt=today_end,
+        status='paid',
+        **sales_filter
+    ).filter(service__isnull=False).values('service__id', 'service__title').annotate(
+        count=Count('id'),
+        total_value=Sum('amount')
+    )
+    # Merge por service__id
+    combined_map = {}
+    for r in appt_breakdown:
+        sid = r['service__id']
+        combined_map[sid] = {
+            'service__id': sid,
+            'service__title': r['service__title'],
+            'count': r['count'],
+            'total_value': r['total_value'] or 0,
+        }
+    for s in sales_breakdown:
+        sid = s['service__id']
+        entry = combined_map.get(sid, {
+            'service__id': sid,
+            'service__title': s['service__title'],
+            'count': 0,
+            'total_value': 0,
+        })
+        entry['count'] += s['count']
+        entry['total_value'] += (s['total_value'] or 0)
+        combined_map[sid] = entry
+    breakdown_by_service = sorted(combined_map.values(), key=lambda x: x['total_value'], reverse=True)
     breakdown_by_barber = appts_month_done.values('barber__id', 'barber__display_name', 'barber__username').annotate(
         count=Count('id'),
         total_value=Sum('service__price')
@@ -367,7 +405,9 @@ def panel_profile(request: HttpRequest):
                             payload={
                                 'date': selected_date.isoformat(),
                                 'date_display': selected_date.strftime('%d/%m'),
-                                'type': 'unblock_one'
+                                'type': 'unblock_one',
+                                'barber': getattr(user, 'id', None),
+                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
                             }
                         )
                     except Exception:
@@ -388,7 +428,9 @@ def panel_profile(request: HttpRequest):
                                 'date': selected_date.isoformat(),
                                 'date_display': selected_date.strftime('%d/%m'),
                                 'type': 'unblock_day',
-                                'deleted_count': deleted
+                                'deleted_count': deleted,
+                                'barber': getattr(user, 'id', None),
+                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
                             }
                         )
                     except Exception:
@@ -412,6 +454,8 @@ def panel_profile(request: HttpRequest):
                                 'date_display': selected_date.strftime('%d/%m'),
                                 'full_day': True,
                                 'reason': reason,
+                                'barber': getattr(user, 'id', None),
+                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
                             }
                         )
                     except Exception:
@@ -447,6 +491,8 @@ def panel_profile(request: HttpRequest):
                                 'start_label': start_time.strftime('%H:%M'),
                                 'end_label': end_time.strftime('%H:%M'),
                                 'reason': reason,
+                                'barber': getattr(user, 'id', None),
+                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
                             }
                         )
                     except Exception:
@@ -474,10 +520,10 @@ def panel_history(request: HttpRequest):
     if not special_view:
         return redirect('painel_index')
 
-    # Mostrar apenas retiradas, bloqueios e edições de agendamentos
+    # Mostrar retiradas, bloqueios, edições de agendamentos e vendas registradas
     from django.db.models import Q
     logs_qs = AuditLog.objects.filter(
-        Q(target_type__in=['Withdrawal', 'TimeBlock']) |
+        Q(target_type__in=['Withdrawal', 'TimeBlock', 'Sale']) |
         Q(target_type='Appointment', action='update')
     ).select_related('actor').order_by('-timestamp')
 

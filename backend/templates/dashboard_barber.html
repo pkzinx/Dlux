@@ -68,7 +68,14 @@
               </a>
             {% endif %}
           </td>
-          <td>{{ a.service.title }}</td>
+          <td>
+            {{ a.service.title }}
+            {% for s in a.sale_set.all %}
+              {% if s.service and s.status == 'paid' %}
+                + {{ s.service.title }}
+              {% endif %}
+            {% endfor %}
+          </td>
           <td>
             {% if a.status == 'scheduled' %}
               <span class="badge rounded-pill text-bg-secondary">Agendado</span>

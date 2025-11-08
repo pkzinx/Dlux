@@ -16,6 +16,7 @@ def log_appointment_change(sender, instance: Appointment, created, **kwargs):
         target_id=str(instance.pk),
         payload={
             'barber': instance.barber_id,
+            'barber_label': (getattr(instance.barber, 'display_name', None) or getattr(instance.barber, 'username', None)),
             'client_name': instance.client_name,
             'start': instance.start_datetime.isoformat(),
             'end': instance.end_datetime.isoformat(),
@@ -33,6 +34,7 @@ def log_sale_change(sender, instance: Sale, created, **kwargs):
         target_id=str(instance.pk),
         payload={
             'barber': instance.barber_id,
+            'barber_label': (getattr(instance.barber, 'display_name', None) or getattr(instance.barber, 'username', None)),
             'amount': str(instance.amount),
             'payment_method': instance.payment_method,
             'status': instance.status,
