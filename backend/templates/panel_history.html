@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for log in logs %}
+        {% for log in logs_page %}
         <tr>
           <td>{{ log.timestamp|date:'d/m/Y H:i' }}</td>
           <td>{{ log.get_action_display }}</td>
@@ -32,7 +32,11 @@
             {% if log.target_type == 'Appointment' %}
               Edição de agendamento: {{ log.payload.client_name }} — {{ log.payload.status }} ({{ log.payload.start }})
             {% elif log.target_type == 'TimeBlock' %}
-              Bloqueio: {% if log.payload.full_day %}dia inteiro{% else %}{{ log.payload.start_time|time:'H:i' }}–{{ log.payload.end_time|time:'H:i' }}{% endif %} — {{ log.payload.reason }}
+              {% if log.action == 'delete' %}
+                Desbloqueio: {% if log.payload.type == 'unblock_day' %}dia inteiro{% else %}intervalo{% endif %}{% if log.payload.date_display %} ({{ log.payload.date_display }}){% endif %}{% if log.payload.deleted_count %} — {{ log.payload.deleted_count }} removidos{% endif %}
+              {% else %}
+                Bloqueio: {% if log.payload.full_day %}dia inteiro{% if log.payload.date_display %} ({{ log.payload.date_display }}){% endif %}{% else %}{{ log.payload.start_label|default:log.payload.start_time }}–{{ log.payload.end_label|default:log.payload.end_time }}{% endif %} — {{ log.payload.reason }}
+              {% endif %}
             {% elif log.target_type == 'Withdrawal' %}
               Retirada: R$ {{ log.payload.amount }} — {{ log.payload.note }}
             {% else %}
@@ -48,6 +52,33 @@
       </tbody>
     </table>
   </div>
-  <div class="card-footer muted">Mostrando últimos {{ logs|length }} registros</div>
+  <div class="card-footer d-flex justify-content-between align-items-center">
+    <div>
+      Página {{ logs_page.number }} de {{ paginator.num_pages }}
+    </div>
+    <nav aria-label="Navegação de página">
+      <ul class="pagination pagination-dark mb-0">
+        {% if logs_page.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ logs_page.previous_page_number }}">Anterior</a></li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+        {% endif %}
+
+        {% for num in logs_page.paginator.page_range %}
+          {% if num == logs_page.number %}
+            <li class="page-item active" aria-current="page"><span class="page-link">{{ num }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if logs_page.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ logs_page.next_page_number }}">Próxima</a></li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">Próxima</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
   </div>
 {% endblock %}

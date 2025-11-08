@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Perfil{% endblock %}
 {% block content %}
 <h3 class="mb-3">Perfil</h3>
@@ -7,9 +8,23 @@
     <div class="card-body">
       <div class="d-flex align-items-center gap-3">
       {% if user.avatar %}
-        <div class="avatar-circle" style="background-image: url('{{ user.avatar.url }}');"></div>
+        <img class="avatar-circle rounded-circle" src="{{ user.avatar.url }}" alt="Avatar do barbeiro" />
       {% else %}
-        <div class="avatar-circle"></div>
+        {% with name=user.display_name|default:user.username %}
+          {% if name|lower == 'kaue' %}
+            <img class="avatar-circle rounded-circle" src="{% static 'assets/img/kaue.jpg' %}" alt="Kaue" />
+          {% elif name|lower == 'kevin' %}
+            <img class="avatar-circle rounded-circle" src="{% static 'assets/img/kevin.JPEG' %}" alt="Kevin" />
+          {% elif name|lower == 'emerson' %}
+            <img class="avatar-circle rounded-circle" src="{% static 'assets/img/emerson.JPG' %}" alt="Emerson" />
+          {% elif name|lower == 'rikelv' %}
+            <img class="avatar-circle rounded-circle" src="{% static 'assets/img/rikelv.JPEG' %}" alt="Rikelv" />
+          {% elif name|lower == 'alefi' or name|lower == 'alafy' %}
+            <img class="avatar-circle rounded-circle" src="{% static 'assets/img/alafy.JPEG' %}" alt="Alafy" />
+          {% else %}
+            <div class="avatar-circle"></div>
+          {% endif %}
+        {% endwith %}
       {% endif %}
         <div>
           <div class="fw-semibold">{{ user.display_name|default:user.username }}</div>
@@ -26,15 +41,13 @@
       </div>
       <div class="col-md-6">
         <div class="form-floating">
-          <input type="text" class="form-control" id="inputUsername" value="{{ user.username }}" disabled>
-          <label for="inputUsername">Usuário</label>
+          <!-- Removido campo Usuário conforme solicitação -->
+          
         </div>
       </div>
     </div>
-    <div class="mt-3">
-      <a href="#" class="btn btn-accent btn-sm">Editar perfil</a>
-      <a href="#" class="btn btn-outline-light btn-sm">Alterar senha</a>
-    </div>f
+    <!-- Removidos botões de ação (Editar perfil / Alterar senha) conforme solicitação -->
+    
   </div>
 </div>
 

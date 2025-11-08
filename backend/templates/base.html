@@ -124,9 +124,7 @@
                 </div>
                 <div class="col-6">
                   <label class="form-label">Hora</label>
-                  <select class="form-select" name="time" id="qsTime" required>
-                    <option value="" disabled selected>Selecione serviço e data</option>
-                  </select>
+                  <input type="time" class="form-control" name="time" id="qsTime" required>
                 </div>
               </div>
               <div class="mb-3">
@@ -137,10 +135,7 @@
                 <label class="form-label">Telefone</label>
                 <input type="text" class="form-control" name="client_phone" placeholder="11999999999" required>
               </div>
-              <div class="mb-3">
-                <label class="form-label">Observações</label>
-                <textarea class="form-control" name="notes" rows="2" placeholder="Opcional"></textarea>
-              </div>
+              <!-- Observações removidas conforme solicitação -->
               <button type="submit" class="btn btn-accent">Agendar</button>
             </form>
           </div>
@@ -199,49 +194,7 @@
         // Carregar horários disponíveis conforme serviço e data selecionados
         const serviceSel = document.getElementById('qsService');
         const dateInput = form.querySelector('input[name="date"]');
-        const timeSel = document.getElementById('qsTime');
-        function loadAvailable(){
-          if (!serviceSel || !dateInput || !timeSel) return;
-          const date = dateInput.value;
-          const barberHidden = form.querySelector('input[name="barber_id"]');
-          const barberSel = document.getElementById('qsBarber');
-          const barberId = barberSel ? barberSel.value : (barberHidden ? barberHidden.value : '');
-          const selectedOpt = serviceSel.options[serviceSel.selectedIndex];
-          const serviceId = serviceSel.value;
-          const duration = parseInt((selectedOpt && selectedOpt.dataset && selectedOpt.dataset.duration) || '0', 10);
-          if (!date || (!serviceId && !duration)) {
-            timeSel.innerHTML = '<option value="" disabled selected>Selecione serviço e data</option>';
-            return;
-          }
-          const params = new URLSearchParams({ date, barberId });
-          if (serviceId) params.append('serviceId', serviceId);
-          else params.append('durationMinutes', String(duration));
-          fetch('/api/appointments/available/?' + params.toString())
-            .then(r => r.json())
-            .then(data => {
-              const slots = Array.isArray(data?.slots) ? data.slots : [];
-              if (slots.length === 0) {
-                timeSel.innerHTML = '<option value="" disabled selected>Sem horários disponíveis</option>';
-                return;
-              }
-              timeSel.innerHTML = '';
-              slots.forEach(hm => {
-                const opt = document.createElement('option');
-                opt.value = hm;
-                opt.textContent = hm;
-                timeSel.appendChild(opt);
-              });
-            })
-            .catch(() => {
-              timeSel.innerHTML = '<option value="" disabled selected>Falha ao carregar horários</option>';
-            });
-        }
-        if (serviceSel) serviceSel.addEventListener('change', loadAvailable);
-        if (dateInput) dateInput.addEventListener('change', loadAvailable);
-        const barberSel = document.getElementById('qsBarber');
-        if (barberSel) barberSel.addEventListener('change', loadAvailable);
-        // Inicializar em caso de serviço já selecionado
-        loadAvailable();
+        const timeInput = document.getElementById('qsTime');
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const submitBtn = form.querySelector('button[type="submit"]');
@@ -249,7 +202,7 @@
           const fd = new FormData(form);
           const barber = fd.get('barber_id');
           const service = fd.get('service_id');
-          const notes = (fd.get('notes') || '').toString();
+          const notes = '';
           const date = fd.get('date');
           const time = fd.get('time');
           const start_iso = `${date}T${time}:00`;

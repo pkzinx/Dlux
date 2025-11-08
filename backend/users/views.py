@@ -364,7 +364,11 @@ def panel_profile(request: HttpRequest):
                             action='delete',
                             target_type='TimeBlock',
                             target_id=str(blk_id),
-                            payload={'date': selected_date.isoformat(), 'type': 'unblock_one'}
+                            payload={
+                                'date': selected_date.isoformat(),
+                                'date_display': selected_date.strftime('%d/%m'),
+                                'type': 'unblock_one'
+                            }
                         )
                     except Exception:
                         pass
@@ -380,7 +384,12 @@ def panel_profile(request: HttpRequest):
                             action='delete',
                             target_type='TimeBlock',
                             target_id='ALL',
-                            payload={'date': selected_date.isoformat(), 'type': 'unblock_day', 'deleted_count': deleted}
+                            payload={
+                                'date': selected_date.isoformat(),
+                                'date_display': selected_date.strftime('%d/%m'),
+                                'type': 'unblock_day',
+                                'deleted_count': deleted
+                            }
                         )
                     except Exception:
                         pass
@@ -398,7 +407,12 @@ def panel_profile(request: HttpRequest):
                             action='create',
                             target_type='TimeBlock',
                             target_id=str(blk.pk),
-                            payload={'date': selected_date.isoformat(), 'full_day': True, 'reason': reason}
+                            payload={
+                                'date': selected_date.isoformat(),
+                                'date_display': selected_date.strftime('%d/%m'),
+                                'full_day': True,
+                                'reason': reason,
+                            }
                         )
                     except Exception:
                         pass
@@ -426,9 +440,12 @@ def panel_profile(request: HttpRequest):
                             target_id=str(blk.pk),
                             payload={
                                 'date': selected_date.isoformat(),
+                                'date_display': selected_date.strftime('%d/%m'),
                                 'full_day': False,
                                 'start_time': start_time.isoformat(),
                                 'end_time': end_time.isoformat(),
+                                'start_label': start_time.strftime('%H:%M'),
+                                'end_label': end_time.strftime('%H:%M'),
                                 'reason': reason,
                             }
                         )
@@ -459,11 +476,17 @@ def panel_history(request: HttpRequest):
 
     # Mostrar apenas retiradas, bloqueios e edições de agendamentos
     from django.db.models import Q
-    logs = AuditLog.objects.filter(
+    logs_qs = AuditLog.objects.filter(
         Q(target_type__in=['Withdrawal', 'TimeBlock']) |
         Q(target_type='Appointment', action='update')
-    ).select_related('actor').order_by('-timestamp')[:200]
+    ).select_related('actor').order_by('-timestamp')
+
+    # Paginação dos logs, semelhante aos agendamentos
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(logs_qs, 15)
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'panel_history.html', {
-        'logs': logs,
+        'logs_page': page_obj,
+        'paginator': paginator,
     })

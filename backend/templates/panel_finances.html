@@ -134,6 +134,7 @@
           <thead>
             <tr>
               <th>Serviço</th>
+              <th style="width: 120px;">Tempo</th>
               <th style="width: 160px;">Valor</th>
             </tr>
           </thead>
@@ -141,10 +142,11 @@
             {% for s in all_services %}
             <tr>
               <td>{{ s.title }}</td>
+              <td>{% if s.duration_minutes %}{{ s.duration_minutes }} min{% endif %}</td>
               <td>R$ {{ s.price }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="2" class="text-center muted">Nenhum serviço cadastrado.</td></tr>
+            <tr><td colspan="3" class="text-center muted">Nenhum serviço cadastrado.</td></tr>
             {% endfor %}
           </tbody>
         </table>

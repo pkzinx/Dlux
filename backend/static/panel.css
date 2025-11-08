@@ -35,4 +35,4 @@ body { background: var(--dlux-bg); color: var(--dlux-text); }
 .sidebar .list-group-item.active { background: var(--dlux-card); color: var(--dlux-text); border-left: 3px solid var(--dlux-accent); }
 
 /* Avatar circle utility */
-.avatar-circle { width: 72px; height: 72px; border-radius: 50%; background-color: #2a2a2d; background-size: cover; background-position: center; display: inline-block; }
+.avatar-circle { width: 72px; height: 72px; border-radius: 50%; background-color: #2a2a2d; background-size: cover; background-position: center; display: inline-block; object-fit: cover; object-position: center; }

@@ -88,12 +88,40 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
   const todayYMD = toYMD(today);
 
   const dateOptions = React.useMemo(() => {
-    const d0 = new Date();
-    const d1 = new Date();
-    d1.setDate(d1.getDate() + 1);
-    const d2 = new Date();
-    d2.setDate(d2.getDate() + 2);
-    return [d0, d1, d2].map(d => ({ label: formatDM(d), value: toYMD(d) }));
+    // Gera próximos 30 dias, removendo domingos e feriados (seg a sáb)
+    const options: { label: string; value: string }[] = [];
+    const start = new Date();
+
+    const isSunday = (d: Date) => d.getDay() === 0;
+
+    const isBrazilHoliday = (d: Date) => {
+      // Feriados nacionais fixos (sem considerar móveis) – formato MM-DD
+      const fixed: Set<string> = new Set([
+        '01-01', // Confraternização Universal
+        '04-21', // Tiradentes
+        '05-01', // Dia do Trabalho
+        '09-07', // Independência do Brasil
+        '10-12', // Nossa Senhora Aparecida
+        '11-02', // Finados
+        '11-15', // Proclamação da República
+        '12-25', // Natal
+      ]);
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const key = `${mm}-${dd}`;
+      // Remover feriados que caem de segunda(1) a sábado(6)
+      const weekday = d.getDay();
+      return weekday >= 1 && weekday <= 6 && fixed.has(key);
+    };
+
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      if (isSunday(d)) continue;
+      if (isBrazilHoliday(d)) continue;
+      options.push({ label: formatDM(d), value: toYMD(d) });
+    }
+    return options;
   }, []);
 
   const generateSlots = () => {
