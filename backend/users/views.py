@@ -203,9 +203,10 @@ def panel_finances(request: HttpRequest):
 
     sales_today = Sale.objects.filter(created_at__gte=today_start, created_at__lt=today_end, **sales_filter)
     sales_month = Sale.objects.filter(created_at__gte=month_start, created_at__lt=today_end, **sales_filter)
-    appts_completed_today = Appointment.objects.filter(status='done', start_datetime__gte=today_start, start_datetime__lt=today_end, **appts_filter)
-    # Month-to-date done appointments (needed for KPIs and breakdowns)
-    appts_month_done = Appointment.objects.filter(status='done', start_datetime__gte=month_start, start_datetime__lt=today_end, **appts_filter)
+    # Concluídos hoje: usar end_datetime (momento da conclusão real)
+    appts_completed_today = Appointment.objects.filter(status='done', end_datetime__gte=today_start, end_datetime__lt=today_end, **appts_filter)
+    # Mês: usar end_datetime para refletir receita reconhecida na conclusão
+    appts_month_done = Appointment.objects.filter(status='done', end_datetime__gte=month_start, end_datetime__lt=today_end, **appts_filter)
 
     # KPIs baseados em agendamentos concluídos + vendas pagas
     appts_today_value = appts_completed_today.aggregate(total=Sum('service__price'))['total'] or 0
@@ -224,8 +225,8 @@ def panel_finances(request: HttpRequest):
     if (not is_admin) and is_special_finances_view:
         appts_month_all_value = Appointment.objects.filter(
             status='done',
-            start_datetime__gte=month_start,
-            start_datetime__lt=today_end,
+            end_datetime__gte=month_start,
+            end_datetime__lt=today_end,
         ).aggregate(total=Sum('service__price'))['total'] or 0
         sales_month_all_paid_value = Sale.objects.filter(
             created_at__gte=month_start,
@@ -253,8 +254,8 @@ def panel_finances(request: HttpRequest):
             others_q = Q(barber__username__iexact='rikelv') | Q(barber__username__iexact='emerson') | Q(barber__username__iexact='kevin')
             others_services_month = Appointment.objects.filter(
                 status='done',
-                start_datetime__gte=month_start,
-                start_datetime__lt=today_end,
+                end_datetime__gte=month_start,
+                end_datetime__lt=today_end,
             ).filter(others_q).aggregate(total=Sum('service__price'))['total'] or Decimal('0')
             share_month = (others_services_month * Decimal('0.40')) + (self_services_month * Decimal('1.00'))
         # Garantir duas casas decimais
@@ -270,8 +271,8 @@ def panel_finances(request: HttpRequest):
     breakdown_source_qs = (
         Appointment.objects.filter(
             status='done',
-            start_datetime__gte=month_start,
-            start_datetime__lt=today_end,
+            end_datetime__gte=month_start,
+            end_datetime__lt=today_end,
         ) if (is_admin or is_special_finances_view) else appts_month_done
     )
 
