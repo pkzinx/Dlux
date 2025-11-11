@@ -40,6 +40,75 @@ export const WrapperList = styled.ul`
   `}
 `;
 
+export const NoticeSection = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: 720px;
+    padding: ${theme.spacings.small};
+    margin-bottom: ${theme.spacings.medium};
+    border-radius: ${theme.border.radius};
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  `}
+`;
+
+export const NoticeHeader = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: ${theme.colors.white};
+    margin-bottom: ${theme.spacings.xsmall};
+    font-size: ${theme.font.sizes.small};
+    font-weight: 500;
+  `}
+`;
+
+export const NoticeList = styled.ul`
+  ${({ theme }) => css`
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.xsmall};
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  `}
+`;
+
+export const NoticeItem = styled.li`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: ${theme.spacings.xsmall};
+    padding: ${theme.spacings.xsmall};
+    border-radius: ${theme.border.radius};
+    background: rgba(255, 255, 255, 0.04);
+    color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.xsmall};
+  `}
+`;
+
+export const NoticeCancel = styled.button`
+  ${({ theme }) => css`
+    border: 1px solid ${theme.colors.primary};
+    color: ${theme.colors.primary};
+    background: transparent;
+    border-radius: ${theme.border.radius};
+    padding: 0.2rem 0.6rem;
+    font-size: ${theme.font.sizes.xsmall};
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      background: ${theme.colors.primary};
+      color: ${theme.colors.darkGray};
+    }
+  `}
+`;
+
 export const List = styled.li<ListProps>`
   ${({ theme, $isActive }) => css`
     position: relative;

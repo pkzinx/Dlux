@@ -324,3 +324,28 @@ class PublicAppointmentCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Create your views here.
+
+class PublicAppointmentCancel(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        """Cancela um agendamento publicamente por ID.
+        Segurança mínima: exige apenas o ID; ajuste conforme necessário.
+        """
+        appt_id = request.data.get('id') or request.data.get('appointmentId')
+        if not appt_id:
+            return Response({'detail': 'Parâmetro "id" é obrigatório.'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            appt = Appointment.objects.get(pk=appt_id)
+        except Appointment.DoesNotExist:
+            return Response({'detail': 'Agendamento não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Marcar actor como None para auditoria pública e cancelar
+        setattr(appt, '_actor', None)
+        appt.status = Appointment.STATUS_CANCELLED
+        appt.save()
+        try:
+            Sale.objects.filter(appointment=appt).update(status='cancelled')
+        except Exception:
+            pass
+        return Response(AppointmentSerializer(appt).data, status=status.HTTP_200_OK)

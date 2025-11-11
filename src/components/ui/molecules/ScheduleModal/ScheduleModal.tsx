@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from './ScheduleModal.styles';
 
 import { Button } from '../../atoms/Button/Button';
+import { addAppointment } from '@/utils/appointmentsStorage';
 import { InputGroup } from '../InputGroup/InputGroup';
 import { SelectGroup } from '../SelectGroup/SelectGroup';
 import { ModalForm } from '../ModalForm/ModalForm';
@@ -60,6 +61,19 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
       });
       const data = await resp.json();
       if (!resp.ok) throw new Error(data?.detail || 'Falha ao agendar');
+      // Persistir agendamento localmente (sem exigir login)
+      try {
+        addAppointment({
+          id: data?.id ? String(data.id) : undefined,
+          serviceTitle: serviceTitle || 'Serviço',
+          barberName,
+          clientName: name,
+          startDatetime,
+          endDatetime,
+        });
+      } catch (_) {
+        // Ignorar falhas de armazenamento local
+      }
       // Sucesso: fecha modal de agendamento e abre feedback de sucesso
       onClose();
       setFeedbackStatus('success');
