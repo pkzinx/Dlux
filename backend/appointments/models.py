@@ -117,3 +117,44 @@ class TimeBlock(models.Model):
         super().save(*args, **kwargs)
 
 # Create your models here.
+
+
+class NotificationSubscription(models.Model):
+    """Token de notificação push (FCM) vinculado a um agendamento específico.
+    Um cliente pode ter múltiplos tokens (navegadores/dispositivos)."""
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='notification_subscriptions')
+    token = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['appointment']),
+            models.Index(fields=['token']),
+        ]
+        unique_together = [('appointment', 'token')]
+
+    def __str__(self):
+        return f"Subscrição {self.appointment_id} - {self.token[:12]}..."
+
+
+class AppointmentNotification(models.Model):
+    """Registro de lembretes enviados para um agendamento (evita duplicidade)."""
+    TYPE_GREETING_30 = 'greeting_30'
+    TYPE_ALERT_10 = 'alert_10'
+    TYPE_CHOICES = [
+        (TYPE_GREETING_30, 'Saudação 30 min'),
+        (TYPE_ALERT_10, 'Alerta 10 min'),
+    ]
+
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='notifications')
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    sent_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['appointment', 'type']),
+        ]
+        unique_together = [('appointment', 'type')]
+
+    def __str__(self):
+        return f"Notificação {self.type} para appt #{self.appointment_id}"

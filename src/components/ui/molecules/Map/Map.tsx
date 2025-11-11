@@ -29,9 +29,16 @@ const Map = ({ places = [] }: MapProps) => {
   const handleTileError = useCallback((e: any) => {
     const img = e?.tile as HTMLImageElement | undefined;
     if (img) {
-      img.src = '/assets/img/foto_indisponivel.jpg';
+      // Usa uma imagem existente como fallback para minimizar erros no dev
+      img.src = '/assets/img/slide-1.jpg';
     }
   }, []);
+
+  // Em desenvolvimento, evita subdomínios (a/b/c) para reduzir erros
+  const tileUrl =
+    typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+      ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+      : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
   return (
     <S.Container>
@@ -43,7 +50,7 @@ const Map = ({ places = [] }: MapProps) => {
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url={tileUrl}
             eventHandlers={{ tileerror: handleTileError }}
           />
           {places.map(place => (

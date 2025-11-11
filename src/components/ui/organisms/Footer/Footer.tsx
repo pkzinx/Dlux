@@ -56,6 +56,18 @@ export const Footer = () => (
       <S.Description size="small">
         Copyright ©2025 <span>Dlux Barbearia</span>. Todos os direitos reservados
       </S.Description>
+      <S.Description size="small">
+        Desenvolvido por{' '}
+        <a
+          href="https://www.instagram.com/kaio.pietroxx"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram de Kaio Pietro"
+        >
+          <S.DevIcon />
+          Kaio Pietro (@kaio.pietroxx)
+        </a>
+      </S.Description>
     </S.BoxInfoLocation>
   </S.Footer>
 );

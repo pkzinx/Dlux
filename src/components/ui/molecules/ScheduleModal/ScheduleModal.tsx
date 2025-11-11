@@ -3,6 +3,7 @@ import * as S from './ScheduleModal.styles';
 
 import { Button } from '../../atoms/Button/Button';
 import { addAppointment } from '@/utils/appointmentsStorage';
+import { registerAppointmentPush } from '@/utils/push';
 import { InputGroup } from '../InputGroup/InputGroup';
 import { SelectGroup } from '../SelectGroup/SelectGroup';
 import { ModalForm } from '../ModalForm/ModalForm';
@@ -73,6 +74,14 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
         });
       } catch (_) {
         // Ignorar falhas de armazenamento local
+      }
+      // Solicitar permissão e registrar token de push para este agendamento
+      try {
+        if (data?.id) {
+          await registerAppointmentPush(String(data.id));
+        }
+      } catch (_) {
+        // Ignorar falhas de registro de push
       }
       // Sucesso: fecha modal de agendamento e abre feedback de sucesso
       onClose();

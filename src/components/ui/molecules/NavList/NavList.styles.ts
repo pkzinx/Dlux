@@ -17,3 +17,26 @@ export const NavList = styled.ul`
     margin: 0;
   `}
 `;
+
+export const HamburgerWrapper = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Badge = styled.span`
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  background: #e53935; /* vermelho para chamar atenção */
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+`;

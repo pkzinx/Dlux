@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Appointment
 from .models import TimeBlock
+from .models import NotificationSubscription, AppointmentNotification
 from services.models import Service
 from django.db.models import Q
 from .serializers import AppointmentSerializer
@@ -85,6 +86,21 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         appt.status = status
         appt.save()
         return Response(AppointmentSerializer(appt).data)
+
+    @action(detail=True, methods=['post'], url_path='subscribe', permission_classes=[permissions.AllowAny])
+    def subscribe(self, request, pk=None):
+        """Recebe token FCM para um agendamento e salva subscrição.
+        Body: { token: string }
+        """
+        appt = self.get_object()
+        token = request.data.get('token') or request.data.get('fcmToken')
+        if not token or not isinstance(token, str):
+            return Response({'detail': 'Token FCM é obrigatório.'}, status=400)
+        try:
+            sub, created = NotificationSubscription.objects.get_or_create(appointment=appt, token=token)
+            return Response({'ok': True, 'created': created})
+        except Exception as e:
+            return Response({'detail': str(e)}, status=400)
 
     @action(detail=False, methods=['get'], url_path='barbers')
     def list_barbers(self, request):

@@ -50,11 +50,19 @@ def dashboard_barber(request: HttpRequest):
     sales_value_today = sales_today.aggregate(total=Sum('amount'))['total'] or 0
     day_revenue = (appts_value_today or 0) + (sales_value_today or 0)
 
+    # Próximo horário: apenas agendamentos futuros do dia com status 'scheduled'
+    next_appointment = Appointment.objects.filter(
+        barber=user,
+        status=Appointment.STATUS_SCHEDULED,
+        start_datetime__gte=now_local,
+        start_datetime__lt=today_end,
+    ).order_by('start_datetime').first()
+
     kpis = {
         'appointments_count': appts_today.count(),
         'sales_count': sales_today.count(),
         'sales_total': day_revenue,
-        'next_appointment': appts_today.first(),
+        'next_appointment': next_appointment,
     }
 
     return render(request, 'dashboard_barber.html', {
@@ -371,6 +379,21 @@ def panel_profile(request: HttpRequest):
     message = None
     message_type = 'success'
 
+    # Usuários especiais podem bloquear horários de todos os barbeiros
+    username_lower = (getattr(user, 'username', '') or '').lower()
+    display_lower = (getattr(user, 'display_name', '') or '').lower()
+    can_block_all = username_lower in {'kaue', 'alafy'} or display_lower in {'kaue', 'alafy'}
+
+    # Selecionar barbeiro alvo (padrão: o próprio usuário)
+    selected_barber_id_param = request.POST.get('barber_id') or request.GET.get('barberId')
+    target_barber: User = user
+    if can_block_all and selected_barber_id_param:
+        try:
+            candidate = User.objects.get(pk=int(selected_barber_id_param), role=User.BARBER)
+            target_barber = candidate
+        except Exception:
+            target_barber = user
+
     # Seleção de data: padrão hoje, permite até 30 dias à frente
     today = timezone.localdate()
     max_date = today + timezone.timedelta(days=30)
@@ -393,8 +416,8 @@ def panel_profile(request: HttpRequest):
                 blk_id = request.POST.get('block_id')
                 if not blk_id:
                     raise ValueError('Bloco inválido para desbloqueio.')
-                # Remover apenas bloqueios do próprio barbeiro na data selecionada
-                deleted, _ = TimeBlock.objects.filter(id=blk_id, barber=user, date=selected_date).delete()
+                # Remover bloqueio do barbeiro alvo na data selecionada
+                deleted, _ = TimeBlock.objects.filter(id=blk_id, barber=target_barber, date=selected_date).delete()
                 if deleted:
                     message = 'Bloqueio removido com sucesso.'
                     try:
@@ -407,8 +430,8 @@ def panel_profile(request: HttpRequest):
                                 'date': selected_date.isoformat(),
                                 'date_display': selected_date.strftime('%d/%m'),
                                 'type': 'unblock_one',
-                                'barber': getattr(user, 'id', None),
-                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
+                                'barber': getattr(target_barber, 'id', None),
+                                'barber_label': (getattr(target_barber, 'display_name', None) or getattr(target_barber, 'username', None)),
                             }
                         )
                     except Exception:
@@ -416,7 +439,7 @@ def panel_profile(request: HttpRequest):
                 else:
                     raise ValueError('Bloqueio não encontrado.')
             elif action == 'unblock_day':
-                deleted, _ = TimeBlock.objects.filter(barber=user, date=selected_date).delete()
+                deleted, _ = TimeBlock.objects.filter(barber=target_barber, date=selected_date).delete()
                 if deleted:
                     message = 'Dia desbloqueado com sucesso.'
                     try:
@@ -430,8 +453,8 @@ def panel_profile(request: HttpRequest):
                                 'date_display': selected_date.strftime('%d/%m'),
                                 'type': 'unblock_day',
                                 'deleted_count': deleted,
-                                'barber': getattr(user, 'id', None),
-                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
+                                'barber': getattr(target_barber, 'id', None),
+                                'barber_label': (getattr(target_barber, 'display_name', None) or getattr(target_barber, 'username', None)),
                             }
                         )
                     except Exception:
@@ -442,7 +465,7 @@ def panel_profile(request: HttpRequest):
                 full_day = bool(request.POST.get('full_day'))
                 reason = (request.POST.get('reason') or '').strip()
                 if full_day:
-                    blk = TimeBlock.objects.create(barber=user, date=selected_date, full_day=True, reason=reason)
+                    blk = TimeBlock.objects.create(barber=target_barber, date=selected_date, full_day=True, reason=reason)
                     message = 'Dia inteiro bloqueado com sucesso.'
                     try:
                         AuditLog.objects.create(
@@ -455,8 +478,8 @@ def panel_profile(request: HttpRequest):
                                 'date_display': selected_date.strftime('%d/%m'),
                                 'full_day': True,
                                 'reason': reason,
-                                'barber': getattr(user, 'id', None),
-                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
+                                'barber': getattr(target_barber, 'id', None),
+                                'barber_label': (getattr(target_barber, 'display_name', None) or getattr(target_barber, 'username', None)),
                             }
                         )
                     except Exception:
@@ -473,7 +496,7 @@ def panel_profile(request: HttpRequest):
                         end_time = timezone.datetime.now().replace(hour=end_parts[0], minute=end_parts[1], second=0, microsecond=0).time()
                     except Exception:
                         raise ValueError('Horários inválidos.')
-                    blk = TimeBlock(barber=user, date=selected_date, start_time=start_time, end_time=end_time, full_day=False, reason=reason)
+                    blk = TimeBlock(barber=target_barber, date=selected_date, start_time=start_time, end_time=end_time, full_day=False, reason=reason)
                     blk.clean()
                     blk.save()
                     message = 'Intervalo bloqueado com sucesso.'
@@ -492,8 +515,8 @@ def panel_profile(request: HttpRequest):
                                 'start_label': start_time.strftime('%H:%M'),
                                 'end_label': end_time.strftime('%H:%M'),
                                 'reason': reason,
-                                'barber': getattr(user, 'id', None),
-                                'barber_label': (getattr(user, 'display_name', None) or getattr(user, 'username', None)),
+                                'barber': getattr(target_barber, 'id', None),
+                                'barber_label': (getattr(target_barber, 'display_name', None) or getattr(target_barber, 'username', None)),
                             }
                         )
                     except Exception:
@@ -502,7 +525,11 @@ def panel_profile(request: HttpRequest):
             message_type = 'danger'
             message = str(e)
 
-    blocks_day = TimeBlock.objects.filter(barber=user, date=selected_date).order_by('full_day', 'start_time')
+    blocks_day = TimeBlock.objects.filter(barber=target_barber, date=selected_date).order_by('full_day', 'start_time')
+    # Lista de barbeiros para seleção no template (apenas para especiais)
+    barbers_list = []
+    if can_block_all:
+        barbers_list = list(User.objects.filter(role=User.BARBER).order_by('display_name', 'username'))
     return render(request, 'panel_profile.html', {
         'message': message,
         'message_type': message_type,
@@ -510,6 +537,10 @@ def panel_profile(request: HttpRequest):
         'selected_date': selected_date,
         'min_date': today.strftime('%Y-%m-%d'),
         'max_date': max_date.strftime('%Y-%m-%d'),
+        'can_block_all': can_block_all,
+        'barbers': barbers_list,
+        'selected_barber_id': getattr(target_barber, 'id', None),
+        'selected_barber_label': (getattr(target_barber, 'display_name', None) or getattr(target_barber, 'username', None)),
     })
 
 # Create your views here.

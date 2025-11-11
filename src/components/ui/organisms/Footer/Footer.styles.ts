@@ -3,6 +3,7 @@ import media from 'styled-media-query';
 import { Link } from 'react-scroll';
 
 import { ArrowUp } from '@styled-icons/bootstrap/ArrowUp';
+import { CodeSlash } from '@styled-icons/bootstrap/CodeSlash';
 
 import { Container } from '../../atoms/Container/Container';
 
@@ -106,6 +107,23 @@ export const Description = styled.p<DescriptionProps>`
         color: ${theme.colors.primary};
       `}
     }
+
+    a {
+      ${({ theme }) => css`
+        color: ${theme.colors.primary};
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: ${theme.font.bold};
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+          outline: none;
+        }
+      `}
+    }
   `}
 `;
 
@@ -138,6 +156,13 @@ export const BoxIcon = styled(Link).attrs({
 export const Arrow = styled(ArrowUp)`
   ${({ theme }) => css`
     color: ${theme.colors.white};
+  `}
+`;
+
+export const DevIcon = styled(CodeSlash)`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+    width: 1.4rem;
   `}
 `;
 

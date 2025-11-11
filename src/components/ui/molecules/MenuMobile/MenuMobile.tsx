@@ -46,6 +46,13 @@ export const MenuMobile = ({ $isOpen, setIsOpen }: MenuMobileProps) => {
         <Styles.NoticeSection>
           <Styles.NoticeHeader>
             <span>{headerText}</span>
+            <Styles.CloseButton
+              aria-label="Fechar menu"
+              title="Fechar"
+              onClick={() => setIsOpen(false)}
+            >
+              ×
+            </Styles.CloseButton>
           </Styles.NoticeHeader>
           {hasAppointments && (
             <Styles.NoticeList>

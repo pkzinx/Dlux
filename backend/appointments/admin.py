@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Appointment, TimeBlock
+from .models import Appointment, TimeBlock, NotificationSubscription, AppointmentNotification
 
 
 @admin.register(Appointment)
@@ -15,3 +15,16 @@ class AppointmentAdmin(admin.ModelAdmin):
 class TimeBlockAdmin(admin.ModelAdmin):
     list_display = ('barber', 'date', 'full_day', 'start_time', 'end_time', 'reason')
     list_filter = ('barber', 'date', 'full_day')
+
+
+@admin.register(NotificationSubscription)
+class NotificationSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('appointment', 'token', 'created_at')
+    search_fields = ('token', 'appointment__client_name')
+    list_filter = ('appointment__barber',)
+
+
+@admin.register(AppointmentNotification)
+class AppointmentNotificationAdmin(admin.ModelAdmin):
+    list_display = ('appointment', 'type', 'sent_at')
+    list_filter = ('type', 'appointment__barber')

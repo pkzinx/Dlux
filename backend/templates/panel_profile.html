@@ -60,6 +60,23 @@
     <div class="card-body">
       <form method="post">
         {% csrf_token %}
+        {% if can_block_all %}
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="barberSelect" class="form-label">Barbeiro</label>
+            <select class="form-select" id="barberSelect" name="barber_id">
+              {% for b in barbers %}
+                <option value="{{ b.id }}" {% if b.id == selected_barber_id %}selected{% endif %}>
+                  {{ b.display_name|default:b.username }}
+                </option>
+              {% endfor %}
+            </select>
+            <div class="muted mt-1">Você está bloqueando horários para: {{ selected_barber_label }}</div>
+          </div>
+        </div>
+        {% else %}
+          <input type="hidden" name="barber_id" value="{{ user.id }}">
+        {% endif %}
         <div class="row g-3 mb-3">
           <div class="col-md-4">
             <label for="blockDate" class="form-label">Data</label>
@@ -98,6 +115,9 @@
         {% csrf_token %}
         <input type="hidden" name="date" value="{{ selected_date|date:'Y-m-d' }}">
         <input type="hidden" name="action" value="unblock_day">
+        {% if can_block_all %}
+          <input type="hidden" name="barber_id" value="{{ selected_barber_id }}">
+        {% endif %}
         <button type="submit" class="btn btn-outline-light btn-sm" onclick="return confirm('Remover todos os bloqueios deste dia?')">Desbloquear dia</button>
       </form>
     </div>
@@ -129,6 +149,9 @@
                   <input type="hidden" name="date" value="{{ selected_date|date:'Y-m-d' }}">
                   <input type="hidden" name="action" value="unblock_one">
                   <input type="hidden" name="block_id" value="{{ b.id }}">
+                  {% if can_block_all %}
+                    <input type="hidden" name="barber_id" value="{{ selected_barber_id }}">
+                  {% endif %}
                   <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Remover este bloqueio?')">Desbloquear</button>
                 </form>
               </td>

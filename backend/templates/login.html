@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Login - Painel Dlux{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <div class="card-body">
+<div class="login-hero py-5">
+  <div class="login-box text-center">
+    <img class="login-logo mb-3" src="{% static 'assets/img/icon-logo.png' %}" alt="Logo Dlux" />
+    <h1 class="h4 fw-bold mb-1">Dlux Barbearia</h1>
+    <p class="slogan text-accent mb-4">Estilo e atitude em cada corte</p>
+
+    <div class="card card-panel shadow-lg rounded-4 overflow-hidden">
+      <div class="card-header bg-transparent border-0 pt-4">
+        <div class="accent-bar mx-auto"></div>
+      </div>
+      <div class="card-body p-4 p-md-5">
         <h5 class="card-title mb-3">Entrar</h5>
+        <p class="muted mb-4">Acesse o painel para gerenciar agenda, finanças e mais.</p>
         <form method="post">
           {% csrf_token %}
-          <div class="mb-3">
+          <div class="mb-3 text-start">
             <label class="form-label">Usuário</label>
             <input type="text" name="username" class="form-control" required />
           </div>
-          <div class="mb-3">
+          <div class="mb-3 text-start">
             <label class="form-label">Senha</label>
             <input type="password" name="password" class="form-control" required />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Entrar</button>
+          <button type="submit" class="btn btn-accent w-100">Entrar</button>
         </form>
       </div>
     </div>
   </div>
- </div>
+</div>
 {% endblock %}

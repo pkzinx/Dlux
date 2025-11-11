@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="150" height="150" src="./public/assets/svg/logo-readme.svg" alt="Logo Dlux" />
+  <img width="150" height="150" src="./public/assets/img/icon-logo.png" alt="Logo Dlux" />
   <h1>Dlux Barbearia — Site + Painel</h1>
 </div>
 

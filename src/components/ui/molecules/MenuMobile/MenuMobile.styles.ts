@@ -163,3 +163,25 @@ export const MenuLink = styled(Link).attrs({
     }
   `}
 `;
+
+export const CloseButton = styled.button`
+  ${({ theme }) => css`
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.medium};
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
+    cursor: pointer;
+    border-radius: ${theme.border.radius};
+    transition: 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: ${theme.colors.primary};
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+  `}
+`;
