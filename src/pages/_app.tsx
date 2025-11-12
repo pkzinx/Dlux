@@ -7,18 +7,13 @@ import theme from '../styles/theme';
 import ReviewContextProvider from '../contexts/ReviewContext';
 
 function App({ Component, pageProps }: AppProps) {
-  // Em desenvolvimento, desregistrar qualquer Service Worker para evitar loops de reload/cache
+  // Registrar o Service Worker para habilitar PWA (localhost é considerado seguro)
   useEffect(() => {
-    if (
-      process.env.NODE_ENV === 'development' &&
-      typeof navigator !== 'undefined' &&
-      'serviceWorker' in navigator
-    ) {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker
-        .getRegistrations()
-        .then((regs) => regs.forEach((r) => r.unregister()))
+        .register('/sw.js')
         .catch(() => {
-          // silenciosamente ignora erros ao tentar desregistrar SW em dev
+          // Ignora falhas de registro
         });
     }
   }, []);
@@ -27,11 +22,12 @@ function App({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <ReviewContextProvider>
         <Head>
-          <title>Dlux Barber</title>
+          <title>Dlux Barbearia</title>
           <meta
             name="description"
-            content="Dlux Barber - Sua barbearia de confiança"
+            content="Dlux Barbearia — sua barbearia de confiança"
           />
+          <meta name="application-name" content="Dlux Barbearia" />
         </Head>
         <GlobalStyles />
         <Component {...pageProps} />

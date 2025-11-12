@@ -71,7 +71,7 @@
                 </option>
               {% endfor %}
             </select>
-            <div class="muted mt-1">Você está bloqueando horários para: {{ selected_barber_label }}</div>
+            <div class="muted mt-1" id="barberBlockingInfo">Você está bloqueando horários para: {{ selected_barber_label }}</div>
           </div>
         </div>
         {% else %}
@@ -164,4 +164,20 @@
     </div>
   </div>
 {% endif %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var select = document.getElementById('barberSelect');
+  var info = document.getElementById('barberBlockingInfo');
+  if (select && info) {
+    var updateInfo = function() {
+      var opt = select.options[select.selectedIndex];
+      var name = (opt && opt.text) ? opt.text.trim() : '';
+      if (name) {
+        info.textContent = 'Você está bloqueando horários para: ' + name;
+      }
+    };
+    select.addEventListener('change', updateInfo);
+  }
+});
+</script>
 {% endblock %}

@@ -318,7 +318,7 @@
             const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
             modal.hide();
             form.reset();
-            setTimeout(() => { window.location.href = '/painel/agendamentos/'; }, 1200);
+            window.location.href = '/painel/agendamentos/';
           } catch (err) {
             // Em erro de rede, ainda assim informar sucesso (evita percepção de falha quando o backend já criou)
             const serviceText = form.querySelector('#qsService option:checked')?.textContent || 'Serviço';
@@ -328,7 +328,7 @@
             const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
             modal.hide();
             form.reset();
-            setTimeout(() => { window.location.href = '/painel/agendamentos/'; }, 1200);
+            window.location.href = '/painel/agendamentos/';
           }
           if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Agendar'; }
         });

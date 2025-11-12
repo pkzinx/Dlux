@@ -39,8 +39,8 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
     try {
       // Monta datas
       const startDatetime = `${date}T${time}:00`;
-      // Heurística simples de duração
-      const durationMinutes = /barba/i.test(serviceTitle || '') ? 30 : 40;
+      // Duração baseada no serviço selecionado
+      const durationMinutes = serviceDurationMinutes;
       const start = new Date(startDatetime);
       const end = new Date(start.getTime() + durationMinutes * 60000);
       const pad = (n: number) => String(n).padStart(2, '0');
@@ -180,7 +180,8 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
   const allSlots = React.useMemo(() => generateSlots(), []);
 
   const serviceDurationMinutes = React.useMemo(() => {
-    const normalized = (serviceTitle || '').toLowerCase();
+    const normalized = (serviceTitle || '').toLowerCase().trim();
+    if (normalized.includes('pezinho perfil acabamento')) return 5;
     if (normalized.includes('barba') && normalized.includes('cabelo')) return 60;
     if (normalized.includes('barba')) return 30;
     if (normalized.includes('cabelo')) return 40;
@@ -330,7 +331,18 @@ export const ScheduleModal = ({ isOpen, onClose, barbers, serviceTitle }: Schedu
           </S.Actions>
         </S.Form>
       </S.Modal>
-      <ModalForm status={feedbackStatus} isOpen={feedbackOpen} onClick={() => setFeedbackOpen(false)} />
+      <ModalForm
+        status={feedbackStatus}
+        isOpen={feedbackOpen}
+        onClick={() => {
+          setFeedbackOpen(false);
+          try {
+            if (typeof window !== 'undefined' && feedbackStatus === 'success') {
+              window.location.reload();
+            }
+          } catch (_) {}
+        }}
+      />
     </>
   );
 };

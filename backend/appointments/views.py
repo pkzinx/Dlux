@@ -102,6 +102,35 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'detail': str(e)}, status=400)
 
+    @action(detail=True, methods=['post'], url_path='notify_test', permission_classes=[permissions.AllowAny])
+    def notify_test(self, request, pk=None):
+        """Envia uma notificação de teste para todos os tokens inscritos no agendamento.
+        Body opcional: { title?: string, body?: string, data?: object }
+        """
+        appt = self.get_object()
+        title = request.data.get('title') or 'Teste de notificação'
+        body = request.data.get('body') or 'Push de teste enviado com sucesso.'
+        data = request.data.get('data')
+        if not isinstance(data, dict):
+            data = {}
+        subs = NotificationSubscription.objects.filter(appointment=appt)
+        total = subs.count()
+        if total == 0:
+            return Response({'ok': False, 'detail': 'Nenhum token inscrito para este agendamento.'}, status=404)
+        # Import atrasado para evitar overhead quando não usado
+        try:
+            from .fcm import send_push
+        except Exception:
+            return Response({'ok': False, 'detail': 'FCM não configurado no servidor.'}, status=500)
+        sent = 0
+        for s in subs:
+            try:
+                if send_push(s.token, title, body, data):
+                    sent += 1
+            except Exception:
+                pass
+        return Response({'ok': True, 'sent': sent, 'total': total})
+
     @action(detail=False, methods=['get'], url_path='barbers')
     def list_barbers(self, request):
         """Lista barbeiros disponíveis para seleção no agendamento rápido."""

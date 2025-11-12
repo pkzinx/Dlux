@@ -57,7 +57,7 @@ export const MainServices = ({ items }: MainServicesProps) => {
     { title: 'Escova', duration: '15min', price: 'a partir de R$ 10,00' },
     { title: 'Hidratação', duration: '15min', price: 'a partir de R$ 25,00' },
     { title: 'Luzes', duration: '1h:00min', price: 'a partir de R$ 40,00' },
-    { title: 'Pezinho perfil acabamento', duration: '10min', price: 'a partir de R$ 10,00' },
+    { title: 'Pezinho perfil acabamento', duration: '5min', price: 'a partir de R$ 10,00' },
     { title: 'Progressiva', duration: '1h:00min', price: 'a partir de R$ 50,00' },
     { title: 'Sobrancelha', duration: '30min', price: 'a partir de R$ 20,00' },
     { title: 'Tintura na barba', duration: '30min', price: 'a partir de R$ 25,00' },

@@ -117,7 +117,9 @@ def panel_appointments(request: HttpRequest):
     Appointment.objects.filter(status='scheduled', end_datetime__lte=timezone.now()).update(status='done')
     # Histórico completo, incluindo passados, mais recentes primeiro
     special_all_view = (getattr(user, 'username', '') or '').lower() in ['kaue', 'alafy', 'alafi', 'alefi']
-    if user.role == User.ADMIN or special_all_view:
+    # Ajuste: todos os barbeiros podem ver todos os agendamentos
+    # Mantemos is_admin=True para habilitar colunas de "Barbeiro" no CSV quando visualizam tudo
+    if user.role in {User.ADMIN, User.BARBER} or special_all_view:
         qs = Appointment.objects.all().order_by('-start_datetime')
         is_admin = True
     else:
@@ -144,15 +146,44 @@ def panel_appointments(request: HttpRequest):
             writer.writerow(base)
         return response
 
-    # Paginação: 15 por página
-    page_number = request.GET.get('page', 1)
-    paginator = Paginator(qs, 15)
+    # Paginação: 20 por página (por barbeiro)
+    PER_PAGE = 20
+    try:
+        page_number = int(request.GET.get('page', 1))
+    except Exception:
+        page_number = 1
+    # Lista de todos os barbeiros para exibir colunas mesmo sem agendamentos
+    barbers_all = list(User.objects.filter(role=User.BARBER).order_by('display_name', 'username'))
+    # Reordenar para que o barbeiro logado apareça primeiro na lista
+    if getattr(user, 'role', None) == User.BARBER:
+        try:
+            barbers_all = [b for b in barbers_all if b.id == user.id] + [b for b in barbers_all if b.id != user.id]
+        except Exception:
+            pass
+    # Agrupar itens desta página por barbeiro e calcular páginas máximas
+    max_pages = 1
+    appointments_groups = []
+    for b in barbers_all:
+        bqs = qs.filter(barber_id=b.id)
+        count_b = bqs.count()
+        pages_b = ((count_b + PER_PAGE - 1) // PER_PAGE) if count_b else 1
+        if pages_b > max_pages:
+            max_pages = pages_b
+        start = (page_number - 1) * PER_PAGE
+        end = start + PER_PAGE
+        blist = list(bqs[start:end])
+        appointments_groups.append({'barber': b, 'list': blist})
+
+    # Criar um paginator "dummy" apenas para a navegação de páginas no template
+    dummy_items = list(range(max_pages * PER_PAGE))
+    paginator = Paginator(dummy_items, PER_PAGE)
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'panel_appointments.html', {
         'appointments_page': page_obj,
         'paginator': paginator,
         'is_admin': is_admin,
+        'appointments_groups': appointments_groups,
     })
 
 
@@ -221,12 +252,20 @@ def panel_finances(request: HttpRequest):
     appts_month_value = appts_month_done.aggregate(total=Sum('service__price'))['total'] or 0
     sales_today_value = sales_today.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0
     sales_month_value = sales_month.filter(status='paid').aggregate(total=Sum('amount'))['total'] or 0
+    # Cancelados hoje (considerando janela pelo start_datetime, como nos painéis)
+    appts_cancelled_today = Appointment.objects.filter(
+        status='cancelled',
+        start_datetime__gte=today_start,
+        start_datetime__lt=today_end,
+        **appts_filter,
+    )
     kpis = {
         'today_revenue': (appts_today_value or 0) + (sales_today_value or 0),
         'month_revenue': (appts_month_value or 0) + (sales_month_value or 0),
         'sales_count': sales_today.count(),
         # Concluídos Hoje deve incluir vendas registradas hoje
         'appts_completed': appts_completed_today.count() + sales_today.count(),
+        'appts_cancelled': appts_cancelled_today.count(),
     }
 
     # Faturamento total do mês (todos os barbeiros) somente para Kaue/Alafy

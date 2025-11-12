@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from 'firebase/app'
-import { getMessaging, getToken, onMessage } from 'firebase/messaging'
+import { getMessaging, getToken, onMessage, isSupported } from 'firebase/messaging'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
@@ -19,6 +19,28 @@ function ensureFirebase() {
   return apps[0]
 }
 
+async function messagingSupported(): Promise<boolean> {
+  try {
+    if (typeof window === 'undefined') return false
+    if (!('Notification' in window)) return false
+    if (!('serviceWorker' in navigator)) return false
+    // localhost over http is allowed; other http origins may fail
+    const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost'
+    if (!isSecure) return false
+    // Require essential Firebase config values
+    const required = [
+      firebaseConfig.projectId,
+      firebaseConfig.messagingSenderId,
+      firebaseConfig.appId,
+      firebaseConfig.apiKey,
+    ]
+    if (required.some((v) => !v || v.trim() === '')) return false
+    return await isSupported()
+  } catch {
+    return false
+  }
+}
+
 export async function registerServiceWorker() {
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return null
   const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -36,6 +58,7 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 
 export async function getFcmToken(reg?: ServiceWorkerRegistration): Promise<string | null> {
   try {
+    if (!(await messagingSupported())) return null
     ensureFirebase()
     const messaging = getMessaging()
     const vapidKey = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
@@ -48,14 +71,19 @@ export async function getFcmToken(reg?: ServiceWorkerRegistration): Promise<stri
 
 export function listenForegroundMessages(callback: (payload: any) => void) {
   try {
-    ensureFirebase()
-    const messaging = getMessaging()
-    onMessage(messaging, (payload) => callback(payload))
+    // No need to await; if unsupported, just skip
+    messagingSupported().then((supported) => {
+      if (!supported) return
+      ensureFirebase()
+      const messaging = getMessaging()
+      onMessage(messaging, (payload) => callback(payload))
+    })
   } catch (e) {}
 }
 
 export async function registerAppointmentPush(appointmentId: string): Promise<boolean> {
   try {
+    if (!(await messagingSupported())) return false
     const perm = await requestNotificationPermission()
     if (perm !== 'granted') return false
     const reg = await registerServiceWorker()

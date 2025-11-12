@@ -41,6 +41,12 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt-BR">
         <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#080808" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="application-name" content="Dlux Barbearia" />
+          <meta name="apple-mobile-web-app-title" content="Dlux Barbearia" />
           <link
             rel="icon"
             href="/assets/img/icon-logo.png"
@@ -58,26 +64,6 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          {process.env.NODE_ENV === 'development' && (
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  (function(){
-                    try {
-                      if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.getRegistrations()
-                          .then(function(regs){ regs.forEach(function(r){ r.unregister(); }); })
-                          .catch(function(){});
-                      }
-                      if (window.caches) {
-                        caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); });
-                      }
-                    } catch(e) {}
-                  })();
-                `,
-              }}
-            />
-          )}
           <Main />
           <NextScript />
         </body>

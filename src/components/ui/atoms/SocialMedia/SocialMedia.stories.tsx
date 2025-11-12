@@ -21,7 +21,7 @@ Instagram.args = {
 };
 
 Whatsapp.args = {
-  link: 'tel:+5511986548715',
+  link: 'https://wa.me/5538991302319',
   image: '/assets/svg/whatsapp-icon.svg',
   alt: 'Link que mostra número do Whatsapp',
 };
